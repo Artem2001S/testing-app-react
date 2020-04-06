@@ -8,6 +8,7 @@ export default function TextInput({
   label,
   defaultValue,
   value,
+  name,
   handleChange,
 }) {
   const uniqueId = uuidv4();
@@ -21,6 +22,7 @@ export default function TextInput({
         id={uniqueId}
         defaultValue={defaultValue}
         value={value}
+        name={name}
         onChange={handleChange}
       />
     </label>
@@ -30,6 +32,7 @@ export default function TextInput({
 TextInput.propTypes = {
   type: PropTypes.string,
   label: PropTypes.string,
+  name: PropTypes.string,
   defaultValue: PropTypes.string,
   value: PropTypes.string,
   handleChange: PropTypes.func,

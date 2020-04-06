@@ -1,11 +1,13 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import AuthPage from 'pages/AuthPage';
+import store from 'redux/store';
 
 function App() {
   return (
-    <div>
+    <Provider store={store}>
       <AuthPage />
-    </div>
+    </Provider>
   );
 }
 

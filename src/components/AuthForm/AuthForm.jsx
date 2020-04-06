@@ -4,19 +4,7 @@ import classes from './AuthForm.module.scss';
 import TextInput from 'components/TextInput/TextInput';
 import Button from 'components/Button/Button';
 
-export default function AuthForm() {
-  const inputs = [
-    {
-      label: 'Login',
-      value: '3',
-    },
-    {
-      label: 'Password',
-      type: 'password',
-      value: '32',
-    },
-  ];
-
+export default function AuthForm({ inputs }) {
   return (
     <form className={classes.AuthForm} onSubmit={(e) => e.preventDefault}>
       {inputs.map((input, index) => (
@@ -26,3 +14,7 @@ export default function AuthForm() {
     </form>
   );
 }
+
+AuthForm.propTypes = {
+  inputs: PropTypes.array.isRequired,
+};
