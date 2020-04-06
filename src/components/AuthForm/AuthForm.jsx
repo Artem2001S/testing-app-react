@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classes from './AuthForm.module.scss';
 import TextInput from 'components/TextInput/TextInput';
+import Button from 'components/Button/Button';
 
 export default function AuthForm() {
   const inputs = [
@@ -17,10 +18,11 @@ export default function AuthForm() {
   ];
 
   return (
-    <form className={classes.AuthForm}>
+    <form className={classes.AuthForm} onSubmit={(e) => e.preventDefault}>
       {inputs.map((input, index) => (
-        <TextInput key={index} defaultValue={input.value} {...input} />
+        <TextInput key={index} {...input} />
       ))}
+      <Button>Login</Button>
     </form>
   );
 }
