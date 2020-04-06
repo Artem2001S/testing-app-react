@@ -13,3 +13,14 @@ export function createOnChangeHandlers(inputs, handler) {
 
   return handlers;
 }
+
+export function validateInputs(inputs) {
+  for (let index = 0; index < inputs.length; index++) {
+    const input = inputs[index];
+
+    if (input.value === '') {
+      return `Enter blank field: ${input.label}`;
+    }
+  }
+  return '';
+}

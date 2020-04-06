@@ -1,5 +1,9 @@
-import { CHANGE_AUTH_FORM_INPUT_VALUE } from 'redux/actions/actionTypes';
+import {
+  CHANGE_AUTH_FORM_INPUT_VALUE,
+  CHANGE_AUTH_FORM_VALIDATION_STATUS,
+} from 'redux/actions/actionTypes';
 import { updateInputsArray } from 'utils';
+
 const initialState = {
   inputs: [
     {
@@ -30,6 +34,8 @@ export function authorizationFormInputsReducer(state = initialState, action) {
           payload.newValue
         ),
       };
+    case CHANGE_AUTH_FORM_VALIDATION_STATUS:
+      return { ...state, validationStatus: payload.status };
     default:
       return state;
   }
