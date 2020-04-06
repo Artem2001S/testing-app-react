@@ -1,10 +1,10 @@
 import React from 'react';
-import TextInput from 'components/TextInput/TextInput';
+import AuthPage from 'pages/AuthPage';
 
 function App() {
   return (
     <div>
-      <TextInput label="32" type="password" />
+      <AuthPage />
     </div>
   );
 }

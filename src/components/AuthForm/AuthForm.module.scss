@@ -1,0 +1,10 @@
+@import "sassVariables.scss";
+
+.AuthForm {
+  @include absoluteCenter();
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
