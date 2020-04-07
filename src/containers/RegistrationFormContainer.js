@@ -16,6 +16,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(changeRegistrationFormInputValue(inputName, e.target.value)),
   changeValidationStatus: (message) =>
     dispatch(changeRegistrationFormValidationStatus(message)),
+  additionalLinks: [{ to: '/', label: 'Go to authorization' }],
 });
 
 const mergeProps = (stateProps, dispatchProps) => {

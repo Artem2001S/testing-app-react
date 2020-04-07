@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import TextInput from 'components/TextInput/TextInput';
 import Button from 'components/Button/Button';
 import classes from './AuthForm.module.scss';
+import { Link } from 'react-router-dom';
 
 export default function AuthForm({
   inputs,
+  additionalLinks,
   validationErrors,
   inputChangeHandlers,
   handleFormSubmit,
@@ -20,6 +22,12 @@ export default function AuthForm({
         />
       ))}
       <Button handleClick={handleFormSubmit}>Login</Button>
+      {additionalLinks &&
+        additionalLinks.map((link) => (
+          <Link key={link.to} className={classes.Link} to={link.to}>
+            {link.label}
+          </Link>
+        ))}
       {validationErrors && (
         <div className={classes.Error}>{validationErrors}</div>
       )}
@@ -29,5 +37,6 @@ export default function AuthForm({
 
 AuthForm.propTypes = {
   inputs: PropTypes.array.isRequired,
+  additionalLinks: PropTypes.array,
   inputChangeHandlers: PropTypes.object.isRequired,
 };

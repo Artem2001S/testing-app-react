@@ -9,6 +9,7 @@ import { createOnChangeHandlers, validateInputs } from 'utils';
 const mapStateToProps = (state) => ({
   inputs: state.authorizationFormInputs.inputs,
   validationErrors: state.authorizationFormInputs.validationStatus,
+  additionalLinks: [{ to: '/registration', label: 'Registration' }],
 });
 
 const mapDispatchToProps = (dispatch) => ({
