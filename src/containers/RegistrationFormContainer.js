@@ -12,8 +12,15 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  handleInputChange: (inputName, e) =>
-    dispatch(changeRegistrationFormInputValue(inputName, e.target.value)),
+  handleInputChange: (inputName, inputType, e) => {
+    if (inputType === 'checkbox') {
+      dispatch(changeRegistrationFormInputValue(inputName, e.target.checked));
+    }
+
+    if (inputType === 'text' || inputType === 'password') {
+      dispatch(changeRegistrationFormInputValue(inputName, e.target.value));
+    }
+  },
   changeValidationStatus: (message) =>
     dispatch(changeRegistrationFormValidationStatus(message)),
   additionalLinks: [{ to: '/', label: 'Go to authorization' }],

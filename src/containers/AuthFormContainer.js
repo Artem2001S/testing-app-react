@@ -13,8 +13,15 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  handleInputChange: (inputName, e) =>
-    dispatch(changeAuthFormInputValue(inputName, e.target.value)),
+  handleInputChange: (inputName, inputType, e) => {
+    if (inputType === 'checkbox') {
+      dispatch(changeAuthFormInputValue(inputName, e.target.checked));
+    }
+
+    if (inputType === 'text' || inputType === 'password') {
+      dispatch(changeAuthFormInputValue(inputName, e.target.value));
+    }
+  },
   changeValidationStatus: (message) =>
     dispatch(changeAuthFormValidationStatus(message)),
 });

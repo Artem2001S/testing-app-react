@@ -4,6 +4,7 @@ import TextInput from 'components/TextInput/TextInput';
 import Button from 'components/Button/Button';
 import classes from './AuthForm.module.scss';
 import { Link } from 'react-router-dom';
+import Checkbox from 'components/Checkbox/Checkbox';
 
 export default function AuthForm({
   inputs,
@@ -14,14 +15,28 @@ export default function AuthForm({
 }) {
   return (
     <form className={classes.AuthForm} onSubmit={handleFormSubmit}>
-      {inputs.map((input, index) => (
-        <TextInput
-          key={index}
-          {...input}
-          handleChange={inputChangeHandlers[input.name]}
-        />
-      ))}
+      {inputs.map((input, index) => {
+        if (!input.type) input.type = 'text';
+
+        if (input.type === 'checkbox') {
+          return (
+            <Checkbox
+              key={`${input.name}${index}`}
+              {...input}
+              handleChange={inputChangeHandlers[input.name]}
+            />
+          );
+        }
+        return (
+          <TextInput
+            key={`${input.name}${index}`}
+            {...input}
+            handleChange={inputChangeHandlers[input.name]}
+          />
+        );
+      })}
       <Button handleClick={handleFormSubmit}>Login</Button>
+
       {additionalLinks &&
         additionalLinks.map((link) => (
           <Link key={link.to} className={classes.Link} to={link.to}>

@@ -8,7 +8,7 @@ export function createOnChangeHandlers(inputs, handler) {
   const handlers = {};
 
   inputs.forEach((input) => {
-    handlers[input.name] = handler.bind(this, input.name);
+    handlers[input.name] = handler.bind(this, input.name, input.type || 'text');
   });
 
   return handlers;
