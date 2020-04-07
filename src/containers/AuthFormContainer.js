@@ -10,6 +10,7 @@ const mapStateToProps = (state) => ({
   inputs: state.authorizationFormInputs.inputs,
   validationErrors: state.authorizationFormInputs.validationStatus,
   additionalLinks: [{ to: '/registration', label: 'Registration' }],
+  btnText: 'Login',
 });
 
 const mapDispatchToProps = (dispatch) => ({

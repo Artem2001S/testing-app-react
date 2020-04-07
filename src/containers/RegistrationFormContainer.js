@@ -9,6 +9,8 @@ import { createOnChangeHandlers, validateRegistrationForm } from 'utils';
 const mapStateToProps = (state) => ({
   inputs: state.registrationForm.inputs,
   validationErrors: state.registrationForm.validationStatus,
+  additionalLinks: [{ to: '/', label: 'Go to authorization' }],
+  btnText: 'Register',
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -23,7 +25,6 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeValidationStatus: (message) =>
     dispatch(changeRegistrationFormValidationStatus(message)),
-  additionalLinks: [{ to: '/', label: 'Go to authorization' }],
 });
 
 const mergeProps = (stateProps, dispatchProps) => {

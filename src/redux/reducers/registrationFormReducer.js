@@ -13,7 +13,7 @@ const initialState = {
     },
     {
       label: 'Password',
-      name: 'password',
+      name: '_password',
       value: '',
       type: 'password',
     },
@@ -24,7 +24,7 @@ const initialState = {
       type: 'password',
     },
     {
-      label: 'Are you admin ?',
+      label: 'Register as admin',
       name: 'is_admin',
       value: false,
       type: 'checkbox',

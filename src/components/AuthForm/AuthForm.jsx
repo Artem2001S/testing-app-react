@@ -8,6 +8,7 @@ import Checkbox from 'components/Checkbox/Checkbox';
 
 export default function AuthForm({
   inputs,
+  btnText,
   additionalLinks,
   validationErrors,
   inputChangeHandlers,
@@ -36,7 +37,7 @@ export default function AuthForm({
           />
         );
       })}
-      <Button handleClick={handleFormSubmit}>Login</Button>
+      <Button handleClick={handleFormSubmit}>{btnText}</Button>
 
       {additionalLinks &&
         additionalLinks.map((link) => (
@@ -53,6 +54,9 @@ export default function AuthForm({
 
 AuthForm.propTypes = {
   inputs: PropTypes.array.isRequired,
+  btnText: PropTypes.string.isRequired,
+  validationErrors: PropTypes.string,
   additionalLinks: PropTypes.array,
   inputChangeHandlers: PropTypes.object.isRequired,
+  handleFormSubmit: PropTypes.func.isRequired,
 };
