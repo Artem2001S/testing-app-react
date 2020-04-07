@@ -3,7 +3,21 @@ import {
   CHANGE_AUTH_FORM_VALIDATION_STATUS,
   CHANGE_REGISTRATION_FORM_INPUT_VALUE,
   CHANGE_REGISTRATION_FORM_VALIDATION_STATUS,
+  START_API_REQUEST,
+  FINISH_API_REQUEST,
 } from './actionTypes';
+
+export function startApiRequest() {
+  return {
+    type: START_API_REQUEST,
+  };
+}
+
+export function finishApiRequest() {
+  return {
+    type: FINISH_API_REQUEST,
+  };
+}
 
 export function changeAuthFormInputValue(inputName, newValue) {
   return {
