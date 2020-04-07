@@ -5,6 +5,8 @@ import {
   CHANGE_REGISTRATION_FORM_VALIDATION_STATUS,
   START_API_REQUEST,
   FINISH_API_REQUEST,
+  SIGN_IN,
+  LOGOUT,
 } from './actionTypes';
 
 export function startApiRequest() {
@@ -44,5 +46,18 @@ export function changeRegistrationFormValidationStatus(status) {
   return {
     type: CHANGE_REGISTRATION_FORM_VALIDATION_STATUS,
     payload: { status },
+  };
+}
+
+export function signIn(userData) {
+  return {
+    type: SIGN_IN,
+    payload: userData,
+  };
+}
+
+export function logout() {
+  return {
+    type: LOGOUT,
   };
 }

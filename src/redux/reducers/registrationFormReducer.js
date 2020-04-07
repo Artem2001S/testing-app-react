@@ -33,7 +33,7 @@ const initialState = {
   validationStatus: '',
 };
 
-export function registrationFormReducer(
+export default function registrationFormReducer(
   state = initialState,
   { payload, type }
 ) {
