@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import AuthForm from 'components/AuthForm/AuthForm';
+import Form from 'components/Form/Form';
 import {
   changeRegistrationFormInputValue,
   changeRegistrationFormValidationStatus,
@@ -51,8 +51,4 @@ const mergeProps = (stateProps, dispatchProps) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-  mergeProps
-)(AuthForm);
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(Form);

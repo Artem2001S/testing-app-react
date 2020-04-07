@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import TextInput from 'components/TextInput/TextInput';
 import Button from 'components/Button/Button';
-import classes from './AuthForm.module.scss';
+import classes from './Form.module.scss';
 import { Link } from 'react-router-dom';
 import Checkbox from 'components/Checkbox/Checkbox';
 
-export default function AuthForm({
+export default function Form({
   inputs,
   btnText,
   additionalLinks,
@@ -15,7 +15,7 @@ export default function AuthForm({
   handleFormSubmit,
 }) {
   return (
-    <form className={classes.AuthForm} onSubmit={handleFormSubmit}>
+    <form className={classes.Form} onSubmit={handleFormSubmit}>
       {inputs.map((input, index) => {
         if (!input.type) input.type = 'text';
 
@@ -52,7 +52,7 @@ export default function AuthForm({
   );
 }
 
-AuthForm.propTypes = {
+Form.propTypes = {
   inputs: PropTypes.array.isRequired,
   btnText: PropTypes.string.isRequired,
   validationErrors: PropTypes.string,

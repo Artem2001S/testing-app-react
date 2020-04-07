@@ -3,7 +3,7 @@ import {
   changeAuthFormInputValue,
   changeAuthFormValidationStatus,
 } from 'redux/actions/actionCreators';
-import AuthForm from 'components/AuthForm/AuthForm';
+import Form from 'components/Form/Form';
 import { createOnChangeHandlers, validateInputs } from 'utils';
 
 const mapStateToProps = (state) => ({
@@ -50,8 +50,4 @@ const mergeProps = (stateProps, dispatchProps) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-  mergeProps
-)(AuthForm);
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(Form);
