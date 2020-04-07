@@ -24,3 +24,35 @@ export function validateInputs(inputs) {
   }
   return '';
 }
+
+export function validatePasswords(password, repeatedPassword) {
+  if (password.length < 6) {
+    return 'The password must contain 6 or more characters';
+  }
+
+  if (password !== repeatedPassword) {
+    return "Passwords don't match";
+  }
+
+  return '';
+}
+
+export function validateRegistrationForm(inputs) {
+  let validationStatus = validateInputs(inputs);
+
+  if (validationStatus) {
+    return validationStatus;
+  }
+
+  const password = inputs.filter((input) => input.name === 'password');
+  const repeatedPassword = inputs.filter(
+    (input) => input.name === 'repeated_password'
+  );
+
+  validationStatus = validatePasswords(
+    password[0].value,
+    repeatedPassword[0].value
+  );
+
+  return validationStatus;
+}

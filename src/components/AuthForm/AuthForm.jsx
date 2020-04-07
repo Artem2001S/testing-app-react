@@ -27,6 +27,7 @@ export default function AuthForm({
             />
           );
         }
+
         return (
           <TextInput
             key={`${input.name}${index}`}

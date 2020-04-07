@@ -4,7 +4,7 @@ import {
   changeRegistrationFormInputValue,
   changeRegistrationFormValidationStatus,
 } from 'redux/actions/actionCreators';
-import { createOnChangeHandlers, validateInputs } from 'utils';
+import { createOnChangeHandlers, validateRegistrationForm } from 'utils';
 
 const mapStateToProps = (state) => ({
   inputs: state.registrationForm.inputs,
@@ -38,12 +38,13 @@ const mergeProps = (stateProps, dispatchProps) => {
     inputChangeHandlers,
     handleFormSubmit: (e) => {
       e.preventDefault();
-      const validationStatus = validateInputs(stateProps.inputs);
+      const validationStatus = validateRegistrationForm(stateProps.inputs);
 
       if (validationStatus) {
         dispatchProps.changeValidationStatus(validationStatus);
         return;
       }
+
       dispatchProps.changeValidationStatus('');
     },
   };

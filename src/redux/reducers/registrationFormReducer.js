@@ -19,7 +19,7 @@ const initialState = {
     },
     {
       label: 'Repeat password',
-      name: 'repeat_password',
+      name: 'repeated_password',
       value: '',
       type: 'password',
     },
