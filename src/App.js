@@ -9,6 +9,7 @@ import {
 import AuthPage from 'pages/AuthPage';
 import store from 'redux/store';
 import RegistrationPage from 'pages/RegistrationPage';
+import DashboardPage from 'pages/DashboardPage';
 
 function App() {
   return (
@@ -20,6 +21,9 @@ function App() {
           </Route>
           <Route path="/registration">
             <RegistrationPage />
+          </Route>
+          <Route path="/dashboard">
+            <DashboardPage />
           </Route>
           <Route path="*">
             <Redirect to="/" />

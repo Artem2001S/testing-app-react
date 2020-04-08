@@ -27,6 +27,7 @@ function* registrationWorker({ payload }) {
       yield put(getError(data.errorMessage));
     }
   } catch (error) {
+    yield put(finishApiRequest());
     yield put(getError(error.message));
   }
 }

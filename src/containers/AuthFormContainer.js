@@ -9,6 +9,8 @@ import { createOnChangeHandlers, validateInputs } from 'utils';
 const mapStateToProps = (state) => ({
   inputs: state.authorizationFormInputs.inputs,
   validationErrors: state.authorizationFormInputs.validationStatus,
+  requestErrors: state.UIData.errors,
+  isAuthorized: state.currentUserData.isAuthorized,
   additionalLinks: [{ to: '/registration', label: 'Registration' }],
   btnText: 'Login',
 });
