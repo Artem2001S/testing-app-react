@@ -10,10 +10,13 @@ import AuthPage from 'pages/AuthPage';
 import store from 'redux/store';
 import RegistrationPage from 'pages/RegistrationPage';
 import DashboardPage from 'pages/DashboardPage';
+import Loader from 'components/Loader/Loader';
 
 function App() {
   return (
     <Provider store={store}>
+      {store.getState().UIData.isLoading && <Loader />}
+
       <Router>
         <Switch>
           <Route path="/" exact>
