@@ -21,3 +21,13 @@ export async function signUpRequest(username, password, is_admin) {
     }
   }
 }
+
+export async function signInRequest(username, password) {
+  try {
+    const result = await instance.post('/signin', { username, password });
+
+    return { isSuccess: true, user: result.data };
+  } catch (error) {
+    return { isSuccess: false, errorMessage: error.response.data.error };
+  }
+}

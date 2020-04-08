@@ -9,6 +9,7 @@ import {
   LOGOUT,
   SEND_REGISTRATION_REQUEST,
   GET_REQUEST_ERROR,
+  SEND_AUTHORIZATION_REQUEST,
 } from './actionTypes';
 
 export function startApiRequest() {
@@ -75,5 +76,12 @@ export function sendRegistrationRequest(userName, password, isAdmin) {
   return {
     type: SEND_REGISTRATION_REQUEST,
     payload: { username: userName, password, is_admin: isAdmin },
+  };
+}
+
+export function sendAuthorizationRequest(userName, password) {
+  return {
+    type: SEND_AUTHORIZATION_REQUEST,
+    payload: { username: userName, password },
   };
 }
