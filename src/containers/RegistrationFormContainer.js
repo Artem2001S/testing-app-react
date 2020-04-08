@@ -3,12 +3,15 @@ import Form from 'components/Form/Form';
 import {
   changeRegistrationFormInputValue,
   changeRegistrationFormValidationStatus,
+  sendRegistrationRequest,
 } from 'redux/actions/actionCreators';
 import { createOnChangeHandlers, validateRegistrationForm } from 'utils';
 
 const mapStateToProps = (state) => ({
   inputs: state.registrationForm.inputs,
   validationErrors: state.registrationForm.validationStatus,
+  requestErrors: state.UIData.errors,
+  isAuthorized: state.currentUserData.isAuthorized,
   additionalLinks: [{ to: '/', label: 'Go to authorization' }],
   btnText: 'Register',
 });
@@ -25,6 +28,8 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeValidationStatus: (message) =>
     dispatch(changeRegistrationFormValidationStatus(message)),
+  sendRegistrationRequest: (userName, password, isAdmin) =>
+    dispatch(sendRegistrationRequest(userName, password, isAdmin)),
 });
 
 const mergeProps = (stateProps, dispatchProps) => {
@@ -47,6 +52,16 @@ const mergeProps = (stateProps, dispatchProps) => {
       }
 
       dispatchProps.changeValidationStatus('');
+
+      const formValues = stateProps.inputs.reduce((acc, next) => {
+        return { ...acc, [next.name]: next.value };
+      }, {});
+
+      dispatchProps.sendRegistrationRequest(
+        formValues.login,
+        formValues._password,
+        formValues.is_admin
+      );
     },
   };
 };

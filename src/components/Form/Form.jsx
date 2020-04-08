@@ -9,11 +9,15 @@ import Checkbox from 'components/Checkbox/Checkbox';
 export default function Form({
   inputs,
   btnText,
+  isAuthorized,
   additionalLinks,
   validationErrors,
+  requestErrors,
   inputChangeHandlers,
   handleFormSubmit,
 }) {
+  console.log(isAuthorized);
+
   return (
     <form className={classes.Form} onSubmit={handleFormSubmit}>
       {inputs.map((input, index) => {
@@ -48,6 +52,7 @@ export default function Form({
       {validationErrors && (
         <div className={classes.Error}>{validationErrors}</div>
       )}
+      {requestErrors && <div className={classes.Error}>{requestErrors}</div>}
     </form>
   );
 }

@@ -5,6 +5,7 @@ import {
   startApiRequest,
   finishApiRequest,
   signIn,
+  getError,
 } from 'redux/actions/actionCreators';
 
 export function* watchUser() {
@@ -12,18 +13,20 @@ export function* watchUser() {
 }
 
 function* registrationWorker({ payload }) {
-  const { username, password, isAdmin } = payload;
+  const { username, password, is_admin } = payload;
 
   try {
     yield put(startApiRequest());
-    const data = yield call(signUpRequest, username, password, isAdmin);
+    const data = yield call(signUpRequest, username, password, is_admin);
 
     yield put(finishApiRequest());
 
     if (data.isSuccess) {
       yield put(signIn(data.user));
+    } else {
+      yield put(getError(data.errorMessage));
     }
   } catch (error) {
-    // TODO
+    yield put(getError(error.message));
   }
 }

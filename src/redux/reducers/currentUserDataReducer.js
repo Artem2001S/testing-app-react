@@ -14,7 +14,7 @@ export default function currentUserDataReducer(
     case SIGN_IN:
       return {
         ...state,
-        login: payload.login,
+        login: payload.username,
         isAdmin: payload.isAdmin,
         isAuthorized: true,
       };

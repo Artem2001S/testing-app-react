@@ -44,7 +44,7 @@ export function validateRegistrationForm(inputs) {
     return validationStatus;
   }
 
-  const password = inputs.filter((input) => input.name === 'password');
+  const password = inputs.filter((input) => input.name === '_password');
   const repeatedPassword = inputs.filter(
     (input) => input.name === 'repeated_password'
   );

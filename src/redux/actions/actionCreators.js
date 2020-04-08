@@ -8,6 +8,7 @@ import {
   SIGN_IN,
   LOGOUT,
   SEND_REGISTRATION_REQUEST,
+  GET_REQUEST_ERROR,
 } from './actionTypes';
 
 export function startApiRequest() {
@@ -19,6 +20,13 @@ export function startApiRequest() {
 export function finishApiRequest() {
   return {
     type: FINISH_API_REQUEST,
+  };
+}
+
+export function getError(message) {
+  return {
+    type: GET_REQUEST_ERROR,
+    payload: message,
   };
 }
 
@@ -63,9 +71,9 @@ export function logout() {
   };
 }
 
-export function sendRegistrationRequest(userData) {
+export function sendRegistrationRequest(userName, password, isAdmin) {
   return {
     type: SEND_REGISTRATION_REQUEST,
-    payload: userData,
+    payload: { username: userName, password, is_admin: isAdmin },
   };
 }
