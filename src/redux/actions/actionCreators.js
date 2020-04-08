@@ -7,6 +7,7 @@ import {
   FINISH_API_REQUEST,
   SIGN_IN,
   LOGOUT,
+  SEND_REGISTRATION_REQUEST,
 } from './actionTypes';
 
 export function startApiRequest() {
@@ -59,5 +60,12 @@ export function signIn(userData) {
 export function logout() {
   return {
     type: LOGOUT,
+  };
+}
+
+export function sendRegistrationRequest(userData) {
+  return {
+    type: SEND_REGISTRATION_REQUEST,
+    payload: userData,
   };
 }
