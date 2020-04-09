@@ -1,0 +1,31 @@
+@import "sassVariables.scss";
+
+.UserPanel {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+
+  background-color: $red;
+  color: #fefefe;
+
+  width: 100%;
+  padding: 10px 70px;
+  padding-left: 70px;
+}
+
+.Crown {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+
+  width: 35px;
+  height: 35px;
+
+  background-image: url("./crown-icon.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  transform: translateY(-65%);
+}
