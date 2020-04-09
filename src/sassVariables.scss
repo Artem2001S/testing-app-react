@@ -1,5 +1,27 @@
 $green: #1eb2a6;
 
+$mobileWidth: 320px;
+$tabletWidth: 768px;
+$laptopWidth: 1200px;
+
+@mixin media-mobile {
+  @media screen and (max-width: $mobileWidth) {
+    @content;
+  }
+}
+
+@mixin media-tablet {
+  @media screen and (max-width: $tabletWidth) {
+    @content;
+  }
+}
+
+@mixin media-laptop {
+  @media screen and (max-width: $laptopWidth) {
+    @content;
+  }
+}
+
 @mixin absoluteCenter {
   position: absolute;
   left: 50%;
