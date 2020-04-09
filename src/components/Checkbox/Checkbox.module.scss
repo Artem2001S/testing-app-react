@@ -1,0 +1,50 @@
+@import "sassVariables.scss";
+
+.label {
+  position: relative;
+  padding-left: 38px;
+  margin-bottom: 10px;
+
+  height: 25px;
+  display: flex;
+  align-items: center;
+
+  cursor: pointer;
+  user-select: none;
+}
+
+.Checkbox {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.CheckboxSymbol {
+  position: absolute;
+  left: 2px;
+  top: 2px;
+
+  width: 25px;
+  height: 25px;
+
+  border: 2px solid $green;
+
+  &:hover {
+    background-color: rgba($color: $green, $alpha: 0.15);
+  }
+
+  &.CheckboxSymbolChecked {
+    color: $green;
+    
+    &::after {
+      content: "✓";
+      font-weight: bold;
+      @include absoluteCenter();
+    }
+
+    &:hover {
+      background-color: #fff;
+      color: rgba($color: $green, $alpha: 0.5);
+    }
+  }
+}
