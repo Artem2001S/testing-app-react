@@ -6,10 +6,13 @@ import {
   START_API_REQUEST,
   FINISH_API_REQUEST,
   SIGN_IN,
-  LOGOUT,
   SEND_REGISTRATION_REQUEST,
+  SEND_LOGOUT_REQUEST,
   GET_REQUEST_ERROR,
   SEND_AUTHORIZATION_REQUEST,
+  OPEN_MODAL_DIALOG,
+  CLOSE_MODAL_DIALOG,
+  SUCCESS_LOGOUT,
 } from './actionTypes';
 
 export function startApiRequest() {
@@ -66,9 +69,15 @@ export function signIn(userData) {
   };
 }
 
-export function logout() {
+export function successLogout() {
   return {
-    type: LOGOUT,
+    type: SUCCESS_LOGOUT,
+  };
+}
+
+export function sendLogoutRequest() {
+  return {
+    type: SEND_LOGOUT_REQUEST,
   };
 }
 
@@ -83,5 +92,18 @@ export function sendAuthorizationRequest(userName, password) {
   return {
     type: SEND_AUTHORIZATION_REQUEST,
     payload: { username: userName, password },
+  };
+}
+
+export function openModalDialog(title, successBtnClickHandler) {
+  return {
+    type: OPEN_MODAL_DIALOG,
+    payload: { title, successBtnClickHandler },
+  };
+}
+
+export function closeModalDialog() {
+  return {
+    type: CLOSE_MODAL_DIALOG,
   };
 }
