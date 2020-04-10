@@ -20,19 +20,51 @@
   align-items: center;
   justify-content: space-between;
 
-  width: 50%;
-  height: 50%;
   padding: 50px;
-
   background-color: #fefefe;
+
+  &.SmallDialog {
+    min-width: 20%;
+    min-height: 20%;
+    padding: 20px;
+  }
 }
 
 .ModalHeader {
   text-align: center;
+  margin-bottom: 40px;
+}
+
+
+.Title {
+  max-width: 400px;
+  font-size: 30px;
+}
+
+.CloseBtn {
+  position: absolute;
+  top: 10px;
+  right: 0px;
+
+  padding: 10px;
+  font-size: 40px;
+  line-height: 0;
+
+  color: $green;
+  border: none;
+  background-color: transparent;
+
+  cursor: pointer;
+  transition: color 0.3s ease;
+  outline: none;
+
+  &:hover {
+    color: #656565;
+  }
 }
 
 .ModalFooter {
   display: flex;
   justify-content: space-around;
-  width: 30%;
+  width: 300px;
 }

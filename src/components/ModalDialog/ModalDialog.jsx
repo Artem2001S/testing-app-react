@@ -4,7 +4,6 @@ import Button from 'components/Button/Button';
 
 export default function ModalDialog({
   title,
-  children,
   primaryButtonText,
   primaryButtonClickHandler,
 }) {
@@ -12,10 +11,9 @@ export default function ModalDialog({
     <div className={classes.ModalDialog}>
       <div className={classes.ModalDialogContent}>
         <div className={classes.ModalHeader}>
-          <span>{title}</span>
-          <span>&#10006;</span>
+          <span className={classes.Title}>{title}</span>
+          <button className={classes.CloseBtn}>&times;</button>
         </div>
-        <div className={classes.ModalBody}>{children}</div>
         <div className={classes.ModalFooter}>
           <Button
             handelClick={() => {
@@ -26,7 +24,7 @@ export default function ModalDialog({
           >
             {primaryButtonText}
           </Button>
-          <Button>Cancel</Button>
+          <Button secondary>Cancel</Button>
         </div>
       </div>
     </div>
