@@ -1,4 +1,4 @@
-import { SIGN_IN, LOGOUT } from 'redux/actions/actionTypes';
+import { SIGN_IN, SUCCESS_LOGOUT } from 'redux/actions/actionTypes';
 
 const initialState = {
   isAuthorized: false,
@@ -18,7 +18,7 @@ export default function currentUserDataReducer(
         isAdmin: payload.is_admin,
         isAuthorized: true,
       };
-    case LOGOUT:
+    case SUCCESS_LOGOUT:
       return {
         ...state,
         login: '',

@@ -1,6 +1,9 @@
 import Dashboard from 'components/Dashboard/Dashboard';
 import { connect } from 'react-redux';
-import { openModalDialog } from 'redux/actions/actionCreators';
+import {
+  openModalDialog,
+  sendLogoutRequest,
+} from 'redux/actions/actionCreators';
 
 const mapStateToProps = (state) => ({
   userData: state.currentUserData,
@@ -8,7 +11,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onLogout: () =>
-    dispatch(openModalDialog('Are you sure ?', () => console.log('work'))),
+    dispatch(
+      openModalDialog('Are you sure ?', () => dispatch(sendLogoutRequest()))
+    ),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

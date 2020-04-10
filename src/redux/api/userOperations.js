@@ -31,3 +31,15 @@ export async function signInRequest(username, password) {
     return { isSuccess: false, errorMessage: error.response.data.error };
   }
 }
+
+export async function logoutRequest() {
+  try {
+    const result = await instance.delete('/logout');
+
+    if (result.data.success) {
+      return { isSuccess: true };
+    }
+  } catch (error) {
+    return { isSuccess: false, errorMessage: error.message };
+  }
+}
