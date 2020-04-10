@@ -42,6 +42,7 @@ function* authorizationWorker({ payload }) {
     yield put(startApiRequest());
     const data = yield call(signInRequest, username, password);
 
+    yield put(finishApiRequest());
     if (data.isSuccess) {
       yield put(signIn(data.user));
     } else {
