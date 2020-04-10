@@ -1,15 +1,12 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import classes from './ModalDialog.module.scss';
 import Button from 'components/Button/Button';
 import { closeModalDialog } from 'redux/actions/actionCreators';
 
-export default function ModalDialog({
-  title,
-  primaryButtonText,
-  primaryButtonClickHandler,
-}) {
+export default function ModalDialog({ title, primaryButtonText }) {
   const dispatch = useDispatch();
+  const modalDialogData = useSelector((state) => state.modalDialog);
 
   const close = () => {
     dispatch(closeModalDialog());
@@ -47,11 +44,14 @@ export default function ModalDialog({
         <div className={classes.ModalFooter}>
           <Button
             handleClick={() => {
-              primaryButtonClickHandler();
+              if (modalDialogData.successBtnClickHandler) {
+                modalDialogData.successBtnClickHandler();
+              }
+
               close();
             }}
           >
-            {primaryButtonText}
+            {primaryButtonText || 'OK'}
           </Button>
           <Button secondary handleClick={close}>
             Cancel

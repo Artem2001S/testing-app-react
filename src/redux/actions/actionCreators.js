@@ -88,10 +88,10 @@ export function sendAuthorizationRequest(userName, password) {
   };
 }
 
-export function openModalDialog(title) {
+export function openModalDialog(title, successBtnClickHandler) {
   return {
     type: OPEN_MODAL_DIALOG,
-    payload: { title },
+    payload: { title, successBtnClickHandler },
   };
 }
 

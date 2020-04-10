@@ -7,9 +7,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onLogout: () => {
-    dispatch(openModalDialog('Are you sure ?'));
-  },
+  onLogout: () =>
+    dispatch(openModalDialog('Are you sure ?', () => console.log('work'))),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

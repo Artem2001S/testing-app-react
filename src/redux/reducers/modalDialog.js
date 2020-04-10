@@ -6,6 +6,7 @@ import {
 const initialState = {
   isOpen: false,
   title: '',
+  successBtnClickHandler: undefined,
 };
 
 export default function modalDialogReducer(
@@ -14,7 +15,12 @@ export default function modalDialogReducer(
 ) {
   switch (type) {
     case OPEN_MODAL_DIALOG:
-      return { ...state, isOpen: true, title: payload.title };
+      return {
+        ...state,
+        isOpen: true,
+        title: payload.title,
+        successBtnClickHandler: payload.successBtnClickHandler,
+      };
     case CLOSE_MODAL_DIALOG:
       return { ...state, isOpen: false };
     default:
