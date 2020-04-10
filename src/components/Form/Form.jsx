@@ -7,7 +7,6 @@ import classes from './Form.module.scss';
 import { Link, Redirect } from 'react-router-dom';
 import Checkbox from 'components/Checkbox/Checkbox';
 import Loader from 'components/Loader/Loader';
-import ModalDialog from 'components/ModalDialog/ModalDialog';
 
 export default function Form({
   inputs,
@@ -24,7 +23,6 @@ export default function Form({
 
   return (
     <>
-      <ModalDialog title="Wouto logout ?Wouto logout ?Wouto logout ?Wouto logout ?Wouto logout ?" primaryButtonText="Yes" />
       {isLoading && <Loader />}
       {isAuthorized && <Redirect to="/dashboard" />}
       <form className={classes.Form} onSubmit={handleFormSubmit}>

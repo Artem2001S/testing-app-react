@@ -10,6 +10,8 @@ import {
   SEND_REGISTRATION_REQUEST,
   GET_REQUEST_ERROR,
   SEND_AUTHORIZATION_REQUEST,
+  OPEN_MODAL_DIALOG,
+  CLOSE_MODAL_DIALOG,
 } from './actionTypes';
 
 export function startApiRequest() {
@@ -83,5 +85,18 @@ export function sendAuthorizationRequest(userName, password) {
   return {
     type: SEND_AUTHORIZATION_REQUEST,
     payload: { username: userName, password },
+  };
+}
+
+export function openModalDialog(title) {
+  return {
+    type: OPEN_MODAL_DIALOG,
+    payload: { title },
+  };
+}
+
+export function closeModalDialog() {
+  return {
+    type: CLOSE_MODAL_DIALOG,
   };
 }
