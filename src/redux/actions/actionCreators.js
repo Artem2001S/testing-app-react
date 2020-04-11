@@ -13,6 +13,7 @@ import {
   OPEN_MODAL_DIALOG,
   CLOSE_MODAL_DIALOG,
   SUCCESS_LOGOUT,
+  SEND_GET_CURRENT_USER_REQUEST,
 } from './actionTypes';
 
 export function startApiRequest() {
@@ -78,6 +79,12 @@ export function successLogout() {
 export function sendLogoutRequest() {
   return {
     type: SEND_LOGOUT_REQUEST,
+  };
+}
+
+export function sendGetCurrentUserRequest() {
+  return {
+    type: SEND_GET_CURRENT_USER_REQUEST,
   };
 }
 
