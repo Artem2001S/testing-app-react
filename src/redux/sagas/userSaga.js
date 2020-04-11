@@ -3,11 +3,13 @@ import {
   SEND_REGISTRATION_REQUEST,
   SEND_AUTHORIZATION_REQUEST,
   SEND_LOGOUT_REQUEST,
+  SEND_GET_CURRENT_USER_REQUEST,
 } from 'redux/actions/actionTypes';
 import {
   signUpRequest,
   signInRequest,
   logoutRequest,
+  getCurrentUserData,
 } from 'redux/api/userOperations';
 import {
   startApiRequest,
@@ -21,6 +23,7 @@ export function* watchUser() {
   yield takeEvery(SEND_REGISTRATION_REQUEST, registrationWorker);
   yield takeEvery(SEND_AUTHORIZATION_REQUEST, authorizationWorker);
   yield takeEvery(SEND_LOGOUT_REQUEST, logoutWorker);
+  yield takeEvery(SEND_GET_CURRENT_USER_REQUEST, getCurrentUserDataWorker);
 }
 
 function* registrationWorker({ payload }) {
@@ -72,6 +75,25 @@ function* logoutWorker() {
     }
   } catch (error) {
     yield put(getError(error.message));
+  }
+
+  yield put(finishApiRequest());
+}
+
+function* getCurrentUserDataWorker() {
+  try {
+    yield put(startApiRequest());
+
+    const result = yield call(getCurrentUserData);
+
+    if (result.isAuthorized) {
+      yield put(signIn(result.user));
+    } else {
+      yield put(successLogout());
+    }
+  } catch (error) {
+    yield put(getError(error.message));
+    yield put(finishApiRequest());
   }
 
   yield put(finishApiRequest());

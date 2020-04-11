@@ -1,5 +1,4 @@
 import React from 'react';
-import { Provider } from 'react-redux';
 import {
   BrowserRouter as Router,
   Route,
@@ -7,16 +6,17 @@ import {
   Redirect,
 } from 'react-router-dom';
 import AuthPage from 'pages/AuthPage';
-import store from 'redux/store';
 import RegistrationPage from 'pages/RegistrationPage';
 import DashboardPage from 'pages/DashboardPage';
+import { useSelector } from 'react-redux';
 import Loader from 'components/Loader/Loader';
 
 function App() {
-  return (
-    <Provider store={store}>
-      {store.getState().UIData.isLoading && <Loader />}
+  const isLoading = useSelector((state) => state.UIData.isLoading);
 
+  return (
+    <>
+      {isLoading && <Loader />}
       <Router>
         <Switch>
           <Route path="/" exact>
@@ -33,7 +33,7 @@ function App() {
           </Route>
         </Switch>
       </Router>
-    </Provider>
+    </>
   );
 }
 

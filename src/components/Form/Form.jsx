@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useStore } from 'react-redux';
 import TextInput from 'components/TextInput/TextInput';
 import Button from 'components/Button/Button';
 import classes from './Form.module.scss';
 import { Link, Redirect } from 'react-router-dom';
 import Checkbox from 'components/Checkbox/Checkbox';
-import Loader from 'components/Loader/Loader';
 
 export default function Form({
   inputs,
@@ -18,12 +16,8 @@ export default function Form({
   inputChangeHandlers,
   handleFormSubmit,
 }) {
-  const store = useStore().getState();
-  const isLoading = store.UIData.isLoading;
-
   return (
     <>
-      {isLoading && <Loader />}
       {isAuthorized && <Redirect to="/dashboard" />}
       <form className={classes.Form} onSubmit={handleFormSubmit}>
         {inputs.map((input, index) => {

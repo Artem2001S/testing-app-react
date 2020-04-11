@@ -43,3 +43,13 @@ export async function logoutRequest() {
     return { isSuccess: false, errorMessage: error.message };
   }
 }
+
+export async function getCurrentUserData() {
+  try {
+    const result = await instance.get('/users/current');
+
+    return { isAuthorized: true, user: result.data };
+  } catch (error) {
+    return { isAuthorized: false };
+  }
+}
