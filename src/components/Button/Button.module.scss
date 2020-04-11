@@ -39,5 +39,11 @@
 
     min-width: initial;
     color: #000000;
+
+    font-size: 23px;
+
+    &:hover {
+      background-color: #dddddd;
+    }
   }
 }
