@@ -31,4 +31,13 @@
       background-color: lighten($color: $green, $amount: 52);
     }
   }
+
+  &.TransparentBtn {
+    border: none;
+    outline: none;
+    background-color: transparent;
+
+    min-width: initial;
+    color: #000000;
+  }
 }

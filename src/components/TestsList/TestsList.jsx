@@ -24,7 +24,7 @@ export default function TestsList({ tests }) {
     <div className={classes.TestsListWrapper}>
       <div className={classes.Header}>
         <h2>Tests</h2>
-        <Button secondary>&darr;&uarr;</Button>
+        <Button transparent>&darr;&uarr;</Button>
       </div>
       <div className={classes.List}>
         {tests.map((test) => (
