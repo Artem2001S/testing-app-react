@@ -1,0 +1,33 @@
+@import "sassVariables.scss";
+
+.Item {
+  // display: flex;
+  // align-items: center;
+  // justify-content: space-between;
+  display: grid;
+  grid-template-columns: 2fr 50px 1fr;
+
+  padding: 10px 30px;
+  border-bottom: 1px solid $green;
+}
+
+.Title {
+  display: block;
+  font-size: 22px;
+
+
+  font-weight: bold;
+  word-wrap: break-word;
+}
+
+.CreatedDate {
+  font-size: 13px;
+  color: $red;
+}
+
+.QuestionsCount {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+}

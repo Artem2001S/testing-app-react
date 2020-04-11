@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import classes from './Dashboard.module.scss';
 import UserPanel from 'components/UserPanel/UserPanel';
 import ModalDialog from 'components/ModalDialog/ModalDialog';
+import TestsList from 'components/TestsList/TestsList';
 
 export default function Dashboard({ userData, onLogout }) {
   const modalDialogData = useSelector((state) => state.modalDialog);
@@ -13,10 +14,10 @@ export default function Dashboard({ userData, onLogout }) {
   }
 
   return (
-    <div>
+    <>
       {modalDialogData.isOpen && <ModalDialog title={modalDialogData.title} />}
       <UserPanel userData={userData} onLogout={onLogout} />
-      Dashboard
-    </div>
+      <TestsList />
+    </>
   );
 }
