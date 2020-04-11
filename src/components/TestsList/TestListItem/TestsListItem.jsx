@@ -1,6 +1,9 @@
 import React from 'react';
-import icon from './question.svg';
+import classNames from 'classnames';
+import questionIcon from './question.svg';
+import editIcon from './edit.svg';
 import classes from './TestsListItem.module.scss';
+import Button from 'components/Button/Button';
 
 export default function TestsListItem({
   title,
@@ -8,16 +11,34 @@ export default function TestsListItem({
   createdAt,
   withActions,
 }) {
+  console.log(withActions);
+
+  const itemClasses = classNames(classes.Item, {
+    [classes.WithoutActions]: !withActions,
+  });
+
   return (
-    <div className={classes.Item}>
+    <div className={itemClasses}>
       <span className={classes.Title}>
-        {title}
-        <sub className={classes.CreatedDate}>{createdAt}</sub>
+        <span>
+          {title}
+          <sub className={classes.CreatedDate}>{createdAt}</sub>
+        </span>
       </span>
       <span className={classes.QuestionsCount}>
-        <img src={icon} width="32" alt="Questions" /> {questions.length}
+        <img src={questionIcon} width="32" alt="Questions" /> {questions.length}
       </span>
-      {withActions && <div></div>}
+      {withActions && (
+        <div className={classes.Actions}>
+          <Button transparent>&times;</Button>
+          <Button transparent>
+            <img src={editIcon} width="22" alt="Edit" />
+          </Button>
+        </div>
+      )}
+      <div className={classes.Actions}>
+        <Button transparent>&rarr;</Button>
+      </div>
     </div>
   );
 }

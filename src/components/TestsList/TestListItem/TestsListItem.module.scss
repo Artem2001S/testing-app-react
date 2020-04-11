@@ -1,20 +1,28 @@
 @import "sassVariables.scss";
 
 .Item {
-  // display: flex;
-  // align-items: center;
-  // justify-content: space-between;
   display: grid;
-  grid-template-columns: 2fr 50px 1fr;
+  grid-template-columns: 2fr 50px 1fr 50px;
+  column-gap: 10px;
 
   padding: 10px 30px;
   border-bottom: 1px solid $green;
+
+  transition: 0.5s background-color ease;
+
+  &.WithoutActions {
+    grid-template-columns: 1fr 50px 50px;
+  }
+
+  &:hover {
+    background-color: rgb(238, 238, 238);
+  }
 }
 
 .Title {
-  display: block;
+  display: flex;
+  align-items: center;
   font-size: 22px;
-
 
   font-weight: bold;
   word-wrap: break-word;
@@ -30,4 +38,14 @@
   align-items: center;
   font-size: 18px;
   font-weight: bold;
+}
+
+.Actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > button + button {
+    margin-left: 8px;
+  }
 }

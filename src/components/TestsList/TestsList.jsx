@@ -3,7 +3,7 @@ import classes from './TestsList.module.scss';
 import Button from 'components/Button/Button';
 import TestsListItem from './TestListItem/TestsListItem';
 
-export default function TestsList({ tests }) {
+export default function TestsList({ tests, isAdmin }) {
   tests = [
     {
       id: 47,
@@ -28,7 +28,7 @@ export default function TestsList({ tests }) {
       </div>
       <div className={classes.List}>
         {tests.map((test) => (
-          <TestsListItem key={test.id} {...test} withActions />
+          <TestsListItem key={test.id} {...test} withActions={isAdmin} />
         ))}
       </div>
     </div>

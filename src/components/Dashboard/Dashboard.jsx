@@ -17,7 +17,7 @@ export default function Dashboard({ userData, onLogout }) {
     <>
       {modalDialogData.isOpen && <ModalDialog title={modalDialogData.title} />}
       <UserPanel userData={userData} onLogout={onLogout} />
-      <TestsList />
+      <TestsList isAdmin />
     </>
   );
 }
