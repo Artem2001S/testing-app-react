@@ -14,6 +14,8 @@ import {
   CLOSE_MODAL_DIALOG,
   SUCCESS_LOGOUT,
   SEND_GET_CURRENT_USER_REQUEST,
+  REQUEST_TESTS_FROM_SERVER,
+  GET_TESTS,
 } from './actionTypes';
 
 export function startApiRequest() {
@@ -112,5 +114,20 @@ export function openModalDialog(title, successBtnClickHandler) {
 export function closeModalDialog() {
   return {
     type: CLOSE_MODAL_DIALOG,
+  };
+}
+
+// Tests
+
+export function requestTestsFromServer() {
+  return {
+    type: REQUEST_TESTS_FROM_SERVER,
+  };
+}
+
+export function getTests(tests) {
+  return {
+    type: GET_TESTS,
+    payload: tests,
   };
 }

@@ -5,6 +5,7 @@ import { rootSaga } from 'redux/sagas/rootSaga';
 import {
   closeModalDialog,
   sendGetCurrentUserRequest,
+  requestTestsFromServer,
 } from './actions/actionCreators';
 
 const sagaMiddleware = createSagaMiddleware();

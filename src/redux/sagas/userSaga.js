@@ -93,7 +93,6 @@ function* getCurrentUserDataWorker() {
     }
   } catch (error) {
     yield put(getError(error.message));
-    yield put(finishApiRequest());
   }
 
   yield put(finishApiRequest());
