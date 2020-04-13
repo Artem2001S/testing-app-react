@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
 import { denormalizeTests } from 'redux/normalizr/normalizeTests';
 
-const getTests = (state) => state.tests;
+const getTestsData = (state) => state.tests.data;
 
-export const getTestsArray = createSelector([getTests], (normalizedTests) =>
+export const getTestsArray = createSelector([getTestsData], (normalizedTests) =>
   denormalizeTests(normalizedTests)
 );
