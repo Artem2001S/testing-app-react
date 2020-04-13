@@ -18,6 +18,7 @@ import {
   GET_TESTS,
   REQUEST_TEST_DELETING,
   DELETE_TEST,
+  CHANGE_TESTS_LIST_SORT_TYPE,
 } from './actionTypes';
 
 export function startApiRequest() {
@@ -145,5 +146,11 @@ export function deleteTest(id) {
   return {
     type: DELETE_TEST,
     payload: id,
+  };
+}
+
+export function changeTestsListSortType() {
+  return {
+    type: CHANGE_TESTS_LIST_SORT_TYPE,
   };
 }

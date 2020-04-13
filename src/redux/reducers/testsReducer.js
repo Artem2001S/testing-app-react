@@ -3,7 +3,7 @@ import {
   DELETE_TEST,
   CHANGE_TESTS_LIST_SORT_TYPE,
 } from 'redux/actions/actionTypes';
-import { sortTypes } from 'constants';
+import { sortTypes } from 'constants.js';
 
 const initialState = {
   data: {

@@ -5,12 +5,14 @@ import {
   sendLogoutRequest,
   requestTestsFromServer,
   requestTestDeleting,
+  changeTestsListSortType,
 } from 'redux/actions/actionCreators';
-import { getTestsArray } from 'redux/selectors/tests';
+import { getSortedTests } from 'redux/selectors/tests';
 
 const mapStateToProps = (state) => ({
   userData: state.currentUserData,
-  testsList: getTestsArray(state),
+  testsList: getSortedTests(state),
+  sortType: state.tests.sortType,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -20,6 +22,7 @@ const mapDispatchToProps = (dispatch) => ({
     ),
   requestTests: () => dispatch(requestTestsFromServer()),
   onDeleteTest: (id) => dispatch(requestTestDeleting(id)),
+  sortChange: () => dispatch(changeTestsListSortType()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
