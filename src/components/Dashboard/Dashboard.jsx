@@ -21,7 +21,6 @@ export default function Dashboard({
   if (!userData.isAuthorized) {
     return <Redirect to="/" />;
   }
-  console.log(testsList);
 
   return (
     <>

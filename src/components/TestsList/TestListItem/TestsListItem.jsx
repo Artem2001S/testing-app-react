@@ -11,8 +11,6 @@ export default function TestsListItem({
   createdAt,
   withActions,
 }) {
-  console.log(withActions);
-
   const itemClasses = classNames(classes.Item, {
     [classes.WithoutActions]: !withActions,
   });

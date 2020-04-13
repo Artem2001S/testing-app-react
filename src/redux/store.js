@@ -5,7 +5,6 @@ import { rootSaga } from 'redux/sagas/rootSaga';
 import {
   closeModalDialog,
   sendGetCurrentUserRequest,
-  requestTestsFromServer,
 } from './actions/actionCreators';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -34,7 +33,11 @@ store.dispatch(closeModalDialog());
 
 sagaMiddleware.run(rootSaga);
 
-// user authentication
-store.dispatch(sendGetCurrentUserRequest());
+// check user authentication
+const isAuthorized = store.getState().currentUserData.isAuthorized;
+
+if (isAuthorized) {
+  store.dispatch(sendGetCurrentUserRequest());
+}
 
 export default store;
