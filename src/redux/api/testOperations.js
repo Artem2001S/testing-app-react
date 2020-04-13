@@ -17,3 +17,8 @@ export async function getTestsFromServer() {
 
   return normalizeTests(tests);
 }
+
+export async function sendDeleteTestRequest(id) {
+  await instance.delete(`/tests/${id}`);
+  return { isSuccess: true };
+}
