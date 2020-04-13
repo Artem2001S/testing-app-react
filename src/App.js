@@ -8,15 +8,22 @@ import {
 import AuthPage from 'pages/AuthPage';
 import RegistrationPage from 'pages/RegistrationPage';
 import DashboardPage from 'pages/DashboardPage';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Loader from 'components/Loader/Loader';
+import Error from 'components/Error/Error';
+import { getError } from 'redux/actions/actionCreators';
 
 function App() {
   const isLoading = useSelector((state) => state.UIData.isLoading);
+  const errorMessage = useSelector((state) => state.UIData.errors);
+  const dispatch = useDispatch();
 
   return (
     <>
       {isLoading && <Loader />}
+      {errorMessage && (
+        <Error message={errorMessage} hide={() => dispatch(getError(''))} />
+      )}
       <Router>
         <Switch>
           <Route path="/" exact>

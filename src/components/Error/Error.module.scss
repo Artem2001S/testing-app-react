@@ -1,0 +1,31 @@
+@import "sassVariables.scss";
+
+.ErrorMessage {
+  position: fixed;
+  left: 10px;
+  top: 20px;
+
+  padding: 10px;
+  margin-left: 10px;
+  padding-bottom: 25px;
+
+  background-color: $red;
+  border: 2px solid $green;
+
+  cursor: pointer;
+}
+
+.Tip {
+  position: absolute;
+  bottom: 5px;
+  left: 10px;
+  font-size: 13px;
+  width: 100%;
+
+  color: #000;
+}
+
+.Message {
+  font-size: 20px;
+  color: #fefefe;
+}
