@@ -21,14 +21,22 @@ export default function TestsListItem({
 
   return (
     <div className={itemClasses}>
-      <span className={classes.Title}>
+      <span className={classes.Title} title="Title">
         <span>
           {title}
-          <sub className={classes.CreatedDate}>{createdAt}</sub>
+          <sub className={classes.CreatedDate} title="Date of creation">
+            {createdAt}
+          </sub>
         </span>
       </span>
       <span className={classes.QuestionsCount}>
-        <img src={questionIcon} width="32" alt="Questions" /> {questions.length}
+        <img
+          src={questionIcon}
+          width="32"
+          alt="Questions"
+          title="Questions count"
+        />
+        {questions.length}
       </span>
       {isAdmin && (
         <div className={classes.Actions}>
@@ -40,7 +48,7 @@ export default function TestsListItem({
           </Button>
         </div>
       )}
-      <div className={classes.Actions}>
+      <div className={classes.Actions} title="Start">
         <Button transparent>&rarr;</Button>
       </div>
     </div>
