@@ -11,7 +11,6 @@ const mapStateToProps = (state) => ({
   inputs: state.authorizationFormInputs.inputs,
   validationErrors: state.authorizationFormInputs.validationStatus,
   requestErrors: state.UIData.errors,
-  isLoading: state.UIData.isLoading,
   isAuthorized: state.currentUserData.isAuthorized,
   additionalLinks: [{ to: '/registration', label: 'Registration' }],
   btnText: 'Login',

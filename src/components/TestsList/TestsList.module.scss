@@ -1,0 +1,16 @@
+.TestsListWrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 100px;
+}
+
+.Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.List {
+  display: flex;
+  flex-direction: column;
+}

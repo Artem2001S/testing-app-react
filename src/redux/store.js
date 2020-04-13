@@ -33,7 +33,11 @@ store.dispatch(closeModalDialog());
 
 sagaMiddleware.run(rootSaga);
 
-// user authentication
-store.dispatch(sendGetCurrentUserRequest());
+// check user authentication
+const isAuthorized = store.getState().currentUserData.isAuthorized;
+
+if (isAuthorized) {
+  store.dispatch(sendGetCurrentUserRequest());
+}
 
 export default store;
