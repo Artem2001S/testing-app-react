@@ -10,6 +10,7 @@ export default function Dashboard({
   userData,
   testsList,
   onLogout,
+  onDeleteTest,
   requestTests,
 }) {
   const modalDialogData = useSelector((state) => state.modalDialog);
@@ -26,7 +27,11 @@ export default function Dashboard({
     <>
       {modalDialogData.isOpen && <ModalDialog title={modalDialogData.title} />}
       <UserPanel userData={userData} onLogout={onLogout} />
-      <TestsList tests={testsList} isAdmin={userData.isAdmin} />
+      <TestsList
+        tests={testsList}
+        isAdmin={userData.isAdmin}
+        onDeleteTest={onDeleteTest}
+      />
     </>
   );
 }

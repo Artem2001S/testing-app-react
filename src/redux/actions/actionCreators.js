@@ -16,6 +16,8 @@ import {
   SEND_GET_CURRENT_USER_REQUEST,
   REQUEST_TESTS_FROM_SERVER,
   GET_TESTS,
+  REQUEST_TEST_DELETING,
+  DELETE_TEST,
 } from './actionTypes';
 
 export function startApiRequest() {
@@ -129,5 +131,19 @@ export function getTests(tests) {
   return {
     type: GET_TESTS,
     payload: tests,
+  };
+}
+
+export function requestTestDeleting(id) {
+  return {
+    type: REQUEST_TEST_DELETING,
+    payload: id,
+  };
+}
+
+export function deleteTest(id) {
+  return {
+    type: DELETE_TEST,
+    payload: id,
   };
 }
