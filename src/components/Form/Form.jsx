@@ -12,7 +12,6 @@ export default function Form({
   isAuthorized,
   additionalLinks,
   validationErrors,
-  requestErrors,
   inputChangeHandlers,
   handleFormSubmit,
 }) {
@@ -52,7 +51,6 @@ export default function Form({
         {validationErrors && (
           <div className={classes.Error}>{validationErrors}</div>
         )}
-        {requestErrors && <div className={classes.Error}>{requestErrors}</div>}
       </form>
     </>
   );
@@ -62,7 +60,6 @@ Form.propTypes = {
   inputs: PropTypes.array.isRequired,
   btnText: PropTypes.string.isRequired,
   isAuthorized: PropTypes.bool,
-  requestErrors: PropTypes.string,
   validationErrors: PropTypes.string,
   additionalLinks: PropTypes.array,
   inputChangeHandlers: PropTypes.object.isRequired,
