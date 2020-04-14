@@ -1,5 +1,4 @@
 import { CHANGE_SEARCH_TEST_FORM_VALUE } from 'redux/actions/actionTypes';
-import { updateInputsArray } from 'utils';
 
 const initialState = {
   label: 'Search',
