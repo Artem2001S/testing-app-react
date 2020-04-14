@@ -45,5 +45,9 @@
     &:hover {
       background-color: #dddddd;
     }
+
+    @include media-mobileL {
+      padding: 5px;
+    }
   }
 }

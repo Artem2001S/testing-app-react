@@ -5,7 +5,6 @@ import TestsListItem from './TestListItem/TestsListItem';
 
 export default function TestsList({
   tests,
-  sortType,
   isAdmin,
   onDeleteTest,
   sortChange,

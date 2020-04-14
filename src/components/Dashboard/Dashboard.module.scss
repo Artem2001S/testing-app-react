@@ -8,4 +8,9 @@
   padding: 20px 0;
 
   border-bottom: 1px dashed $green;
+
+  @include media-tablet {
+    margin-bottom: 10px;
+    padding: 10px 0;
+  }
 }
