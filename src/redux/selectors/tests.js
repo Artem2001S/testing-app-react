@@ -10,21 +10,21 @@ const getTestsArray = createSelector([getTestsData], (normalizedTests) =>
   denormalizeTests(normalizedTests)
 );
 
-export const getSortedTests = createSelector(
-  [getTestsArray, getTestsSortType],
+export const getFilteredTests = createSelector(
+  [getTestsArray, getSearchValue],
+  (tests, searchValue) => {
+    const search = searchValue.toLowerCase();
+    return tests.filter((test) => test.title.toLowerCase().includes(search));
+  }
+);
+
+export const getTests = createSelector(
+  [getFilteredTests, getTestsSortType],
   (tests, sortType) => {
     if (sortType === sortTypes.descending) {
       return tests.sort((a, b) => b.createdAtValue - a.createdAtValue);
     } else {
       return tests.sort((a, b) => a.createdAtValue - b.createdAtValue);
     }
-  }
-);
-
-export const getTests = createSelector(
-  [getSortedTests, getSearchValue],
-  (tests, searchValue) => {
-    const search = searchValue.toLowerCase();
-    return tests.filter((test) => test.title.toLowerCase().includes(search));
   }
 );

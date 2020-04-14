@@ -7,7 +7,7 @@ import {
   requestTestDeleting,
   changeTestsListSortType,
 } from 'redux/actions/actionCreators';
-import { getSortedTests, getTests } from 'redux/selectors/tests';
+import { getTests } from 'redux/selectors/tests';
 
 const mapStateToProps = (state) => ({
   userData: state.currentUserData,
