@@ -1,7 +1,17 @@
+@import "sassVariables.scss";
+
 .TestsListWrapper {
   display: flex;
   flex-direction: column;
   padding: 10px 100px;
+
+  @include media-laptop {
+    padding: 10px 50px;
+  }
+
+  @include media-tablet {
+    padding: 10px;
+  }
 }
 
 .Header {

@@ -1,12 +1,19 @@
 $green: #1eb2a6;
 $red: #f67575;
 
-$mobileWidth: 320px;
+$mobileWidthS: 320px;
+$mobileWidthL: 450px;
 $tabletWidth: 768px;
 $laptopWidth: 1200px;
 
-@mixin media-mobile {
-  @media screen and (max-width: $mobileWidth) {
+@mixin media-mobileS {
+  @media screen and (max-width: $mobileWidthS) {
+    @content;
+  }
+}
+
+@mixin media-mobileL {
+  @media screen and (max-width: $mobileWidthL) {
     @content;
   }
 }

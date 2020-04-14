@@ -12,12 +12,19 @@
 
   width: 100%;
   padding: 10px 70px;
-  padding-left: 70px;
+
+  @include media-laptop {
+    padding-right: 50px;
+  }
+
+  @include media-tablet {
+    padding-right: 30px;
+  }
 }
 
 .Crown {
   position: absolute;
-  left: 10px;
+  left: 15px;
   top: 50%;
 
   width: 35px;

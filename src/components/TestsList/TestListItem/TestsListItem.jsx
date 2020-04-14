@@ -44,7 +44,7 @@ export default function TestsListItem({
             &times;
           </Button>
           <Button transparent>
-            <img src={editIcon} width="22" alt="Edit" />
+            <img className={classes.EditImg} src={editIcon} alt="Edit" />
           </Button>
         </div>
       )}
