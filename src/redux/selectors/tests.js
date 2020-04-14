@@ -4,6 +4,7 @@ import { sortTypes } from 'constants.js';
 
 const getTestsData = (state) => state.tests.data;
 const getTestsSortType = (state) => state.tests.sortType;
+const getSearchValue = (state) => state.searchTestForm.value;
 
 const getTestsArray = createSelector([getTestsData], (normalizedTests) =>
   denormalizeTests(normalizedTests)
@@ -17,5 +18,13 @@ export const getSortedTests = createSelector(
     } else {
       return tests.sort((a, b) => a.createdAtValue - b.createdAtValue);
     }
+  }
+);
+
+export const getTests = createSelector(
+  [getSortedTests, getSearchValue],
+  (tests, searchValue) => {
+    const search = searchValue.toLowerCase();
+    return tests.filter((test) => test.title.toLowerCase().includes(search));
   }
 );
