@@ -19,6 +19,7 @@ import {
   REQUEST_TEST_DELETING,
   DELETE_TEST,
   CHANGE_TESTS_LIST_SORT_TYPE,
+  CHANGE_SEARCH_TEST_FORM_VALUE,
 } from './actionTypes';
 
 export function startApiRequest() {
@@ -152,5 +153,12 @@ export function deleteTest(id) {
 export function changeTestsListSortType() {
   return {
     type: CHANGE_TESTS_LIST_SORT_TYPE,
+  };
+}
+
+export function changeSearchTestFormInputValue(newValue) {
+  return {
+    type: CHANGE_SEARCH_TEST_FORM_VALUE,
+    payload: { newValue },
   };
 }
