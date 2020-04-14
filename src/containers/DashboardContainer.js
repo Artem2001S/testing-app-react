@@ -21,7 +21,10 @@ const mapDispatchToProps = (dispatch) => ({
       openModalDialog('Are you sure ?', () => dispatch(sendLogoutRequest()))
     ),
   requestTests: () => dispatch(requestTestsFromServer()),
-  onDeleteTest: (id) => dispatch(requestTestDeleting(id)),
+  onDeleteTest: (id) =>
+    dispatch(
+      openModalDialog('Delete test ?', () => dispatch(requestTestDeleting(id)))
+    ),
   sortChange: () => dispatch(changeTestsListSortType()),
 });
 
