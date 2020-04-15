@@ -1,0 +1,67 @@
+@import "sassVariables.scss";
+
+$itemHeight: 37px;
+
+.DropDown {
+  position: relative;
+  padding: 5px;
+  width: 300px;
+  height: $itemHeight;
+}
+
+.Header {
+  display: flex;
+  justify-content: space-between;
+
+  border: 1px solid $green;
+  padding: 0 10px;
+  width: 300px;
+}
+
+.Title {
+  display: flex;
+  align-items: center;
+}
+
+.List {
+  display: none;
+  flex-direction: column;
+
+  position: absolute;
+  
+  &.Dropped {
+    display: flex;
+  }
+}
+
+.Item {
+  display: flex;
+  align-items: center;
+
+  padding: 0 10px;
+  width: 300px;
+  height: $itemHeight;
+
+  border: 1px solid $green;
+  box-sizing: border-box;
+  cursor: pointer;
+  background-color: #ffffff;
+
+  &:hover {
+    background-color: lighten($color: $green, $amount: 52);
+  }
+}
+
+.Arrow {
+  font-size: 30px;
+  line-height: 35px;
+
+  color: $green;
+
+  transition: color 0.3s;
+  cursor: pointer;
+
+  &:hover {
+    color: darken($color: $green, $amount: 9);
+  }
+}
