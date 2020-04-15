@@ -6,6 +6,7 @@ import ModalDialog from 'components/ModalDialog/ModalDialog';
 import TestsList from 'components/TestsList/TestsList';
 import SearchTestInputContainer from 'containers/SearchTestInputContainer';
 import classes from './Dashboard.module.scss';
+import Button from 'components/Button/Button';
 
 export default function Dashboard({
   userData,
@@ -33,6 +34,9 @@ export default function Dashboard({
       <UserPanel userData={userData} onLogout={onLogout} />
       <div className={classes.SearchPanel}>
         <SearchTestInputContainer />
+      </div>
+      <div className={classes.AddButtonWrapper}>
+        <Button>Add test</Button>
       </div>
       <TestsList
         tests={testsList}
