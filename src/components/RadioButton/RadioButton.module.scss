@@ -1,0 +1,40 @@
+@import "sassVariables.scss";
+
+.Radio {
+  display: none;
+}
+
+.Label {
+  position: relative;
+  padding-left: 38px;
+  margin-bottom: 10px;
+
+  height: 25px;
+  display: flex;
+  align-items: center;
+
+  cursor: pointer;
+  user-select: none;
+}
+
+.RadioIcon {
+  position: absolute;
+  left: 2px;
+  top: 2px;
+
+  width: 24px;
+  height: 24px;
+
+  border: 2px solid $green;
+  border-radius: 50%;
+
+  &.Active::after {
+    content: "";
+    @include absoluteCenter;
+    width: 14px;
+    height: 14px;
+
+    border-radius: 50%;
+    background-color: $red;
+  }
+}
