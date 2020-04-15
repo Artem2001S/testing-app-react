@@ -5,6 +5,7 @@ import classes from './Button.module.scss';
 
 export default function Button({
   children,
+  title,
   handleClick,
   secondary,
   transparent,
@@ -15,14 +16,16 @@ export default function Button({
   });
 
   return (
-    <button className={btnClasses} onClick={handleClick}>
+    <button className={btnClasses} title={title} onClick={handleClick}>
       {children}
     </button>
   );
 }
 
 Button.propTypes = {
+  title: PropTypes.string,
   secondary: PropTypes.bool,
+  transparent: PropTypes.bool,
   children: PropTypes.node,
   handleClick: PropTypes.func,
 };
