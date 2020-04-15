@@ -13,7 +13,7 @@ export default function TestsList({
     <div className={classes.TestsListWrapper}>
       <div className={classes.Header}>
         <h2>Tests</h2>
-        <Button transparent handleClick={sortChange}>
+        <Button transparent handleClick={sortChange} title="Change the sorting">
           &darr;&uarr;
         </Button>
       </div>

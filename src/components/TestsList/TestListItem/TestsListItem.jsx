@@ -29,27 +29,24 @@ export default function TestsListItem({
           </sub>
         </span>
       </span>
-      <span className={classes.QuestionsCount}>
-        <img
-          src={questionIcon}
-          width="32"
-          alt="Questions"
-          title="Questions count"
-        />
+      <span className={classes.QuestionsCount} title="Questions count">
+        <img src={questionIcon} width="32" alt="Questions" />
         {questions.length}
       </span>
       {isAdmin && (
         <div className={classes.Actions}>
-          <Button transparent handleClick={deleteTest}>
+          <Button transparent title="Delete" handleClick={deleteTest}>
             &times;
           </Button>
-          <Button transparent>
+          <Button title="Edit" transparent>
             <img className={classes.EditImg} src={editIcon} alt="Edit" />
           </Button>
         </div>
       )}
       <div className={classes.Actions} title="Start">
-        <Button transparent>&rarr;</Button>
+        <Button title="Start the test" transparent>
+          &rarr;
+        </Button>
       </div>
     </div>
   );
