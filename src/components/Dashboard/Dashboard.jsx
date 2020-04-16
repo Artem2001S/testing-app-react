@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Redirect, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import UserPanel from 'components/UserPanel/UserPanel';
 import ModalDialog from 'components/ModalDialog/ModalDialog';
@@ -7,17 +7,21 @@ import TestsList from 'components/TestsList/TestsList';
 import SearchTestInputContainer from 'containers/SearchTestInputContainer';
 import classes from './Dashboard.module.scss';
 import Button from 'components/Button/Button';
+import TextInput from 'components/TextInput/TextInput';
 
 export default function Dashboard({
   userData,
   testsList,
   sortType,
   onLogout,
+  onAdd,
   onDeleteTest,
   requestTests,
   sortChange,
 }) {
   const modalDialogData = useSelector((state) => state.modalDialog);
+
+  const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
     requestTests();
@@ -35,8 +39,12 @@ export default function Dashboard({
       <div className={classes.SearchPanel}>
         <SearchTestInputContainer />
       </div>
-      <div className={classes.AddButtonWrapper}>
-        <Button>Add test</Button>
+      <div className={classes.AddLinkWrapper}>
+        <TextInput
+          value={inputValue}
+          handleChange={(e) => setInputValue(e.target.value)}
+        />
+        <Button handleClick={onAdd.bind(this, inputValue)}>Add test</Button>
       </div>
       <TestsList
         tests={testsList}

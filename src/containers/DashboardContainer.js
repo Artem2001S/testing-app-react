@@ -6,6 +6,7 @@ import {
   requestTestsFromServer,
   requestTestDeleting,
   changeTestsListSortType,
+  requestToAddTest,
 } from 'redux/actions/actionCreators';
 import { getTests } from 'redux/selectors/tests';
 
@@ -26,6 +27,7 @@ const mapDispatchToProps = (dispatch) => ({
       openModalDialog('Delete test ?', () => dispatch(requestTestDeleting(id)))
     ),
   sortChange: () => dispatch(changeTestsListSortType()),
+  onAdd: (title) => dispatch(requestToAddTest(title)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
