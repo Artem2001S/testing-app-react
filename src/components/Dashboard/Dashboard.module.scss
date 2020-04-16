@@ -3,7 +3,7 @@
 .SearchPanel {
   display: flex;
   justify-content: center;
-  
+
   margin-bottom: 20px;
   padding: 20px 0;
 
@@ -13,4 +13,29 @@
     margin-bottom: 10px;
     padding: 10px 0;
   }
+}
+
+.AddLinkWrapper {
+  display: flex;
+  align-items: center;
+  padding: 10px 100px;
+
+  @include media-laptop {
+    padding: 10px 50px;
+  }
+
+  @include media-tablet {
+    padding: 18px 10px;
+  }
+}
+
+.LinkToAddTest {
+  padding: 10px;
+
+  background-color: $green;
+
+  color: #fefefe;
+  border-radius: 8px;
+  font-size: 17px;
+  text-decoration: none;
 }

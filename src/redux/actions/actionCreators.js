@@ -20,6 +20,8 @@ import {
   DELETE_TEST,
   CHANGE_TESTS_LIST_SORT_TYPE,
   CHANGE_SEARCH_TEST_FORM_VALUE,
+  REQUEST_TO_ADD_TEST,
+  ADD_TEST,
 } from './actionTypes';
 
 export function startApiRequest() {
@@ -133,6 +135,20 @@ export function getTests(tests) {
   return {
     type: GET_TESTS,
     payload: tests,
+  };
+}
+
+export function requestToAddTest(title) {
+  return {
+    type: REQUEST_TO_ADD_TEST,
+    payload: title,
+  };
+}
+
+export function addTest(test) {
+  return {
+    type: ADD_TEST,
+    payload: test,
   };
 }
 

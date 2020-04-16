@@ -56,3 +56,14 @@ export function validateRegistrationForm(inputs) {
 
   return validationStatus;
 }
+
+export function convertTestObject(test) {
+  const convertedTest = {
+    ...test,
+    createdAt: new Date(test.created_at).toLocaleString(),
+    createdAtValue: new Date(test.created_at).valueOf(),
+  };
+
+  delete convertedTest.created_at;
+  return convertedTest;
+}
