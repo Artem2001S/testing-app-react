@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import UserPanel from 'components/UserPanel/UserPanel';
 import ModalDialog from 'components/ModalDialog/ModalDialog';
 import TestsList from 'components/TestsList/TestsList';
 import SearchTestInputContainer from 'containers/SearchTestInputContainer';
-import classes from './Dashboard.module.scss';
 import Button from 'components/Button/Button';
 import TextInput from 'components/TextInput/TextInput';
+import classes from './Dashboard.module.scss';
 
 export default function Dashboard({
   userData,
