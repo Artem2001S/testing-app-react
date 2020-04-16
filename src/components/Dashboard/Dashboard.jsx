@@ -8,11 +8,14 @@ import SearchTestInputContainer from 'containers/SearchTestInputContainer';
 import Button from 'components/Button/Button';
 import TextInput from 'components/TextInput/TextInput';
 import classes from './Dashboard.module.scss';
+import PaginationButtons from 'components/PaginationButtons/PaginationButtons';
 
 export default function Dashboard({
   userData,
   testsList,
   sortType,
+  currentPage,
+  totalPages,
   onLogout,
   onAdd,
   onDeleteTest,
@@ -21,7 +24,7 @@ export default function Dashboard({
 }) {
   const modalDialogData = useSelector((state) => state.modalDialog);
 
-  const [inputValue, setInputValue] = useState('');
+  const [addInputValue, setAddInputValue] = useState('');
 
   useEffect(() => {
     requestTests();
@@ -41,10 +44,10 @@ export default function Dashboard({
       </div>
       <div className={classes.AddLinkWrapper}>
         <TextInput
-          value={inputValue}
-          handleChange={(e) => setInputValue(e.target.value)}
+          value={addInputValue}
+          handleChange={(e) => setAddInputValue(e.target.value)}
         />
-        <Button handleClick={onAdd.bind(this, inputValue)}>Add test</Button>
+        <Button handleClick={onAdd.bind(this, addInputValue)}>Add test</Button>
       </div>
       <TestsList
         tests={testsList}
@@ -52,6 +55,11 @@ export default function Dashboard({
         isAdmin={userData.isAdmin}
         onDeleteTest={onDeleteTest}
         sortChange={sortChange}
+      />
+      <PaginationButtons
+        totalCount={totalPages}
+        current={currentPage}
+        onItemClick={requestTests}
       />
     </>
   );

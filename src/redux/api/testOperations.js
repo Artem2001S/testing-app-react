@@ -2,11 +2,16 @@ import instance from './instance';
 import { normalizeTests } from 'redux/normalizr/normalizeTests';
 import { convertTestObject } from 'utils';
 
-export async function getTestsFromServer() {
-  const response = await instance.get('/tests');
+export async function getTestsFromServer(page) {
+  const response = await instance.get('/tests', { params: { page } });
   const tests = response.data.tests.map((test) => convertTestObject(test));
 
-  return normalizeTests(tests);
+  const meta = {
+    currentPage: page,
+    totalPages: response.data.meta.total_pages,
+  };
+
+  return { tests: normalizeTests(tests), ...meta };
 }
 
 export async function sendDeleteTestRequest(id) {

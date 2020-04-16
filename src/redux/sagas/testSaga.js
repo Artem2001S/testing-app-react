@@ -24,10 +24,10 @@ export function* watchTest() {
   yield takeEvery(REQUEST_TO_ADD_TEST, addTestWorker);
 }
 
-function* getTestsWorker() {
+function* getTestsWorker({ payload }) {
   try {
     yield put(startApiRequest());
-    const tests = yield call(getTestsFromServer);
+    const tests = yield call(getTestsFromServer, payload);
 
     yield put(getTests(tests));
   } catch (error) {

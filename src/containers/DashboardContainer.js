@@ -12,6 +12,8 @@ import { getTests } from 'redux/selectors/tests';
 
 const mapStateToProps = (state) => ({
   userData: state.currentUserData,
+  currentPage: state.tests.currentPage,
+  totalPages: state.tests.totalPages,
   testsList: getTests(state),
   sortType: state.tests.sortType,
 });
@@ -21,7 +23,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(
       openModalDialog('Are you sure ?', () => dispatch(sendLogoutRequest()))
     ),
-  requestTests: () => dispatch(requestTestsFromServer()),
+  requestTests: (page = 1) => dispatch(requestTestsFromServer(page)),
   onDeleteTest: (id) =>
     dispatch(
       openModalDialog('Delete test ?', () => dispatch(requestTestDeleting(id)))

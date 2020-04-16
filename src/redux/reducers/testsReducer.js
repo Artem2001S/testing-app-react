@@ -16,12 +16,19 @@ const initialState = {
     result: [],
   },
   sortType: sortTypes.descending,
+  currentPage: 1,
+  totalPages: 1,
 };
 
 export default function testsReducer(state = initialState, { payload, type }) {
   switch (type) {
     case GET_TESTS:
-      return { ...state, data: payload };
+      return {
+        ...state,
+        data: payload.tests,
+        currentPage: payload.currentPage,
+        totalPages: payload.totalPages,
+      };
     case ADD_TEST:
       return {
         ...state,
