@@ -3,15 +3,38 @@
 .SearchPanel {
   display: flex;
   justify-content: center;
+  align-items: center;
 
   margin-bottom: 20px;
   padding: 20px 0;
 
   border-bottom: 1px dashed $green;
 
+  & form {
+    position: static;
+    transform: none;
+  }
+
   @include media-tablet {
     margin-bottom: 10px;
     padding: 10px 0;
+  }
+}
+
+.Pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  padding: 10px 100px;
+
+  @include media-laptop {
+    padding: 10px 50px;
+  }
+
+  @include media-tablet {
+    padding: 18px 10px;
   }
 }
 
@@ -26,16 +49,6 @@
 
   @include media-tablet {
     padding: 18px 10px;
+    flex-direction: column;
   }
-}
-
-.LinkToAddTest {
-  padding: 10px;
-
-  background-color: $green;
-
-  color: #fefefe;
-  border-radius: 8px;
-  font-size: 17px;
-  text-decoration: none;
 }

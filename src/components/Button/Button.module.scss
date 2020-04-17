@@ -32,6 +32,10 @@
     }
   }
 
+  &.Disabled {
+    cursor: not-allowed;
+  }
+
   &.TransparentBtn {
     border: none;
     outline: none;

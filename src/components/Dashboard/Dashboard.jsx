@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import UserPanel from 'components/UserPanel/UserPanel';
 import ModalDialog from 'components/ModalDialog/ModalDialog';
 import TestsList from 'components/TestsList/TestsList';
-import SearchTestInputContainer from 'containers/SearchTestInputContainer';
-import classes from './Dashboard.module.scss';
+import SearchTestFormContainer from 'containers/SearchTestFormContainer';
 import Button from 'components/Button/Button';
 import TextInput from 'components/TextInput/TextInput';
+import classes from './Dashboard.module.scss';
+import PaginationButtons from 'components/PaginationButtons/PaginationButtons';
 
 export default function Dashboard({
   userData,
   testsList,
   sortType,
+  currentPage,
+  totalPages,
   onLogout,
+  onSearch,
   onAdd,
   onDeleteTest,
   requestTests,
@@ -21,7 +25,7 @@ export default function Dashboard({
 }) {
   const modalDialogData = useSelector((state) => state.modalDialog);
 
-  const [inputValue, setInputValue] = useState('');
+  const [addInputValue, setAddInputValue] = useState('');
 
   useEffect(() => {
     requestTests();
@@ -37,14 +41,14 @@ export default function Dashboard({
       {modalDialogData.isOpen && <ModalDialog title={modalDialogData.title} />}
       <UserPanel userData={userData} onLogout={onLogout} />
       <div className={classes.SearchPanel}>
-        <SearchTestInputContainer />
+        <SearchTestFormContainer />
       </div>
       <div className={classes.AddLinkWrapper}>
         <TextInput
-          value={inputValue}
-          handleChange={(e) => setInputValue(e.target.value)}
+          value={addInputValue}
+          handleChange={(e) => setAddInputValue(e.target.value)}
         />
-        <Button handleClick={onAdd.bind(this, inputValue)}>Add test</Button>
+        <Button handleClick={onAdd.bind(this, addInputValue)}>Add test</Button>
       </div>
       <TestsList
         tests={testsList}
@@ -53,6 +57,13 @@ export default function Dashboard({
         onDeleteTest={onDeleteTest}
         sortChange={sortChange}
       />
+      <div className={classes.Pagination}>
+        <PaginationButtons
+          totalCount={totalPages}
+          current={currentPage}
+          onItemClick={requestTests}
+        />
+      </div>
     </>
   );
 }

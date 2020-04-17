@@ -9,14 +9,21 @@ export default function Button({
   handleClick,
   secondary,
   transparent,
+  disabled,
 }) {
   const btnClasses = classNames(classes.Button, {
     [classes.SecondaryBtn]: secondary,
     [classes.TransparentBtn]: transparent,
+    [classes.Disabled]: disabled,
   });
 
   return (
-    <button className={btnClasses} title={title} onClick={handleClick}>
+    <button
+      className={btnClasses}
+      title={title}
+      disabled={disabled}
+      onClick={handleClick}
+    >
       {children}
     </button>
   );
@@ -26,6 +33,7 @@ Button.propTypes = {
   title: PropTypes.string,
   secondary: PropTypes.bool,
   transparent: PropTypes.bool,
+  disabled: PropTypes.bool,
   children: PropTypes.node,
   handleClick: PropTypes.func,
 };

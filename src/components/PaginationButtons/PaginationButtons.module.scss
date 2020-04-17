@@ -1,0 +1,16 @@
+@import "sassVariables.scss";
+
+.Pagination {
+  display: flex;
+}
+
+.PaginationItem {
+  border: 1px solid $green;
+  border-radius: 8px;
+  margin-right: 5px;
+}
+
+.Current {
+  font-weight: bold;
+  color: $red;
+}
