@@ -3,7 +3,14 @@ import { normalizeTests } from 'redux/normalizr/normalizeTests';
 import { convertTestObject } from 'utils';
 
 export async function getTestsFromServer({ page, search }) {
-  const response = await instance.get('/tests', { params: { page, search } });
+  let response = await instance.get('/tests', { params: { page, search } });
+
+  // if no tests are found on the searching page then search tests in first page
+  if (response.data.tests.length === 0 && page !== 1) {
+    page = 1;
+    response = await instance.get('/tests', { params: { page, search } });
+  }
+
   const tests = response.data.tests.map((test) => convertTestObject(test));
 
   const meta = {
