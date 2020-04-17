@@ -14,6 +14,7 @@ const mapStateToProps = (state) => ({
   userData: state.currentUserData,
   currentPage: state.tests.currentPage,
   totalPages: state.tests.totalPages,
+  searchInputValue: state.searchTestForm.value,
   testsList: getTests(state),
   sortType: state.tests.sortType,
 });
@@ -23,7 +24,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(
       openModalDialog('Are you sure ?', () => dispatch(sendLogoutRequest()))
     ),
-  requestTests: (page = 1) => dispatch(requestTestsFromServer(page)),
+  requestTests: (page = 1, searchValue) =>
+    dispatch(requestTestsFromServer(page, searchValue || '')),
   onDeleteTest: (id) =>
     dispatch(
       openModalDialog('Delete test ?', () => dispatch(requestTestDeleting(id)))
@@ -32,4 +34,16 @@ const mapDispatchToProps = (dispatch) => ({
   onAdd: (title) => dispatch(requestToAddTest(title)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+const mergeProps = (stateProps, dispatchProps) => ({
+  ...stateProps,
+  ...dispatchProps,
+  requestTests: (page, searchValue) => {
+    dispatchProps.requestTests(page, stateProps.searchInputValue);
+  },
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  mergeProps
+)(Dashboard);

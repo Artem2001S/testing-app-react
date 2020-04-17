@@ -2,8 +2,8 @@ import instance from './instance';
 import { normalizeTests } from 'redux/normalizr/normalizeTests';
 import { convertTestObject } from 'utils';
 
-export async function getTestsFromServer(page) {
-  const response = await instance.get('/tests', { params: { page } });
+export async function getTestsFromServer({ page, search }) {
+  const response = await instance.get('/tests', { params: { page, search } });
   const tests = response.data.tests.map((test) => convertTestObject(test));
 
   const meta = {

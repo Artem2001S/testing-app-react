@@ -27,6 +27,7 @@ export function* watchTest() {
 function* getTestsWorker({ payload }) {
   try {
     yield put(startApiRequest());
+
     const tests = yield call(getTestsFromServer, payload);
 
     yield put(getTests(tests));

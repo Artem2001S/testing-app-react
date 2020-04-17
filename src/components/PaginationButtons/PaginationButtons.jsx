@@ -17,7 +17,7 @@ export default function PaginationButtons({
           <Button
             disabled={current === index + 1}
             transparent
-            handleClick={onItemClick.bind(this, index + 1)}
+            handleClick={() => onItemClick(index + 1)}
           >
             {current === index + 1 ? (
               <div className={classes.Current}>{index + 1}</div>

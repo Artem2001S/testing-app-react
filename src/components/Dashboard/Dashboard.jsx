@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import UserPanel from 'components/UserPanel/UserPanel';
 import ModalDialog from 'components/ModalDialog/ModalDialog';
 import TestsList from 'components/TestsList/TestsList';
-import SearchTestInputContainer from 'containers/SearchTestInputContainer';
+import SearchTestFormContainer from 'containers/SearchTestFormContainer';
 import Button from 'components/Button/Button';
 import TextInput from 'components/TextInput/TextInput';
 import classes from './Dashboard.module.scss';
@@ -17,6 +17,7 @@ export default function Dashboard({
   currentPage,
   totalPages,
   onLogout,
+  onSearch,
   onAdd,
   onDeleteTest,
   requestTests,
@@ -40,7 +41,7 @@ export default function Dashboard({
       {modalDialogData.isOpen && <ModalDialog title={modalDialogData.title} />}
       <UserPanel userData={userData} onLogout={onLogout} />
       <div className={classes.SearchPanel}>
-        <SearchTestInputContainer />
+        <SearchTestFormContainer />
       </div>
       <div className={classes.AddLinkWrapper}>
         <TextInput
@@ -56,11 +57,13 @@ export default function Dashboard({
         onDeleteTest={onDeleteTest}
         sortChange={sortChange}
       />
-      <PaginationButtons
-        totalCount={totalPages}
-        current={currentPage}
-        onItemClick={requestTests}
-      />
+      <div className={classes.Pagination}>
+        <PaginationButtons
+          totalCount={totalPages}
+          current={currentPage}
+          onItemClick={requestTests}
+        />
+      </div>
     </>
   );
 }

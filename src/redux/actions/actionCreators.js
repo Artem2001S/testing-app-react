@@ -125,10 +125,10 @@ export function closeModalDialog() {
 
 // Tests
 
-export function requestTestsFromServer(page = 1) {
+export function requestTestsFromServer(page = 1, search = '') {
   return {
     type: REQUEST_TESTS_FROM_SERVER,
-    payload: page,
+    payload: { page, search },
   };
 }
 
