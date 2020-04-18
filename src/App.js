@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Loader from 'components/Loader/Loader';
 import Error from 'components/Error/Error';
 import { getError } from 'redux/actions/actionCreators';
+import TestEditingPage from 'pages/TestEditingPage';
 
 function App() {
   const isLoading = useSelector((state) => state.UIData.isLoading);
@@ -29,11 +30,14 @@ function App() {
           <Route path="/" exact>
             <AuthPage />
           </Route>
-          <Route path="/registration">
+          <Route path="/registration" exact>
             <RegistrationPage />
           </Route>
-          <Route path="/dashboard">
+          <Route path="/dashboard" exact>
             <DashboardPage />
+          </Route>
+          <Route path="/tests/:id" exact>
+            <TestEditingPage />
           </Route>
           <Route path="*">
             <Redirect to="/" />

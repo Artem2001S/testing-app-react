@@ -15,9 +15,9 @@ export default function Dashboard({
   testsList,
   sortType,
   currentPage,
+  lastTestAddedId,
   totalPages,
   onLogout,
-  onSearch,
   onAdd,
   onDeleteTest,
   requestTests,
@@ -34,6 +34,11 @@ export default function Dashboard({
 
   if (!userData.isAuthorized) {
     return <Redirect to="/" />;
+  }
+
+  // redirect after test adding
+  if (lastTestAddedId !== -1) {
+    return <Redirect to={`/tests/${lastTestAddedId}`} />;
   }
 
   return (

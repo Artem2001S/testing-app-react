@@ -17,6 +17,7 @@ const mapStateToProps = (state) => ({
   searchInputValue: state.searchTestForm.value,
   testsList: getTests(state),
   sortType: state.tests.sortType,
+  lastTestAddedId: state.tests.lastTestAddedId,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -37,9 +38,8 @@ const mapDispatchToProps = (dispatch) => ({
 const mergeProps = (stateProps, dispatchProps) => ({
   ...stateProps,
   ...dispatchProps,
-  requestTests: (page, searchValue) => {
-    dispatchProps.requestTests(page, stateProps.searchInputValue);
-  },
+  requestTests: (page) =>
+    dispatchProps.requestTests(page, stateProps.searchInputValue),
 });
 
 export default connect(

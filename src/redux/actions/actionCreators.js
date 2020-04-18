@@ -22,6 +22,7 @@ import {
   CHANGE_SEARCH_TEST_FORM_VALUE,
   REQUEST_TO_ADD_TEST,
   ADD_TEST,
+  CLEAR_LAST_ADDED_TEST_ID,
 } from './actionTypes';
 
 export function startApiRequest() {
@@ -150,6 +151,12 @@ export function addTest(test) {
   return {
     type: ADD_TEST,
     payload: test,
+  };
+}
+
+export function clearLastAddedTestId() {
+  return {
+    type: CLEAR_LAST_ADDED_TEST_ID,
   };
 }
 
