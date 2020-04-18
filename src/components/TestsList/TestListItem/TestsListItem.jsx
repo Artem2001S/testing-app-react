@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import questionIcon from './question.svg';
 import editIcon from './edit.svg';
@@ -17,8 +17,6 @@ export default function TestsListItem({
     [classes.WithoutActions]: !isAdmin,
   });
 
-  const deleteTest = useCallback(() => onDeleteTest(id), [id, onDeleteTest]);
-
   return (
     <div className={itemClasses}>
       <span className={classes.Title} title="Title">
@@ -35,10 +33,10 @@ export default function TestsListItem({
       </span>
       {isAdmin && (
         <div className={classes.Actions}>
-          <Button transparent title="Delete" handleClick={deleteTest}>
+          <Button transparent title="Delete" handleClick={onDeleteTest}>
             &times;
           </Button>
-          <Button title="Edit" transparent>
+          <Button title="Edit" href={`/tests/${id}`} transparent>
             <img className={classes.EditImg} src={editIcon} alt="Edit" />
           </Button>
         </div>

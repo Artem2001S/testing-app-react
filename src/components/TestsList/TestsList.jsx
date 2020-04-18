@@ -22,7 +22,7 @@ export default function TestsList({
           <TestsListItem
             key={test.id}
             isAdmin={isAdmin}
-            onDeleteTest={onDeleteTest}
+            onDeleteTest={onDeleteTest.bind(this, test.id)}
             {...test}
           />
         ))}
