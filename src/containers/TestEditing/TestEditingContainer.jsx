@@ -11,9 +11,10 @@ export function TestEditingContainer({ isAfterCreating }) {
 
   useEffect(() => {
     if (isAfterCreating) {
-      // delete lastTestAddedId from state
+      // delete last test added Id from state
       dispatch(clearLastAddedTestId());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (isNaN(id)) {
