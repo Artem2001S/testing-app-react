@@ -48,7 +48,11 @@ export async function getCurrentUserData() {
   try {
     const result = await instance.get('/users/current');
 
-    return { isAuthorized: true, user: result.data };
+    return {
+      isAuthorized: true,
+      user: result.data,
+      isAdmin: result.data.is_admin,
+    };
   } catch (error) {
     return { isAuthorized: false };
   }

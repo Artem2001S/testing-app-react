@@ -9,6 +9,7 @@ import {
   requestToAddTest,
 } from 'redux/actions/actionCreators';
 import { getTests } from 'redux/selectors/tests';
+import withUserAuthentication from 'components/hoc/withUserAuthentication';
 
 const mapStateToProps = (state) => ({
   userData: state.currentUserData,
@@ -46,4 +47,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps,
   mergeProps
-)(Dashboard);
+)(withUserAuthentication(Dashboard));

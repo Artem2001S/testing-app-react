@@ -6,6 +6,7 @@ import {
   requestTestInfo,
 } from 'redux/actions/actionCreators';
 import { getTest } from 'redux/selectors/test';
+import withUserAuthentication from 'components/hoc/withUserAuthentication';
 
 export function TestEditingContainer({ isAfterCreating, test }) {
   const params = useParams();
@@ -31,7 +32,7 @@ export function TestEditingContainer({ isAfterCreating, test }) {
   }
 
   return (
-    <div>{test.id === -1 ? <div>Not found</div> : <div>{test.title}</div>}</div>
+    <>{test.id === -1 ? <h1>Test not found</h1> : <div>{test.title}</div>}</>
   );
 }
 
@@ -45,4 +46,4 @@ const mapDispatchToProps = (dispatch) => ({});
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TestEditingContainer);
+)(withUserAuthentication(TestEditingContainer, true));
