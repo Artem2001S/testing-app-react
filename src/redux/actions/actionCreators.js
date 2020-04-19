@@ -23,6 +23,8 @@ import {
   REQUEST_TO_ADD_TEST,
   ADD_TEST,
   CLEAR_LAST_ADDED_TEST_ID,
+  REQUEST_TEST_INFO,
+  GET_TEST_INFO,
 } from './actionTypes';
 
 export function startApiRequest() {
@@ -184,5 +186,21 @@ export function changeSearchTestFormInputValue(newValue) {
   return {
     type: CHANGE_SEARCH_TEST_FORM_VALUE,
     payload: { newValue },
+  };
+}
+
+// test editing
+
+export function requestTestInfo(id) {
+  return {
+    type: REQUEST_TEST_INFO,
+    payload: id,
+  };
+}
+
+export function getTestInfo(data) {
+  return {
+    type: GET_TEST_INFO,
+    payload: data,
   };
 }

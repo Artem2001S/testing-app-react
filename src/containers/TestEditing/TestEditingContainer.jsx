@@ -1,9 +1,13 @@
 import React, { useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { clearLastAddedTestId } from 'redux/actions/actionCreators';
+import {
+  clearLastAddedTestId,
+  requestTestInfo,
+} from 'redux/actions/actionCreators';
+import { getTest } from 'redux/selectors/test';
 
-export function TestEditingContainer({ isAfterCreating }) {
+export function TestEditingContainer({ isAfterCreating, test }) {
   const params = useParams();
   const dispatch = useDispatch();
 
@@ -14,6 +18,11 @@ export function TestEditingContainer({ isAfterCreating }) {
       // delete last test added Id from state
       dispatch(clearLastAddedTestId());
     }
+
+    if (!isNaN(id)) {
+      dispatch(requestTestInfo(id));
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -21,11 +30,14 @@ export function TestEditingContainer({ isAfterCreating }) {
     return <h1>Incorrect ID</h1>;
   }
 
-  return <div>Page {id}</div>;
+  return (
+    <div>{test.id === -1 ? <div>Not found</div> : <div>{test.title}</div>}</div>
+  );
 }
 
 const mapStateToProps = (state) => ({
   isAfterCreating: state.tests.lastTestAddedId !== -1,
+  test: getTest(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({});
