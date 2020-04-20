@@ -13,14 +13,17 @@ import Loader from 'components/Loader/Loader';
 import Error from 'components/Error/Error';
 import { getError } from 'redux/actions/actionCreators';
 import TestEditingPage from 'pages/TestEditingPage';
+import ModalDialog from 'components/ModalDialog/ModalDialog';
 
 function App() {
   const isLoading = useSelector((state) => state.UIData.isLoading);
   const errorMessage = useSelector((state) => state.UIData.errors);
+  const modalDialogData = useSelector((state) => state.modalDialog);
   const dispatch = useDispatch();
 
   return (
     <>
+      {modalDialogData.isOpen && <ModalDialog title={modalDialogData.title} />}
       {isLoading && <Loader />}
       {errorMessage && (
         <Error message={errorMessage} hide={() => dispatch(getError(''))} />

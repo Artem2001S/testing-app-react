@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import {
   clearLastAddedTestId,
   requestTestInfo,
@@ -39,7 +39,12 @@ export function TestEditingContainer({ isAfterCreating, test }) {
   return (
     <>
       {test.id === -1 ? (
-        <h1>Test not found</h1>
+        <div>
+          <h1>Test not found</h1>
+          <h2>
+            Go to: <Link to="/dashboard">dashboard</Link>
+          </h2>
+        </div>
       ) : (
         <div>
           <EditTestInfo />

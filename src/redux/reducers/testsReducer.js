@@ -45,11 +45,6 @@ export default function testsReducer(state = initialState, { payload, type }) {
       };
     case CLEAR_LAST_ADDED_TEST_ID:
       return { ...state, lastTestAddedId: -1 };
-    case DELETE_TEST:
-      const newData = { ...state.data };
-      delete newData.entities.tests[payload];
-      newData.result = newData.result.filter((testId) => testId !== payload);
-      return { ...state, data: newData };
     case CHANGE_TESTS_LIST_SORT_TYPE:
       return {
         ...state,

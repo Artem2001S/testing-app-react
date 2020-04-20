@@ -17,7 +17,6 @@ import {
   REQUEST_TESTS_FROM_SERVER,
   GET_TESTS,
   REQUEST_TEST_DELETING,
-  DELETE_TEST,
   CHANGE_TESTS_LIST_SORT_TYPE,
   CHANGE_SEARCH_TEST_FORM_VALUE,
   REQUEST_TO_ADD_TEST,
@@ -175,13 +174,6 @@ export function clearLastAddedTestId() {
 export function requestTestDeleting(id) {
   return {
     type: REQUEST_TEST_DELETING,
-    payload: id,
-  };
-}
-
-export function deleteTest(id) {
-  return {
-    type: DELETE_TEST,
     payload: id,
   };
 }

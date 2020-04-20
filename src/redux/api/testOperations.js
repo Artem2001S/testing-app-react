@@ -23,7 +23,14 @@ export async function getTestsFromServer({ page, search }) {
 
 export async function sendDeleteTestRequest(id) {
   await instance.delete(`/tests/${id}`);
-  return { isSuccess: true };
+
+  return normalizeTest({
+    id: -1,
+    title: '',
+    questions: [],
+    createdAt: '0',
+    createdAtValue: 1,
+  });
 }
 
 export async function sendRequestToAddTest(title) {

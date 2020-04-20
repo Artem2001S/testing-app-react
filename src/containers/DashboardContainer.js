@@ -4,7 +4,6 @@ import {
   openModalDialog,
   sendLogoutRequest,
   requestTestsFromServer,
-  requestTestDeleting,
   changeTestsListSortType,
   requestToAddTest,
 } from 'redux/actions/actionCreators';
@@ -28,10 +27,6 @@ const mapDispatchToProps = (dispatch) => ({
     ),
   requestTests: (page = 1, searchValue) =>
     dispatch(requestTestsFromServer(page, searchValue || '')),
-  onDeleteTest: (id) =>
-    dispatch(
-      openModalDialog('Delete test ?', () => dispatch(requestTestDeleting(id)))
-    ),
   sortChange: () => dispatch(changeTestsListSortType()),
   onAdd: (title) => dispatch(requestToAddTest(title)),
 });

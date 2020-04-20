@@ -11,7 +11,6 @@ export default function TestsListItem({
   questions,
   createdAt,
   isAdmin,
-  onDeleteTest,
 }) {
   const itemClasses = classNames(classes.Item, {
     [classes.WithoutActions]: !isAdmin,
@@ -33,9 +32,6 @@ export default function TestsListItem({
       </span>
       {isAdmin && (
         <div className={classes.Actions}>
-          <Button transparent title="Delete" handleClick={onDeleteTest}>
-            &times;
-          </Button>
           <Button title="Edit" href={`/tests/${id}`} transparent>
             <img className={classes.EditImg} src={editIcon} alt="Edit" />
           </Button>

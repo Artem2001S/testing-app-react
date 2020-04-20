@@ -23,8 +23,6 @@ export default function Dashboard({
   requestTests,
   sortChange,
 }) {
-  const modalDialogData = useSelector((state) => state.modalDialog);
-
   const [addInputValue, setAddInputValue] = useState('');
 
   useEffect(() => {
@@ -43,7 +41,6 @@ export default function Dashboard({
 
   return (
     <>
-      {modalDialogData.isOpen && <ModalDialog title={modalDialogData.title} />}
       <UserPanel userData={userData} onLogout={onLogout} />
       <div className={classes.SearchPanel}>
         <SearchTestFormContainer />

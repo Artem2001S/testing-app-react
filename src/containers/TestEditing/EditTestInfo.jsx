@@ -4,6 +4,8 @@ import {
   changeTitleInputValue,
   sendRequestToUpdateTest,
   getError,
+  openModalDialog,
+  requestTestDeleting,
 } from 'redux/actions/actionCreators';
 import TextInput from 'components/TextInput/TextInput';
 import Button from 'components/Button/Button';
@@ -35,6 +37,10 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   changeInputValue: (e) => dispatch(changeTitleInputValue(e.target.value)),
   putError: (message) => dispatch(getError(message)),
+  onDelete: (id) =>
+    dispatch(
+      openModalDialog('Delete test ?', () => dispatch(requestTestDeleting(id)))
+    ),
   requestToUpdateTest: (id, data) =>
     dispatch(sendRequestToUpdateTest(id, data)),
 });
@@ -53,6 +59,7 @@ const mergeProps = (stateProps, dispatchProps) => {
         title: stateProps.input.value.trim(),
       });
     },
+    onDelete: () => dispatchProps.onDelete(stateProps.testId),
   };
 };
 

@@ -12,7 +12,6 @@ import {
   getError,
   getTests,
   getTestInfo,
-  deleteTest,
   addTest,
 } from 'redux/actions/actionCreators';
 import {
@@ -48,8 +47,9 @@ function* getTestsWorker({ payload }) {
 function* deleteTestWorker({ payload }) {
   try {
     yield put(startApiRequest());
-    yield call(sendDeleteTestRequest, payload);
-    yield put(deleteTest(payload));
+    const test = yield call(sendDeleteTestRequest, payload);
+
+    yield put(getTestInfo(test));
   } catch (error) {
     yield put(error.message);
   }
