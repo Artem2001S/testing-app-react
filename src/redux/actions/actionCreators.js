@@ -25,6 +25,7 @@ import {
   CLEAR_LAST_ADDED_TEST_ID,
   REQUEST_TEST_INFO,
   GET_TEST_INFO,
+  CHANGE_IS_AUTHORIZED_STATUS,
 } from './actionTypes';
 
 export function startApiRequest() {
@@ -96,6 +97,13 @@ export function sendLogoutRequest() {
 export function sendGetCurrentUserRequest() {
   return {
     type: SEND_GET_CURRENT_USER_REQUEST,
+  };
+}
+
+export function changeIsAuthorizedStatus(value) {
+  return {
+    type: CHANGE_IS_AUTHORIZED_STATUS,
+    payload: value,
   };
 }
 

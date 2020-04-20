@@ -1,7 +1,11 @@
-import { SIGN_IN, SUCCESS_LOGOUT } from 'redux/actions/actionTypes';
+import {
+  SIGN_IN,
+  SUCCESS_LOGOUT,
+  CHANGE_IS_AUTHORIZED_STATUS,
+} from 'redux/actions/actionTypes';
 
 const initialState = {
-  isAuthorized: false,
+  isAuthorized: true,
   login: '',
   isAdmin: false,
 };
@@ -23,6 +27,11 @@ export default function currentUserDataReducer(
         ...state,
         login: '',
         isAuthorized: false,
+      };
+    case CHANGE_IS_AUTHORIZED_STATUS:
+      return {
+        ...state,
+        isAuthorized: payload,
       };
     default:
       return state;

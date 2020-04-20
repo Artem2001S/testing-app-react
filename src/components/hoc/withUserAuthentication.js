@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux';
 import {
   startApiRequest,
   finishApiRequest,
+  changeIsAuthorizedStatus,
+  signIn,
 } from 'redux/actions/actionCreators';
 import { Link } from 'react-router-dom';
 
@@ -13,16 +15,23 @@ export default function withUserAuthentication(
 ) {
   return function (props) {
     const dispatch = useDispatch();
+
     const [authorizationInfo, setAuthorizationInfo] = useState({});
     const [isDataReceived, setIsDataReceived] = useState(false);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
       dispatch(startApiRequest());
+
       getCurrentUserData().then((authInfo) => {
         dispatch(finishApiRequest());
         setAuthorizationInfo(authInfo);
         setIsDataReceived(true);
+
+        if (!authInfo.isAuthorized) {
+          dispatch(changeIsAuthorizedStatus(false));
+        } else {
+          dispatch(signIn(authInfo.user));
+        }
       });
 
       // eslint-disable-next-line react-hooks/exhaustive-deps
