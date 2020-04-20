@@ -27,6 +27,8 @@ import {
   CHANGE_IS_AUTHORIZED_STATUS,
   CHANGE_TITLE_INPUT_VALUE,
   REQUEST_TO_UPDATE_TEST,
+  REQUEST_TO_DELETE_QUESTION,
+  DELETE_QUESTION_SUCCESS,
 } from './actionTypes';
 
 export function startApiRequest() {
@@ -218,5 +220,19 @@ export function sendRequestToUpdateTest(id, data) {
   return {
     type: REQUEST_TO_UPDATE_TEST,
     payload: { id, data },
+  };
+}
+
+export function sendRequestToDeleteQuestion(id) {
+  return {
+    type: REQUEST_TO_DELETE_QUESTION,
+    payload: id,
+  };
+}
+
+export function deleteQuestionSuccess(id) {
+  return {
+    type: DELETE_QUESTION_SUCCESS,
+    payload: id,
   };
 }

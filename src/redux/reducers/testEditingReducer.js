@@ -1,6 +1,7 @@
 import {
   GET_TEST_INFO,
   CHANGE_TITLE_INPUT_VALUE,
+  DELETE_QUESTION_SUCCESS,
 } from 'redux/actions/actionTypes';
 
 const initialState = {
@@ -31,6 +32,18 @@ export default function testEditingPageReducer(
           titleEditing: { ...state.inputsData.titleEditing, value: testTitle },
         },
       };
+    case DELETE_QUESTION_SUCCESS:
+      const newEntities = { ...state.entities };
+      delete newEntities.questions[payload];
+
+      // delete question reference
+      newEntities.tests[state.result].questions = newEntities.tests[
+        state.result
+      ].questions.filter((questionId) => questionId !== payload);
+
+      console.log(newEntities);
+      console.log({ ...state, entities: newEntities });
+      return { ...state, entities: newEntities };
     case CHANGE_TITLE_INPUT_VALUE:
       return {
         ...state,

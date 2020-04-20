@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import UserPanel from 'components/UserPanel/UserPanel';
-import ModalDialog from 'components/ModalDialog/ModalDialog';
 import TestsList from 'components/TestsList/TestsList';
 import SearchTestFormContainer from 'containers/SearchTestFormContainer';
 import Button from 'components/Button/Button';

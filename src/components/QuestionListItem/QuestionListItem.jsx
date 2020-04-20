@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './QuestionListItem.module.scss';
 import Button from 'components/Button/Button';
 
-export default function QuestionListItem({ title, type }) {
+export default function QuestionListItem({ title, type, onDelete }) {
   return (
     <div className={classes.QuestionListItem}>
       <span className={classes.Title} title="Title">
@@ -17,7 +17,7 @@ export default function QuestionListItem({ title, type }) {
         <Button title="Edit" transparent>
           Edit
         </Button>
-        <Button title="Delete" transparent>
+        <Button title="Delete" transparent handleClick={onDelete}>
           &times;
         </Button>
       </div>
