@@ -10,6 +10,7 @@ export default function Button({
   href,
   secondary,
   transparent,
+  dangerous,
   disabled,
   handleClick,
 }) {
@@ -17,6 +18,7 @@ export default function Button({
     [classes.SecondaryBtn]: secondary,
     [classes.TransparentBtn]: transparent,
     [classes.Disabled]: disabled,
+    [classes.Dangerous]: dangerous,
   });
 
   return (

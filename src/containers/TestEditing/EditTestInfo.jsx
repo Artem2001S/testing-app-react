@@ -27,7 +27,9 @@ function EditTestInfo({
       />
       <List centered>
         <Button handleClick={onTestTitleUpdate}>Save title</Button>
-        <Button handleClick={onDelete}>Delete test</Button>
+        <Button dangerous handleClick={onDelete}>
+          Delete test
+        </Button>
       </List>
     </List>
   );
