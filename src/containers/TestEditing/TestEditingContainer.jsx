@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import {
@@ -29,6 +29,10 @@ export function TestEditingContainer({ isAfterCreating, test }) {
 
   if (isNaN(id)) {
     return <h1>Incorrect ID</h1>;
+  }
+
+  if (!test) {
+    return <h1>Loading data...</h1>;
   }
 
   return (
