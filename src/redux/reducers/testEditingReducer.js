@@ -1,4 +1,7 @@
-import { GET_TEST_INFO } from 'redux/actions/actionTypes';
+import {
+  GET_TEST_INFO,
+  CHANGE_TITLE_INPUT_VALUE,
+} from 'redux/actions/actionTypes';
 
 const initialState = {
   entities: {
@@ -7,6 +10,9 @@ const initialState = {
     tests: {},
   },
   result: -1,
+  inputsData: {
+    titleEditing: { label: 'Title', name: 'test_title', value: '' },
+  },
 };
 
 export default function testEditingPageReducer(
@@ -15,7 +21,24 @@ export default function testEditingPageReducer(
 ) {
   switch (type) {
     case GET_TEST_INFO:
-      return { ...state, ...payload };
+      const testTitle = payload.entities.tests[payload.result].title;
+
+      return {
+        ...state,
+        ...payload,
+        inputsData: {
+          ...state.inputsData,
+          titleEditing: { ...state.inputsData.titleEditing, value: testTitle },
+        },
+      };
+    case CHANGE_TITLE_INPUT_VALUE:
+      return {
+        ...state,
+        inputsData: {
+          ...state.inputsData,
+          titleEditing: { ...state.inputsData.titleEditing, value: payload },
+        },
+      };
     default:
       return state;
   }

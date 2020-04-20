@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import {
@@ -7,6 +7,7 @@ import {
 } from 'redux/actions/actionCreators';
 import { getTest } from 'redux/selectors/test';
 import withUserAuthentication from 'components/hoc/withUserAuthentication';
+import EditTestInfo from './EditTestInfo';
 
 export function TestEditingContainer({ isAfterCreating, test }) {
   const params = useParams();
@@ -36,7 +37,15 @@ export function TestEditingContainer({ isAfterCreating, test }) {
   }
 
   return (
-    <>{test.id === -1 ? <h1>Test not found</h1> : <div>{test.title}</div>}</>
+    <>
+      {test.id === -1 ? (
+        <h1>Test not found</h1>
+      ) : (
+        <div>
+          <EditTestInfo />
+        </div>
+      )}
+    </>
   );
 }
 

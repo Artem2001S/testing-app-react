@@ -26,6 +26,8 @@ import {
   REQUEST_TEST_INFO,
   GET_TEST_INFO,
   CHANGE_IS_AUTHORIZED_STATUS,
+  CHANGE_TITLE_INPUT_VALUE,
+  REQUEST_TO_UPDATE_TEST,
 } from './actionTypes';
 
 export function startApiRequest() {
@@ -210,5 +212,19 @@ export function getTestInfo(data) {
   return {
     type: GET_TEST_INFO,
     payload: data,
+  };
+}
+
+export function changeTitleInputValue(value) {
+  return {
+    type: CHANGE_TITLE_INPUT_VALUE,
+    payload: value,
+  };
+}
+
+export function sendRequestToUpdateTest(id, data) {
+  return {
+    type: REQUEST_TO_UPDATE_TEST,
+    payload: { id, data },
   };
 }

@@ -48,3 +48,8 @@ export async function sendRequestToGetTest(id) {
     }
   }
 }
+
+export async function sendRequestToUpdateTest(id, data) {
+  const updatedTest = await instance.patch(`tests/${id}`, { ...data });
+  return normalizeTest(updatedTest.data);
+}

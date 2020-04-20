@@ -4,6 +4,7 @@ import {
   REQUEST_TEST_DELETING,
   REQUEST_TO_ADD_TEST,
   REQUEST_TEST_INFO,
+  REQUEST_TO_UPDATE_TEST,
 } from 'redux/actions/actionTypes';
 import {
   startApiRequest,
@@ -19,6 +20,7 @@ import {
   sendDeleteTestRequest,
   sendRequestToAddTest,
   sendRequestToGetTest,
+  sendRequestToUpdateTest,
 } from 'redux/api/testOperations';
 
 export function* watchTest() {
@@ -26,6 +28,7 @@ export function* watchTest() {
   yield takeEvery(REQUEST_TEST_DELETING, deleteTestWorker);
   yield takeEvery(REQUEST_TO_ADD_TEST, addTestWorker);
   yield takeEvery(REQUEST_TEST_INFO, getTestWorker);
+  yield takeEvery(REQUEST_TO_UPDATE_TEST, updateTestWorker);
 }
 
 function* getTestsWorker({ payload }) {
@@ -71,6 +74,23 @@ function* getTestWorker({ payload }) {
     yield put(startApiRequest());
     const test = yield call(sendRequestToGetTest, payload);
     yield put(getTestInfo(test));
+  } catch (error) {
+    yield put(getError(error.message));
+  }
+
+  yield put(finishApiRequest());
+}
+
+function* updateTestWorker({ payload }) {
+  try {
+    yield put(startApiRequest());
+    const updatedTest = yield call(
+      sendRequestToUpdateTest,
+      payload.id,
+      payload.data
+    );
+
+    yield put(getTestInfo(updatedTest));
   } catch (error) {
     yield put(getError(error.message));
   }
