@@ -20,7 +20,11 @@ function EditTestInfo({
 }) {
   return (
     <List vertical centered>
-      <TextInput handleChange={changeInputValue} value={input.value} />
+      <TextInput
+        label="Title"
+        value={input.value}
+        handleChange={changeInputValue}
+      />
       <List centered>
         <Button handleClick={onTestTitleUpdate}>Save title</Button>
         <Button handleClick={onDelete}>Delete test</Button>
