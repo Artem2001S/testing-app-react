@@ -1,0 +1,17 @@
+.List {
+  display: flex;
+  flex-wrap: wrap;
+
+  &.centered {
+    align-items: center;
+    justify-content: center;
+  }
+
+  &.vertical {
+    flex-direction: column;
+  }
+
+  & > * + * {
+    margin: 10px;
+  }
+}
