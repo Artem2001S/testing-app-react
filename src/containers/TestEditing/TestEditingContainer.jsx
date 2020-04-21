@@ -40,12 +40,12 @@ export function TestEditingContainer({ isAfterCreating, test }) {
   return (
     <>
       {test.id === -1 ? (
-        <div>
+        <>
           <h1>Test not found</h1>
           <h2>
             Go to: <Link to="/dashboard">dashboard</Link>
           </h2>
-        </div>
+        </>
       ) : (
         <div>
           <EditTestInfo />

@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import List from 'components/List/List';
 import QuestionListItem from 'components/QuestionListItem/QuestionListItem';
 import { getTest } from 'redux/selectors/test';
-import { sendRequestToDeleteQuestion } from 'redux/actions/actionCreators';
+import {
+  sendRequestToDeleteQuestion,
+  openModalDialog,
+} from 'redux/actions/actionCreators';
 
 function QuestionList({ questions, onDelete }) {
   return (
@@ -29,7 +32,12 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onDelete: (id) => dispatch(sendRequestToDeleteQuestion(id)),
+  onDelete: (id) =>
+    dispatch(
+      openModalDialog('Delete question ?', () =>
+        dispatch(sendRequestToDeleteQuestion(id))
+      )
+    ),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuestionList);

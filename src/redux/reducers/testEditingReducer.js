@@ -40,9 +40,6 @@ export default function testEditingPageReducer(
       newEntities.tests[state.result].questions = newEntities.tests[
         state.result
       ].questions.filter((questionId) => questionId !== payload);
-
-      console.log(newEntities);
-      console.log({ ...state, entities: newEntities });
       return { ...state, entities: newEntities };
     case CHANGE_TITLE_INPUT_VALUE:
       return {
