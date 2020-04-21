@@ -9,6 +9,7 @@ import { getTest } from 'redux/selectors/test';
 import withUserAuthentication from 'components/hoc/withUserAuthentication';
 import EditTestInfo from './EditTestInfo';
 import QuestionListContainer from './QuestionListContainer';
+import AddQuestionFormContainer from './AddQuestionFormContainer';
 
 export function TestEditingContainer({ isAfterCreating, test }) {
   const params = useParams();
@@ -49,6 +50,7 @@ export function TestEditingContainer({ isAfterCreating, test }) {
       ) : (
         <div>
           <EditTestInfo />
+          <AddQuestionFormContainer />
           <QuestionListContainer />
         </div>
       )}

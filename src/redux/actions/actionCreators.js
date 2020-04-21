@@ -29,6 +29,7 @@ import {
   REQUEST_TO_UPDATE_TEST,
   REQUEST_TO_DELETE_QUESTION,
   DELETE_QUESTION_SUCCESS,
+  CHANGE_ADD_FORM_QUESTION_TYPE,
 } from './actionTypes';
 
 export function startApiRequest() {
@@ -213,6 +214,13 @@ export function changeTitleInputValue(value) {
   return {
     type: CHANGE_TITLE_INPUT_VALUE,
     payload: value,
+  };
+}
+
+export function changeAddFormQuestionType(type) {
+  return {
+    type: CHANGE_ADD_FORM_QUESTION_TYPE,
+    payload: type,
   };
 }
 

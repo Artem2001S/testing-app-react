@@ -2,6 +2,7 @@ import {
   GET_TEST_INFO,
   CHANGE_TITLE_INPUT_VALUE,
   DELETE_QUESTION_SUCCESS,
+  CHANGE_ADD_FORM_QUESTION_TYPE,
 } from 'redux/actions/actionTypes';
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
   result: -1,
   inputsData: {
     titleEditing: { label: 'Title', name: 'test_title', value: '' },
+    addFormQuestionType: 'single',
   },
 };
 
@@ -47,6 +49,14 @@ export default function testEditingPageReducer(
         inputsData: {
           ...state.inputsData,
           titleEditing: { ...state.inputsData.titleEditing, value: payload },
+        },
+      };
+    case CHANGE_ADD_FORM_QUESTION_TYPE:
+      return {
+        ...state,
+        inputsData: {
+          ...state.inputsData,
+          addFormQuestionType: payload,
         },
       };
     default:
