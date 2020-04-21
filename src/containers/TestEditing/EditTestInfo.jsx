@@ -7,8 +7,8 @@ import {
   openModalDialog,
   requestTestDeleting,
 } from 'redux/actions/actionCreators';
-import TextInput from 'components/TextInput/TextInput';
-import Button from 'components/Button/Button';
+import TextInput from 'components/UIElements/TextInput/TextInput';
+import Button from 'components/UIElements/Button/Button';
 import List from 'components/List/List';
 import { getTest } from 'redux/selectors/test';
 

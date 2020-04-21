@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './QuestionListItem.module.scss';
-import Button from 'components/Button/Button';
+import Button from 'components/UIElements/Button/Button';
 
 export default function QuestionListItem({ title, type, onDelete }) {
   return (

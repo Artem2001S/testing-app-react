@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import questionIcon from './question.svg';
 import editIcon from './edit.svg';
 import classes from './TestsListItem.module.scss';
-import Button from 'components/Button/Button';
+import Button from 'components/UIElements/Button/Button';
 
 export default function TestsListItem({
   id,

@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './TestsList.module.scss';
-import Button from 'components/Button/Button';
+import Button from 'components/UIElements/Button/Button';
 import TestsListItem from './TestListItem/TestsListItem';
 
 export default function TestsList({ tests, isAdmin, sortChange }) {

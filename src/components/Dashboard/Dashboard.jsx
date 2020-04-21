@@ -3,8 +3,8 @@ import { Redirect } from 'react-router-dom';
 import UserPanel from 'components/UserPanel/UserPanel';
 import TestsList from 'components/TestsList/TestsList';
 import SearchTestFormContainer from 'containers/SearchTestFormContainer';
-import Button from 'components/Button/Button';
-import TextInput from 'components/TextInput/TextInput';
+import Button from 'components/UIElements/Button/Button';
+import TextInput from 'components/UIElements/TextInput/TextInput';
 import classes from './Dashboard.module.scss';
 import PaginationButtons from 'components/PaginationButtons/PaginationButtons';
 

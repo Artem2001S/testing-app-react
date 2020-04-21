@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import classes from './ModalDialog.module.scss';
-import Button from 'components/Button/Button';
+import Button from 'components/UIElements/Button/Button';
 import { closeModalDialog } from 'redux/actions/actionCreators';
 
 export default function ModalDialog({ title, primaryButtonText }) {
