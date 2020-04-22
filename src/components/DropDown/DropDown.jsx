@@ -38,10 +38,14 @@ export default function DropDown({ items, current, label, onChange }) {
         {items.map((item) => (
           <div
             key={item}
-            className={classes.Item}
+            className={classNames(classes.Item, {
+              [classes.Active]: item === current,
+            })}
             onClick={() => {
-              onChange(item);
-              hide();
+              if (item !== current) {
+                onChange(item);
+                hide();
+              }
             }}
           >
             {item}
