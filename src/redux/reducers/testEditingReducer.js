@@ -3,6 +3,7 @@ import {
   CHANGE_TITLE_INPUT_VALUE,
   DELETE_QUESTION_SUCCESS,
   CHANGE_ADD_FORM_QUESTION_TYPE,
+  ADD_QUESTION_SUCCESS,
 } from 'redux/actions/actionTypes';
 
 const initialState = {
@@ -42,7 +43,27 @@ export default function testEditingPageReducer(
       newEntities.tests[state.result].questions = newEntities.tests[
         state.result
       ].questions.filter((questionId) => questionId !== payload);
+
       return { ...state, entities: newEntities };
+    case ADD_QUESTION_SUCCESS:
+      const test = { ...state.entities.tests[state.result] };
+
+      return {
+        ...state,
+        entities: {
+          ...state.entities,
+          tests: {
+            [state.result]: {
+              ...test,
+              questions: [...test.questions, payload.id],
+            },
+          },
+          questions: {
+            ...state.entities.questions,
+            [payload.id]: payload,
+          },
+        },
+      };
     case CHANGE_TITLE_INPUT_VALUE:
       return {
         ...state,

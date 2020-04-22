@@ -31,6 +31,8 @@ import {
   DELETE_QUESTION_SUCCESS,
   CHANGE_ADD_FORM_QUESTION_TYPE,
   CHANGE_NUMERIC_QUESTION_FORM_INPUT_VALUE,
+  REQUEST_TO_ADD_QUESTION,
+  ADD_QUESTION_SUCCESS,
 } from './actionTypes';
 
 export function startApiRequest() {
@@ -255,5 +257,19 @@ export function changeNumericQuestionFormInputValue(inputName, newValue) {
   return {
     type: CHANGE_NUMERIC_QUESTION_FORM_INPUT_VALUE,
     payload: { inputName, newValue },
+  };
+}
+
+export function sendRequestToAddQuestion(testId, data) {
+  return {
+    type: REQUEST_TO_ADD_QUESTION,
+    payload: { testId, data },
+  };
+}
+
+export function addQuestionSuccess(data) {
+  return {
+    type: ADD_QUESTION_SUCCESS,
+    payload: data,
   };
 }

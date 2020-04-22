@@ -1,15 +1,23 @@
 import { connect } from 'react-redux';
 import NumericQuestionForm from 'components/NumericQuestionForm/NumericQuestionForm';
-import { changeNumericQuestionFormInputValue } from 'redux/actions/actionCreators';
+import {
+  changeNumericQuestionFormInputValue,
+  sendRequestToAddQuestion,
+  closeModalDialog,
+} from 'redux/actions/actionCreators';
 import { createOnChangeHandlers } from 'utils';
 
 const mapStateToProps = (state) => ({
   inputs: state.numericQuestionForm.inputs,
+  testId: state.testEditingPage.result,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   changeInputValue: (inputName, inputType, e) =>
     dispatch(changeNumericQuestionFormInputValue(inputName, e.target.value)),
+  sendRequestToAdd: (testId, data) =>
+    dispatch(sendRequestToAddQuestion(testId, data)),
+  closeModalDialog: () => dispatch(closeModalDialog()),
 });
 
 const mergeProps = (stateProps, dispatchProps) => {
@@ -22,6 +30,15 @@ const mergeProps = (stateProps, dispatchProps) => {
     ...stateProps,
     ...dispatchProps,
     inputChangeHandlers,
+    handleSubmit: (e) => {
+      e.preventDefault();
+
+      const [{ value: title }, { value: answer }] = stateProps.inputs;
+      const data = { title, answer, question_type: 'number' };
+
+      dispatchProps.sendRequestToAdd(stateProps.testId, data);
+      dispatchProps.closeModalDialog();
+    },
   };
 };
 

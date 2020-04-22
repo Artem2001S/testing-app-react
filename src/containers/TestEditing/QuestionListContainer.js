@@ -14,14 +14,14 @@ function QuestionList({ questions, onDelete }) {
       {questions.length === 0 ? (
         <h3>Add the first question!</h3>
       ) : (
-        questions.map((question, index) => (
-          <QuestionListItem
-            key={index}
-            {...question}
-            onDelete={onDelete.bind(this, question.id)}
-          />
-        ))
-      )}
+          questions.map((question, index) => (
+            <QuestionListItem
+              key={index}
+              {...question}
+              onDelete={onDelete.bind(this, question.id)}
+            />
+          ))
+        )}
     </List>
   );
 }
