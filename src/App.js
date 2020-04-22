@@ -5,13 +5,13 @@ import {
   Switch,
   Redirect,
 } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { getError } from 'redux/actions/actionCreators';
 import AuthPage from 'pages/AuthPage';
 import RegistrationPage from 'pages/RegistrationPage';
 import DashboardPage from 'pages/DashboardPage';
-import { useSelector, useDispatch } from 'react-redux';
 import Loader from 'components/UIElements/Loader/Loader';
 import Error from 'components/UIElements/Error/Error';
-import { getError } from 'redux/actions/actionCreators';
 import TestEditingPage from 'pages/TestEditingPage';
 import ModalDialog from 'components/ModalDialog/ModalDialog';
 
@@ -23,7 +23,14 @@ function App() {
 
   return (
     <>
-      {modalDialogData.isOpen && <ModalDialog title={modalDialogData.title} />}
+      {modalDialogData.isOpen && (
+        <ModalDialog
+          title={modalDialogData.title}
+          children={modalDialogData.children}
+          primaryButtonText={modalDialogData.primaryButtonText}
+          successBtnClickHandler={modalDialogData.successBtnClickHandler}
+        />
+      )}
       {isLoading && <Loader />}
       {errorMessage && (
         <Error message={errorMessage} hide={() => dispatch(getError(''))} />

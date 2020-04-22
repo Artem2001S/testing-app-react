@@ -125,10 +125,15 @@ export function sendAuthorizationRequest(userName, password) {
   };
 }
 
-export function openModalDialog(title, successBtnClickHandler) {
+export function openModalDialog(
+  title,
+  successBtnClickHandler,
+  primaryButtonText,
+  children
+) {
   return {
     type: OPEN_MODAL_DIALOG,
-    payload: { title, successBtnClickHandler },
+    payload: { title, successBtnClickHandler, children, primaryButtonText },
   };
 }
 
