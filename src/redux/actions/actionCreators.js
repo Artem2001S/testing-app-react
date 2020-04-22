@@ -30,6 +30,7 @@ import {
   REQUEST_TO_DELETE_QUESTION,
   DELETE_QUESTION_SUCCESS,
   CHANGE_ADD_FORM_QUESTION_TYPE,
+  CHANGE_NUMERIC_QUESTION_FORM_INPUT_VALUE,
 } from './actionTypes';
 
 export function startApiRequest() {
@@ -247,5 +248,12 @@ export function deleteQuestionSuccess(id) {
   return {
     type: DELETE_QUESTION_SUCCESS,
     payload: id,
+  };
+}
+
+export function changeNumericQuestionFormInputValue(inputName, newValue) {
+  return {
+    type: CHANGE_NUMERIC_QUESTION_FORM_INPUT_VALUE,
+    payload: { inputName, newValue },
   };
 }

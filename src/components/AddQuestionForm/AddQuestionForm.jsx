@@ -8,6 +8,7 @@ export default function AddQuestionForm({
   questionTypes,
   current,
   onChangeQuestionType,
+  onAdd,
 }) {
   return (
     <List centered vertical>
@@ -17,7 +18,7 @@ export default function AddQuestionForm({
         onChange={onChangeQuestionType}
         label="Choose the question type"
       />
-      <Button>Add</Button>
+      <Button handleClick={onAdd}>Add</Button>
     </List>
   );
 }
@@ -26,4 +27,5 @@ AddQuestionForm.propTypes = {
   questionTypes: PropTypes.array.isRequired,
   current: PropTypes.string.isRequired,
   onChangeQuestionType: PropTypes.func.isRequired,
+  onAdd: PropTypes.func.isRequired,
 };
