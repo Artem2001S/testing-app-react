@@ -33,6 +33,9 @@ import {
   CHANGE_NUMERIC_QUESTION_FORM_INPUT_VALUE,
   REQUEST_TO_ADD_QUESTION,
   ADD_QUESTION_SUCCESS,
+  START_NUMERIC_QUESTION_EDITING,
+  REQUEST_TO_EDIT_QUESTION,
+  EDIT_QUESTION_SUCCESS,
 } from './actionTypes';
 
 export function startApiRequest() {
@@ -271,5 +274,26 @@ export function addQuestionSuccess(data) {
   return {
     type: ADD_QUESTION_SUCCESS,
     payload: data,
+  };
+}
+
+export function startNumericQuestionEditing(id, title, answer) {
+  return {
+    type: START_NUMERIC_QUESTION_EDITING,
+    payload: { id, title, answer },
+  };
+}
+
+export function sendRequestToEditQuestion(questionId, data) {
+  return {
+    type: REQUEST_TO_EDIT_QUESTION,
+    payload: { questionId, data },
+  };
+}
+
+export function editQuestionSuccess(question) {
+  return {
+    type: EDIT_QUESTION_SUCCESS,
+    payload: question,
   };
 }

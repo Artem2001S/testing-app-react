@@ -4,6 +4,7 @@ import {
   DELETE_QUESTION_SUCCESS,
   CHANGE_ADD_FORM_QUESTION_TYPE,
   ADD_QUESTION_SUCCESS,
+  EDIT_QUESTION_SUCCESS,
 } from 'redux/actions/actionTypes';
 
 const initialState = {
@@ -64,6 +65,18 @@ export default function testEditingPageReducer(
           },
         },
       };
+    case EDIT_QUESTION_SUCCESS:
+      return {
+        ...state,
+        entities: {
+          ...state.entities,
+          questions: {
+            ...state.entities.questions,
+            [payload.id]: payload,
+          },
+        },
+      };
+      return;
     case CHANGE_TITLE_INPUT_VALUE:
       return {
         ...state,

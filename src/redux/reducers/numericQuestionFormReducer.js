@@ -1,4 +1,7 @@
-import { CHANGE_NUMERIC_QUESTION_FORM_INPUT_VALUE } from 'redux/actions/actionTypes';
+import {
+  CHANGE_NUMERIC_QUESTION_FORM_INPUT_VALUE,
+  START_NUMERIC_QUESTION_EDITING,
+} from 'redux/actions/actionTypes';
 import { updateInputsArray } from 'utils';
 
 const initialState = {
@@ -15,6 +18,7 @@ const initialState = {
       value: '',
     },
   ],
+  questionId: -1,
 };
 
 export default function numericQuestionFormReducer(
@@ -30,6 +34,24 @@ export default function numericQuestionFormReducer(
           payload.inputName,
           payload.newValue
         ),
+      };
+    case START_NUMERIC_QUESTION_EDITING:
+      return {
+        ...state,
+        questionId: payload.id,
+        inputs: [
+          {
+            label: 'Question:',
+            name: 'question-title',
+            value: payload.title,
+          },
+          {
+            type: 'number',
+            label: 'Answer:',
+            name: 'answer',
+            value: String(payload.answer),
+          },
+        ],
       };
     default:
       return state;

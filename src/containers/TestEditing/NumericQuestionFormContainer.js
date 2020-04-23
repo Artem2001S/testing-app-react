@@ -4,11 +4,14 @@ import {
   changeNumericQuestionFormInputValue,
   sendRequestToAddQuestion,
   closeModalDialog,
+  sendRequestToEditQuestion,
 } from 'redux/actions/actionCreators';
 import { createOnChangeHandlers } from 'utils';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, ownProps) => ({
   inputs: state.numericQuestionForm.inputs,
+  questionId: state.numericQuestionForm.questionId,
+  editMode: ownProps.editMode,
   testId: state.testEditingPage.result,
 });
 
@@ -17,6 +20,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(changeNumericQuestionFormInputValue(inputName, e.target.value)),
   sendRequestToAdd: (testId, data) =>
     dispatch(sendRequestToAddQuestion(testId, data)),
+  sendRequestToEdit: (questionId, data) =>
+    dispatch(sendRequestToEditQuestion(questionId, data)),
   closeModalDialog: () => dispatch(closeModalDialog()),
 });
 
@@ -36,7 +41,12 @@ const mergeProps = (stateProps, dispatchProps) => {
       const [{ value: title }, { value: answer }] = stateProps.inputs;
       const data = { title, answer, question_type: 'number' };
 
-      dispatchProps.sendRequestToAdd(stateProps.testId, data);
+      if (stateProps.editMode) {
+        dispatchProps.sendRequestToEdit(stateProps.questionId, data);
+      } else {
+        dispatchProps.sendRequestToAdd(stateProps.testId, data);
+      }
+
       dispatchProps.closeModalDialog();
     },
   };

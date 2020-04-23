@@ -6,6 +6,7 @@ import Button from 'components/UIElements/Button/Button';
 export default function NumericQuestionForm({
   inputs,
   inputChangeHandlers,
+  editMode,
   handleSubmit,
 }) {
   return (
@@ -18,7 +19,7 @@ export default function NumericQuestionForm({
             {...input}
           />
         ))}
-        <Button handleClick={handleSubmit}>Add</Button>
+        <Button handleClick={handleSubmit}>{editMode ? 'Edit' : 'Add'}</Button>
       </List>
     </form>
   );

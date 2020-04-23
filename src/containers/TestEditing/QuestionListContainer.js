@@ -6,22 +6,26 @@ import { getTest } from 'redux/selectors/test';
 import {
   sendRequestToDeleteQuestion,
   openModalDialog,
+  startNumericQuestionEditing,
 } from 'redux/actions/actionCreators';
+import NumericQuestionFormContainer from './NumericQuestionFormContainer';
 
-function QuestionList({ questions, onDelete }) {
+function QuestionList({ questions, onDelete, startQuestionEditing }) {
   return (
     <List vertical centered>
       {questions.length === 0 ? (
         <h3>Add the first question!</h3>
       ) : (
-          questions.map((question, index) => (
-            <QuestionListItem
-              key={index}
-              {...question}
-              onDelete={onDelete.bind(this, question.id)}
-            />
-          ))
-        )}
+        questions.map((question, index) => (
+          <QuestionListItem
+            key={index}
+            type={question.question_type}
+            {...question}
+            startQuestionEditing={startQuestionEditing.bind(this, question)}
+            onDelete={onDelete.bind(this, question.id)}
+          />
+        ))
+      )}
     </List>
   );
 }
@@ -38,6 +42,49 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch(sendRequestToDeleteQuestion(id))
       )
     ),
+  showModalDialog: (
+    title,
+    successBtnClickHandler,
+    primaryButtonText,
+    children
+  ) =>
+    dispatch(
+      openModalDialog(
+        title,
+        successBtnClickHandler,
+        primaryButtonText,
+        children
+      )
+    ),
+  initNumericQuestionEditingForm: (id, title, answer) =>
+    dispatch(startNumericQuestionEditing(id, title, answer)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(QuestionList);
+const mergeProps = (stateProps, dispatchProps) => {
+  return {
+    ...stateProps,
+    ...dispatchProps,
+    startQuestionEditing: (question) => {
+      if (question.question_type === 'number') {
+        dispatchProps.initNumericQuestionEditingForm(
+          question.id,
+          question.title,
+          question.answer
+        );
+
+        dispatchProps.showModalDialog(
+          'Edit question',
+          null,
+          '',
+          <NumericQuestionFormContainer editMode />
+        );
+      }
+    },
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  mergeProps
+)(QuestionList);

@@ -12,3 +12,9 @@ export async function sendAddQuestionRequest(data) {
 
   return response.data;
 }
+
+export async function sendPatchQuestionRequest(questionId, data) {
+  const response = await instance.patch(`/questions/${questionId}`, data);
+
+  return response.data;
+}
