@@ -4,7 +4,7 @@ import DropDown from 'components/DropDown/DropDown';
 import List from 'components/List/List';
 import Button from 'components/UIElements/Button/Button';
 
-export default function AddQuestionForm({
+export default function ChooseQuestionTypeForm({
   questionTypes,
   current,
   onChangeQuestionType,
@@ -23,7 +23,7 @@ export default function AddQuestionForm({
   );
 }
 
-AddQuestionForm.propTypes = {
+ChooseQuestionTypeForm.propTypes = {
   questionTypes: PropTypes.array.isRequired,
   current: PropTypes.string.isRequired,
   onChangeQuestionType: PropTypes.func.isRequired,

@@ -76,7 +76,6 @@ export default function testEditingPageReducer(
           },
         },
       };
-      return;
     case CHANGE_TITLE_INPUT_VALUE:
       return {
         ...state,

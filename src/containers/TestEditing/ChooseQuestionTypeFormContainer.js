@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import AddQuestionForm from 'components/AddQuestionForm/AddQuestionForm';
+import ChooseQuestionTypeForm from 'components/ChooseQuestionTypeForm/ChooseQuestionTypeForm';
 import {
   changeAddFormQuestionType,
   openModalDialog,
@@ -62,4 +62,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps,
   mergeProps
-)(AddQuestionForm);
+)(ChooseQuestionTypeForm);
