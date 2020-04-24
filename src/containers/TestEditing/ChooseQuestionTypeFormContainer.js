@@ -6,6 +6,7 @@ import {
   openModalDialog,
 } from 'redux/actions/actionCreators';
 import NumericQuestionFormContainer from './NumericQuestionFormContainer';
+import QuestionFormContainer from './QuestionFormContainer';
 
 const mapStateToProps = (state) => ({
   testId: state.testEditingPage.result,
@@ -37,20 +38,12 @@ const mergeProps = (stateProps, dispatchProps) => {
     ...stateProps,
     ...dispatchProps,
     openDialog: () => {
-      let node = '';
-      switch (stateProps.current) {
-        case 'single':
-          node = <div>single form</div>;
-          break;
-        case 'multiple':
-          node = <div>multiple form</div>;
-          break;
-        case 'number':
-          node = <NumericQuestionFormContainer />;
-          break;
-        default:
-          node = <div />;
-          break;
+      let node = null;
+
+      if (stateProps.current === 'number') {
+        node = <NumericQuestionFormContainer />;
+      } else {
+        node = <QuestionFormContainer questionType={stateProps.current} />
       }
 
       dispatchProps.showModalDialog('Add question', null, 'Add', node);

@@ -4,11 +4,17 @@ export async function sendDeleteQuestionRequest(questionId) {
   await instance.delete(`/questions/${questionId}`);
 }
 
-export async function sendAddQuestionRequest(data) {
-  const response = await instance.post(
-    `/tests/${data.testId}/questions`,
-    data.data
-  );
+export async function sendAddQuestionRequest(
+  testId,
+  title,
+  questionType,
+  answer
+) {
+  const response = await instance.post(`/tests/${testId}/questions`, {
+    title,
+    question_type: questionType,
+    answer,
+  });
 
   return response.data;
 }

@@ -4,7 +4,7 @@ import List from 'components/List/List';
 import Draggable from './Draggable';
 import classes from './DraggbleList.module.scss';
 
-export default function DraggbleList({ children, onSuccessDrag }) {
+export default function DraggbleList({ children, onSuccessDrop }) {
   const initialDragState = {
     isDragging: false,
     draggedFrom: null,
@@ -46,7 +46,7 @@ export default function DraggbleList({ children, onSuccessDrag }) {
   };
 
   return (
-    <List vertical centered>
+    <List vertical centered smallMargin>
       {children.map((node, index) => (
         <Draggable
           key={index}
@@ -58,7 +58,10 @@ export default function DraggbleList({ children, onSuccessDrag }) {
           onDragLeave={onDragLeave}
           onDragStart={onDragStart}
           onDragOver={onDragOver}
-          onDrop={onDrop}
+          onDrop={() => {
+            onDrop();
+            onSuccessDrop(dragState.draggedFrom, dragState.draggedTo);
+          }}
         >
           {node}
         </Draggable>

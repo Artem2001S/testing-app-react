@@ -8,6 +8,7 @@ import tests from 'redux/reducers/testsReducer';
 import searchTestForm from 'redux/reducers/searchTestFormReducer';
 import testEditingPage from 'redux/reducers/testEditingReducer';
 import numericQuestionForm from 'redux/reducers/numericQuestionFormReducer';
+import questionForm from 'redux/reducers/questionFormReducer';
 
 export default combineReducers({
   authorizationFormInputs,
@@ -19,4 +20,5 @@ export default combineReducers({
   searchTestForm,
   testEditingPage,
   numericQuestionForm,
+  questionForm,
 });

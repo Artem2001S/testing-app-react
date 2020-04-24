@@ -36,6 +36,13 @@ import {
   START_NUMERIC_QUESTION_EDITING,
   REQUEST_TO_EDIT_QUESTION,
   EDIT_QUESTION_SUCCESS,
+  CHANGE_QUESTION_FORM_INPUT_VALUE,
+  CHANGE_QUESTION_FORM_CHECKBOX_VALUE,
+  CHANGE_QUESTION_FORM_ANSWER_POSITION,
+  ADD_ANSWER_TO_QUESTION_FORM,
+  DELETE_ANSWER_FROM_QUESTION_FORM,
+  REQUEST_TO_ADD_ANSWER,
+  ADD_ANSWER_SUCCESS,
 } from './actionTypes';
 
 export function startApiRequest() {
@@ -277,6 +284,20 @@ export function addQuestionSuccess(data) {
   };
 }
 
+export function sendRequestToAddAnswer(questionId, text, isRight) {
+  return {
+    type: REQUEST_TO_ADD_ANSWER,
+    payload: { questionId, text, isRight },
+  };
+}
+
+export function addAnswerSuccess(questionId, answer) {
+  return {
+    type: ADD_ANSWER_SUCCESS,
+    payload: { questionId, answer },
+  };
+}
+
 export function startNumericQuestionEditing(id, title, answer) {
   return {
     type: START_NUMERIC_QUESTION_EDITING,
@@ -295,5 +316,37 @@ export function editQuestionSuccess(question) {
   return {
     type: EDIT_QUESTION_SUCCESS,
     payload: question,
+  };
+}
+
+export function changeQuestionFormInputValue(inputName, newValue) {
+  return {
+    type: CHANGE_QUESTION_FORM_INPUT_VALUE,
+    payload: { inputName, newValue },
+  };
+}
+
+export function changeQuestionFormCheckboxValue(inputName, newValue) {
+  return {
+    type: CHANGE_QUESTION_FORM_CHECKBOX_VALUE,
+    payload: { inputName, newValue },
+  };
+}
+
+export function changeQuestionFormAnswerPosition(from, to) {
+  return {
+    type: CHANGE_QUESTION_FORM_ANSWER_POSITION,
+    payload: { from, to },
+  };
+}
+
+export function addAnswerToQuestionForm() {
+  return { type: ADD_ANSWER_TO_QUESTION_FORM };
+}
+
+export function deleteAnswerFromQuestionForm(inputName) {
+  return {
+    type: DELETE_ANSWER_FROM_QUESTION_FORM,
+    payload: { inputName },
   };
 }
