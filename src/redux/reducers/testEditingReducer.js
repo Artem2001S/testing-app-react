@@ -6,6 +6,9 @@ import {
   ADD_QUESTION_SUCCESS,
   EDIT_QUESTION_SUCCESS,
   ADD_ANSWER_SUCCESS,
+  EDIT_ANSWER_SUCCESS,
+  DELETE_ANSWER_SUCCESS,
+  MOVE_ANSWER_SUCCESS,
 } from 'redux/actions/actionTypes';
 
 const initialState = {
@@ -86,15 +89,52 @@ export default function testEditingPageReducer(
           },
         },
       };
+    case MOVE_ANSWER_SUCCESS:
+      const questionAnswers =
+        state.entities.questions[payload.questionId].answers;
 
-    case EDIT_QUESTION_SUCCESS:
+      const index = questionAnswers.findIndex(
+        (answerId) => payload.answerId === answerId
+      );
+
+      questionAnswers.splice(index, 1);
+      questionAnswers.splice(payload.position, 0, payload.answerId);
+
+      return { ...state };
+    case EDIT_ANSWER_SUCCESS:
+      state.entities.answers[payload.id] = payload;
+      return { ...state };
+    case DELETE_ANSWER_SUCCESS:
+      delete state.entities.answers[payload.answerId];
       return {
         ...state,
         entities: {
           ...state.entities,
           questions: {
             ...state.entities.questions,
-            [payload.id]: payload,
+            [payload.questionId]: {
+              ...state.entities.questions[payload.questionId],
+              answers: state.entities.questions[
+                payload.questionId
+              ].answers.filter((answerId) => answerId !== payload.answerId),
+            },
+          },
+        },
+      };
+    case EDIT_QUESTION_SUCCESS:
+      const updatedQuestion = {
+        ...state.entities.questions[payload.id],
+        title: payload.title,
+        answer: payload.answer || null,
+      };
+
+      return {
+        ...state,
+        entities: {
+          ...state.entities,
+          questions: {
+            ...state.entities.questions,
+            [payload.id]: updatedQuestion,
           },
         },
       };

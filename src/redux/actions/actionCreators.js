@@ -43,6 +43,10 @@ import {
   DELETE_ANSWER_FROM_QUESTION_FORM,
   REQUEST_TO_ADD_ANSWER,
   ADD_ANSWER_SUCCESS,
+  START_QUESTION_EDITING,
+  DELETE_ANSWER_SUCCESS,
+  MOVE_ANSWER_SUCCESS,
+  EDIT_ANSWER_SUCCESS,
 } from './actionTypes';
 
 export function startApiRequest() {
@@ -298,10 +302,38 @@ export function addAnswerSuccess(questionId, answer) {
   };
 }
 
+export function deleteAnswerSuccess(questionId, answerId) {
+  return {
+    type: DELETE_ANSWER_SUCCESS,
+    payload: { questionId, answerId },
+  };
+}
+
+export function moveAnswerSuccess(questionId, answerId, position) {
+  return {
+    type: MOVE_ANSWER_SUCCESS,
+    payload: { questionId, position, answerId },
+  };
+}
+
+export function editAnswerSuccess(answer) {
+  return {
+    type: EDIT_ANSWER_SUCCESS,
+    payload: answer,
+  };
+}
+
 export function startNumericQuestionEditing(id, title, answer) {
   return {
     type: START_NUMERIC_QUESTION_EDITING,
     payload: { id, title, answer },
+  };
+}
+
+export function startQuestionEditing(id, title, answers) {
+  return {
+    type: START_QUESTION_EDITING,
+    payload: { id, title, answers },
   };
 }
 

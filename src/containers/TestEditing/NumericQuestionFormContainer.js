@@ -39,7 +39,7 @@ const mergeProps = (stateProps, dispatchProps) => {
       e.preventDefault();
 
       const [{ value: title }, { value: answer }] = stateProps.inputs;
-      const data = { title, answer, question_type: 'number' };
+      const data = { title, answer, questionType: 'number' };
 
       if (stateProps.editMode) {
         dispatchProps.sendRequestToEdit(stateProps.questionId, data);

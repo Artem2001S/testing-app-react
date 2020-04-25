@@ -4,6 +4,7 @@ import {
   CHANGE_QUESTION_FORM_ANSWER_POSITION,
   ADD_ANSWER_TO_QUESTION_FORM,
   DELETE_ANSWER_FROM_QUESTION_FORM,
+  START_QUESTION_EDITING,
 } from 'redux/actions/actionTypes';
 import { updateInputsArray } from 'utils';
 
@@ -47,11 +48,33 @@ export default function questionFormReducer(
             name: `answer-${state.inputs.length + 1}`,
             value: '',
             isRight: false,
-            initialPosition: state.inputs.length,
+            initialPosition: state.inputs.length + 1,
             isNew: true,
             needToDelete: false,
           },
         ],
+      };
+    case START_QUESTION_EDITING:
+      const { id, title, answers } = payload;
+
+      return {
+        ...state,
+        questionTitleInput: {
+          ...state.questionTitleInput,
+          value: title,
+        },
+        inputs: answers.map((answer, index) => ({
+          id: answer.id,
+          name: `answer-${index}`,
+          value: answer.text,
+          initialValue: answer.text,
+          initialIsRight: answer.is_right,
+          initialPosition: index + 1,
+          isRight: answer.is_right,
+          isNew: false,
+          needToDelete: false,
+        })),
+        questionId: id,
       };
     case DELETE_ANSWER_FROM_QUESTION_FORM:
       const itemForDelete = state.inputs.find(
@@ -93,8 +116,14 @@ export default function questionFormReducer(
         ),
       };
     case CHANGE_QUESTION_FORM_ANSWER_POSITION:
-      const visibleInputs = state.inputs.filter((input) => !input.needToDelete);
       const { from, to } = payload;
+
+      if (from === to) return state;
+
+      const visibleInputs = state.inputs.filter((input) => !input.needToDelete);
+
+      visibleInputs[from].movedTo = to;
+      visibleInputs[to].movedTo = from;
 
       // swap items
       // eslint-disable-next-line

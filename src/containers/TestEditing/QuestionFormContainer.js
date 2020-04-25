@@ -9,6 +9,7 @@ import {
   getError,
   sendRequestToAddQuestion,
   closeModalDialog,
+  sendRequestToEditQuestion,
 } from 'redux/actions/actionCreators';
 import { createOnChangeHandlers } from 'utils';
 import { getVisibleInputs } from 'redux/selectors/questionForm';
@@ -16,9 +17,12 @@ import { validateAnswers } from 'utils/questionFormValidation';
 
 const mapStateToProps = (state, ownProps) => ({
   answerInputs: getVisibleInputs(state),
+  answerInputsWithDeletedAnswers: state.questionForm.inputs,
   questionTitleInput: state.questionForm.questionTitleInput,
   questionType: ownProps.questionType,
   testId: state.testEditingPage.result,
+  editMode: ownProps.editMode,
+  questionId: state.questionForm.questionId,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -35,6 +39,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(deleteAnswerFromQuestionForm(inputName)),
   sendRequestToAddQuestion: (testId, data) =>
     dispatch(sendRequestToAddQuestion(testId, data)),
+  sendRequestToEditQuestion: (questionId, data) =>
+    dispatch(sendRequestToEditQuestion(questionId, data)),
   showValidationError: (message) => dispatch(getError(message)),
   closeModalDialog: () => dispatch(closeModalDialog()),
 });
@@ -52,9 +58,12 @@ const mergeProps = (stateProps, dispatchProps) => {
     onFormSubmit: () => {
       const {
         answerInputs,
+        answerInputsWithDeletedAnswers,
         questionType,
         questionTitleInput,
         testId,
+        editMode,
+        questionId,
       } = stateProps;
       const {
         showValidationError,
@@ -86,7 +95,28 @@ const mergeProps = (stateProps, dispatchProps) => {
         })),
       };
 
-      sendRequestToAddQuestion(testId, data);
+      if (editMode) {
+        const editedData = {
+          title,
+          questionType,
+          answer: null,
+          answers: answerInputsWithDeletedAnswers.map((answer, index) => ({
+            id: answer.id,
+            text: answer.value,
+            isRight: answer.isRight,
+            initialIsRight: answer.initialIsRight,
+            initialValue: answer.initialValue,
+            isNew: answer.isNew,
+            initialPosition: answer.initialPosition,
+            movedTo: answer.movedTo,
+            needToDelete: answer.needToDelete,
+          })),
+        };
+
+        dispatchProps.sendRequestToEditQuestion(questionId, editedData);
+      } else {
+        sendRequestToAddQuestion(testId, data);
+      }
       closeModalDialog();
     },
   };

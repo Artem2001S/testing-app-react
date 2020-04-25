@@ -7,8 +7,10 @@ import {
   sendRequestToDeleteQuestion,
   openModalDialog,
   startNumericQuestionEditing,
+  startQuestionEditing,
 } from 'redux/actions/actionCreators';
 import NumericQuestionFormContainer from './NumericQuestionFormContainer';
+import QuestionFormContainer from './QuestionFormContainer';
 
 function QuestionList({ questions, onDelete, startQuestionEditing }) {
   return (
@@ -16,16 +18,16 @@ function QuestionList({ questions, onDelete, startQuestionEditing }) {
       {questions.length === 0 ? (
         <h3>Add the first question!</h3>
       ) : (
-        questions.map((question, index) => (
-          <QuestionListItem
-            key={index}
-            type={question.question_type}
-            {...question}
-            startQuestionEditing={startQuestionEditing.bind(this, question)}
-            onDelete={onDelete.bind(this, question.id)}
-          />
-        ))
-      )}
+          questions.map((question, index) => (
+            <QuestionListItem
+              key={index}
+              type={question.question_type}
+              {...question}
+              startQuestionEditing={startQuestionEditing.bind(this, question)}
+              onDelete={onDelete.bind(this, question.id)}
+            />
+          ))
+        )}
     </List>
   );
 }
@@ -58,6 +60,8 @@ const mapDispatchToProps = (dispatch) => ({
     ),
   initNumericQuestionEditingForm: (id, title, answer) =>
     dispatch(startNumericQuestionEditing(id, title, answer)),
+  initQuestionFormInputs: (id, title, answers) =>
+    dispatch(startQuestionEditing(id, title, answers)),
 });
 
 const mergeProps = (stateProps, dispatchProps) => {
@@ -77,6 +81,22 @@ const mergeProps = (stateProps, dispatchProps) => {
           null,
           '',
           <NumericQuestionFormContainer editMode />
+        );
+      } else {
+        dispatchProps.showModalDialog(
+          'Edit question',
+          null,
+          '',
+          <QuestionFormContainer
+            questionType={question.question_type}
+            editMode
+          />
+        );
+
+        dispatchProps.initQuestionFormInputs(
+          question.id,
+          question.title,
+          question.answers
         );
       }
     },
