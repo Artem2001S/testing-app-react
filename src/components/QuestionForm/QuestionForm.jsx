@@ -4,7 +4,6 @@ import List from 'components/List/List';
 import Button from 'components/UIElements/Button/Button';
 import AnswerList from './AnswerList';
 import TextInput from 'components/UIElements/TextInput/TextInput';
-import classes from './AnswerList.module.scss';
 
 export default function QuestionForm({
   questionTitleInput,

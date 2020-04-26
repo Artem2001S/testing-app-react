@@ -47,6 +47,7 @@ import {
   DELETE_ANSWER_SUCCESS,
   MOVE_ANSWER_SUCCESS,
   EDIT_ANSWER_SUCCESS,
+  CHANGE_ADD_TEST_FORM_INPUT_VALUE,
 } from './actionTypes';
 
 export function startApiRequest() {
@@ -180,6 +181,13 @@ export function requestToAddTest(title) {
   return {
     type: REQUEST_TO_ADD_TEST,
     payload: title,
+  };
+}
+
+export function changeAddTestFormInputValue(value) {
+  return {
+    type: CHANGE_ADD_TEST_FORM_INPUT_VALUE,
+    payload: value,
   };
 }
 

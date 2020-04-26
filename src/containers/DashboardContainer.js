@@ -6,11 +6,13 @@ import {
   requestTestsFromServer,
   changeTestsListSortType,
   requestToAddTest,
+  changeAddTestFormInputValue,
 } from 'redux/actions/actionCreators';
 import { getTests } from 'redux/selectors/tests';
 
 const mapStateToProps = (state) => ({
   userData: state.currentUserData,
+  addTestInput: state.addTestForm.input,
   currentPage: state.tests.currentPage,
   totalPages: state.tests.totalPages,
   searchInputValue: state.searchTestForm.value,
@@ -26,6 +28,8 @@ const mapDispatchToProps = (dispatch) => ({
     ),
   requestTests: (page = 1, searchValue) =>
     dispatch(requestTestsFromServer(page, searchValue || '')),
+  onChangeTitleInput: (e) =>
+    dispatch(changeAddTestFormInputValue(e.target.value)),
   sortChange: () => dispatch(changeTestsListSortType()),
   onAdd: (title) => dispatch(requestToAddTest(title)),
 });
@@ -35,6 +39,7 @@ const mergeProps = (stateProps, dispatchProps) => ({
   ...dispatchProps,
   requestTests: (page) =>
     dispatchProps.requestTests(page, stateProps.searchInputValue),
+  onAdd: () => dispatchProps.onAdd(stateProps.addTestInput.value),
 });
 
 export default connect(
