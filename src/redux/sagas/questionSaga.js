@@ -108,7 +108,7 @@ export function* questionEditWorker({ payload }) {
       for (let index = 0; index < answers.length; index++) {
         const answer = answers[index];
         // if marked as new then add
-        if (answer.isNew) {
+        if (answer.isNew && !answer.needToDelete) {
           const createdAnswer = yield call(
             sendAddAnswerRequest,
             payload.questionId,
