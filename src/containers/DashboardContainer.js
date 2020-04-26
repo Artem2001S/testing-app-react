@@ -4,7 +4,6 @@ import {
   openModalDialog,
   sendLogoutRequest,
   requestTestsFromServer,
-  requestTestDeleting,
   changeTestsListSortType,
   requestToAddTest,
 } from 'redux/actions/actionCreators';
@@ -17,6 +16,7 @@ const mapStateToProps = (state) => ({
   searchInputValue: state.searchTestForm.value,
   testsList: getTests(state),
   sortType: state.tests.sortType,
+  lastTestAddedId: state.tests.lastTestAddedId,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -26,10 +26,6 @@ const mapDispatchToProps = (dispatch) => ({
     ),
   requestTests: (page = 1, searchValue) =>
     dispatch(requestTestsFromServer(page, searchValue || '')),
-  onDeleteTest: (id) =>
-    dispatch(
-      openModalDialog('Delete test ?', () => dispatch(requestTestDeleting(id)))
-    ),
   sortChange: () => dispatch(changeTestsListSortType()),
   onAdd: (title) => dispatch(requestToAddTest(title)),
 });
@@ -37,9 +33,8 @@ const mapDispatchToProps = (dispatch) => ({
 const mergeProps = (stateProps, dispatchProps) => ({
   ...stateProps,
   ...dispatchProps,
-  requestTests: (page, searchValue) => {
-    dispatchProps.requestTests(page, stateProps.searchInputValue);
-  },
+  requestTests: (page) =>
+    dispatchProps.requestTests(page, stateProps.searchInputValue),
 });
 
 export default connect(

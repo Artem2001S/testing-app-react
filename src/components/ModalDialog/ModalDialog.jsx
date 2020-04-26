@@ -1,12 +1,16 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import classes from './ModalDialog.module.scss';
-import Button from 'components/Button/Button';
+import Button from 'components/UIElements/Button/Button';
 import { closeModalDialog } from 'redux/actions/actionCreators';
 
-export default function ModalDialog({ title, primaryButtonText }) {
+export default function ModalDialog({
+  title,
+  primaryButtonText,
+  children,
+  successBtnClickHandler,
+}) {
   const dispatch = useDispatch();
-  const modalDialogData = useSelector((state) => state.modalDialog);
 
   const close = () => {
     dispatch(closeModalDialog());
@@ -41,18 +45,26 @@ export default function ModalDialog({ title, primaryButtonText }) {
             &times;
           </button>
         </div>
-        <div className={classes.ModalFooter}>
-          <Button
-            handleClick={() => {
-              if (modalDialogData.successBtnClickHandler) {
-                modalDialogData.successBtnClickHandler();
-              }
 
-              close();
-            }}
-          >
-            {primaryButtonText || 'OK'}
-          </Button>
+        {children && (
+          <div className={classes.ModalDialogChildren}>{children}</div>
+        )}
+
+        <div className={classes.ModalFooter}>
+          {successBtnClickHandler && (
+            <Button
+              handleClick={() => {
+                if (successBtnClickHandler) {
+                  successBtnClickHandler();
+                }
+
+                close();
+              }}
+            >
+              {primaryButtonText || 'OK'}
+            </Button>
+          )}
+
           <Button secondary handleClick={close}>
             Cancel
           </Button>

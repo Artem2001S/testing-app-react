@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TextInput from 'components/TextInput/TextInput';
-import Button from 'components/Button/Button';
+import TextInput from 'components/UIElements/TextInput/TextInput';
+import Button from 'components/UIElements/Button/Button';
 import classes from './Form.module.scss';
 import { Link, Redirect } from 'react-router-dom';
-import Checkbox from 'components/Checkbox/Checkbox';
+import Checkbox from 'components/UIElements/Checkbox/Checkbox';
 
 export default function Form({
   inputs,

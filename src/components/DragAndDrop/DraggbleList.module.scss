@@ -1,0 +1,21 @@
+@import "sassVariables.scss";
+
+.Dragging {
+  position: relative;
+  background: repeating-linear-gradient(45deg, $green, $green 5px, white 5px, white 10px);
+
+  & > * {
+    visibility: hidden;
+  }
+
+  &::after {
+    content: "Drop here";
+    position: absolute;
+    @include absoluteCenter;
+
+    padding: 10px;
+    border-radius: 8px;
+    background-color: $green;
+    color: #ffffff;
+  }
+}

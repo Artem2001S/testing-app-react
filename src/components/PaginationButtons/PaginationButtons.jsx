@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classes from './PaginationButtons.module.scss';
-import Button from 'components/Button/Button';
+import Button from 'components/UIElements/Button/Button';
 
 export default function PaginationButtons({
   totalCount,

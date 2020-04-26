@@ -1,0 +1,58 @@
+@import "sassVariables.scss";
+
+.QuestionListItem {
+  display: grid;
+  width: 90%;
+  grid-template-columns: 1fr 150px;
+  column-gap: 10px;
+
+  padding: 10px 30px;
+  border-bottom: 1px solid $green;
+
+  transition: 0.5s background-color ease;
+
+  &:hover {
+    background-color: rgb(238, 238, 238);
+  }
+
+  @include media-laptop {
+    padding: 10px 20px;
+  }
+
+  @include media-tablet {
+    padding: 10px;
+    column-gap: 5px;
+  }
+
+  @include media-mobileL {
+    padding: 10px 0;
+  }
+}
+
+.Title {
+  display: flex;
+  align-items: center;
+
+  font-size: 22px;
+  font-weight: bold;
+  word-wrap: break-word;
+
+  @include media-tablet {
+    font-size: 20px;
+  }
+}
+
+.QuestionType {
+  font-size: 13px;
+  color: $red;
+}
+
+.Actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > button + button {
+    margin-left: 8px;
+  }
+}

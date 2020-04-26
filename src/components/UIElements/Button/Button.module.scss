@@ -5,6 +5,7 @@
   justify-content: center;
   align-items: center;
 
+  text-decoration: none;
   padding: 10px;
   border: none;
   min-width: 100px;
@@ -20,6 +21,14 @@
 
   &:hover {
     background-color: darken($color: $green, $amount: 9);
+  }
+
+  &.Dangerous {
+    background-color: $red;
+
+    &:hover {
+      background-color: darken($color: $red, $amount: 9);
+    }
   }
 
   &.SecondaryBtn {

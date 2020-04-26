@@ -2,10 +2,7 @@ import { createStore, compose, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer from 'redux/rootReducer';
 import { rootSaga } from 'redux/sagas/rootSaga';
-import {
-  closeModalDialog,
-  sendGetCurrentUserRequest,
-} from './actions/actionCreators';
+import { closeModalDialog } from './actions/actionCreators';
 
 const sagaMiddleware = createSagaMiddleware();
 const LOCAL_STORAGE_KEY = 'redux-store';
@@ -32,12 +29,5 @@ store.subscribe(() => {
 store.dispatch(closeModalDialog());
 
 sagaMiddleware.run(rootSaga);
-
-// check user authentication
-const isAuthorized = store.getState().currentUserData.isAuthorized;
-
-if (isAuthorized) {
-  store.dispatch(sendGetCurrentUserRequest());
-}
 
 export default store;

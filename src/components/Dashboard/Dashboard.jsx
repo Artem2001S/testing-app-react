@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import UserPanel from 'components/UserPanel/UserPanel';
-import ModalDialog from 'components/ModalDialog/ModalDialog';
 import TestsList from 'components/TestsList/TestsList';
 import SearchTestFormContainer from 'containers/SearchTestFormContainer';
-import Button from 'components/Button/Button';
-import TextInput from 'components/TextInput/TextInput';
+import Button from 'components/UIElements/Button/Button';
+import TextInput from 'components/UIElements/TextInput/TextInput';
 import classes from './Dashboard.module.scss';
 import PaginationButtons from 'components/PaginationButtons/PaginationButtons';
 
@@ -15,16 +13,14 @@ export default function Dashboard({
   testsList,
   sortType,
   currentPage,
+  lastTestAddedId,
   totalPages,
   onLogout,
-  onSearch,
   onAdd,
   onDeleteTest,
   requestTests,
   sortChange,
 }) {
-  const modalDialogData = useSelector((state) => state.modalDialog);
-
   const [addInputValue, setAddInputValue] = useState('');
 
   useEffect(() => {
@@ -36,9 +32,13 @@ export default function Dashboard({
     return <Redirect to="/" />;
   }
 
+  // redirect after test adding
+  if (lastTestAddedId !== -1) {
+    return <Redirect to={`/tests/${lastTestAddedId}`} />;
+  }
+
   return (
     <>
-      {modalDialogData.isOpen && <ModalDialog title={modalDialogData.title} />}
       <UserPanel userData={userData} onLogout={onLogout} />
       <div className={classes.SearchPanel}>
         <SearchTestFormContainer />

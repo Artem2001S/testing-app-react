@@ -1,9 +1,9 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import questionIcon from './question.svg';
 import editIcon from './edit.svg';
 import classes from './TestsListItem.module.scss';
-import Button from 'components/Button/Button';
+import Button from 'components/UIElements/Button/Button';
 
 export default function TestsListItem({
   id,
@@ -11,13 +11,10 @@ export default function TestsListItem({
   questions,
   createdAt,
   isAdmin,
-  onDeleteTest,
 }) {
   const itemClasses = classNames(classes.Item, {
     [classes.WithoutActions]: !isAdmin,
   });
-
-  const deleteTest = useCallback(() => onDeleteTest(id), [id, onDeleteTest]);
 
   return (
     <div className={itemClasses}>
@@ -35,10 +32,7 @@ export default function TestsListItem({
       </span>
       {isAdmin && (
         <div className={classes.Actions}>
-          <Button transparent title="Delete" handleClick={deleteTest}>
-            &times;
-          </Button>
-          <Button title="Edit" transparent>
+          <Button title="Edit" href={`/tests/${id}`} transparent>
             <img className={classes.EditImg} src={editIcon} alt="Edit" />
           </Button>
         </div>

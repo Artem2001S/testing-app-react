@@ -1,8 +1,8 @@
 import {
   GET_TESTS,
-  DELETE_TEST,
   CHANGE_TESTS_LIST_SORT_TYPE,
   ADD_TEST,
+  CLEAR_LAST_ADDED_TEST_ID,
 } from 'redux/actions/actionTypes';
 import { sortTypes } from 'constants.js';
 
@@ -18,6 +18,7 @@ const initialState = {
   sortType: sortTypes.descending,
   currentPage: 1,
   totalPages: 1,
+  lastTestAddedId: -1,
 };
 
 export default function testsReducer(state = initialState, { payload, type }) {
@@ -39,12 +40,10 @@ export default function testsReducer(state = initialState, { payload, type }) {
           },
           result: [...state.data.result, payload.id],
         },
+        lastTestAddedId: payload.id,
       };
-    case DELETE_TEST:
-      const newData = { ...state.data };
-      delete newData.entities.tests[payload];
-      newData.result = newData.result.filter((testId) => testId !== payload);
-      return { ...state, data: newData };
+    case CLEAR_LAST_ADDED_TEST_ID:
+      return { ...state, lastTestAddedId: -1 };
     case CHANGE_TESTS_LIST_SORT_TYPE:
       return {
         ...state,

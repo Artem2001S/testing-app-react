@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './UserPanel.module.scss';
-import Button from 'components/Button/Button';
+import Button from 'components/UIElements/Button/Button';
 
 export default function UserPanel({ userData, onLogout }) {
   return (

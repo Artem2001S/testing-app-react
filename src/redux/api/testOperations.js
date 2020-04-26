@@ -1,5 +1,5 @@
 import instance from './instance';
-import { normalizeTests } from 'redux/normalizr/normalizeTests';
+import { normalizeTests, normalizeTest } from 'redux/normalizr/normalizeTests';
 import { convertTestObject } from 'utils';
 
 export async function getTestsFromServer({ page, search }) {
@@ -23,10 +23,40 @@ export async function getTestsFromServer({ page, search }) {
 
 export async function sendDeleteTestRequest(id) {
   await instance.delete(`/tests/${id}`);
-  return { isSuccess: true };
+
+  return normalizeTest({
+    id: -1,
+    title: '',
+    questions: [],
+    createdAt: '0',
+    createdAtValue: 1,
+  });
 }
 
 export async function sendRequestToAddTest(title) {
   const createdTest = await instance.post('/tests', { title });
   return convertTestObject(createdTest.data);
+}
+
+export async function sendRequestToGetTest(id) {
+  try {
+    const test = await instance.get(`tests/${id}`);
+
+    return normalizeTest(convertTestObject(test.data));
+  } catch (error) {
+    if (error.response.status === 404) {
+      return normalizeTest({
+        id: -1,
+        title: '',
+        questions: [],
+        createdAt: '0',
+        createdAtValue: 1,
+      });
+    }
+  }
+}
+
+export async function sendRequestToUpdateTest(id, data) {
+  const updatedTest = await instance.patch(`tests/${id}`, { ...data });
+  return normalizeTest(updatedTest.data);
 }

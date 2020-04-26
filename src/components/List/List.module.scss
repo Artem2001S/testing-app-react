@@ -1,0 +1,32 @@
+.List {
+  display: flex;
+
+  &.centered {
+    align-items: center;
+    justify-content: center;
+  }
+
+  &.vertical {
+    flex-direction: column;
+
+    & > * + * {
+      margin: 10px 0;
+    }
+
+    &.smallMargin {
+      & > * + * {
+        margin: 3px 0;
+      }
+    }
+  }
+
+  & > * + * {
+    margin: 10px;
+  }
+
+  &.smallMargin {
+    & > * + * {
+      margin: 3px;
+    }
+  }
+}
