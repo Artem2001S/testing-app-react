@@ -1,8 +1,6 @@
 import Dashboard from 'components/Dashboard/Dashboard';
 import { connect } from 'react-redux';
 import {
-  openModalDialog,
-  sendLogoutRequest,
   requestTestsFromServer,
   changeTestsListSortType,
   requestToAddTest,
@@ -22,10 +20,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onLogout: () =>
-    dispatch(
-      openModalDialog('Are you sure ?', () => dispatch(sendLogoutRequest()))
-    ),
   requestTests: (page = 1, searchValue) =>
     dispatch(requestTestsFromServer(page, searchValue || '')),
   onChangeTitleInput: (e) =>

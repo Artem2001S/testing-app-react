@@ -23,6 +23,10 @@
     background-color: darken($color: $green, $amount: 9);
   }
 
+  &.Small {
+    min-width: 50px;
+  }
+
   &.Dangerous {
     background-color: $red;
 

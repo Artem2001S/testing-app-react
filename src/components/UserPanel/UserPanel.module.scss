@@ -11,28 +11,32 @@
   color: #fefefe;
 
   width: 100%;
-  padding: 10px 70px;
+  padding: 10px 20px;
 
-  @include media-laptop {
-    padding-right: 50px;
-  }
-
-  @include media-tablet {
-    padding-right: 30px;
+  & > * {
+    margin: 5px 0;
   }
 }
 
-.Crown {
-  position: absolute;
-  left: 15px;
-  top: 50%;
+.UserName {
+  word-break: break-all;
+}
 
+.CrownIcon {
+  display: inline-block;
   width: 35px;
   height: 35px;
 
   background-image: url("./crown-icon.svg");
   background-repeat: no-repeat;
   background-size: contain;
+}
 
-  transform: translateY(-65%);
+.UserInfoContainer {
+  display: flex;
+  align-items: center;
+
+  & > * + * {
+    margin-left: 20px;
+  }
 }
