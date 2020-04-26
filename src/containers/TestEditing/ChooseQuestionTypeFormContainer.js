@@ -43,7 +43,7 @@ const mergeProps = (stateProps, dispatchProps) => {
       if (stateProps.current === 'number') {
         node = <NumericQuestionFormContainer />;
       } else {
-        node = <QuestionFormContainer questionType={stateProps.current} />
+        node = <QuestionFormContainer questionType={stateProps.current} />;
       }
 
       dispatchProps.showModalDialog('Add question', null, 'Add', node);

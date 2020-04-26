@@ -46,7 +46,9 @@ export default function ModalDialog({
           </button>
         </div>
 
-        {children && <div>{children}</div>}
+        {children && (
+          <div className={classes.ModalDialogChildren}>{children}</div>
+        )}
 
         <div className={classes.ModalFooter}>
           {successBtnClickHandler && (

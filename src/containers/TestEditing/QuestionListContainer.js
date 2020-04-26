@@ -18,16 +18,16 @@ function QuestionList({ questions, onDelete, startQuestionEditing }) {
       {questions.length === 0 ? (
         <h3>Add the first question!</h3>
       ) : (
-          questions.map((question, index) => (
-            <QuestionListItem
-              key={index}
-              type={question.question_type}
-              {...question}
-              startQuestionEditing={startQuestionEditing.bind(this, question)}
-              onDelete={onDelete.bind(this, question.id)}
-            />
-          ))
-        )}
+        questions.map((question, index) => (
+          <QuestionListItem
+            key={index}
+            type={question.question_type}
+            {...question}
+            startQuestionEditing={startQuestionEditing.bind(this, question)}
+            onDelete={onDelete.bind(this, question.id)}
+          />
+        ))
+      )}
     </List>
   );
 }

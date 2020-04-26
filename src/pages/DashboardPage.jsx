@@ -1,6 +1,9 @@
 import React from 'react';
 import DashboardContainer from 'containers/DashboardContainer';
+import withUserAuthentication from 'components/hoc/withUserAuthentication';
 
-export default function DashboardPage() {
+function DashboardPage() {
   return <DashboardContainer />;
 }
+
+export default withUserAuthentication(DashboardPage);

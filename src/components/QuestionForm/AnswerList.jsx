@@ -4,6 +4,7 @@ import List from 'components/List/List';
 import DraggableList from 'components/DragAndDrop/DraggableList';
 import TextInput from 'components/UIElements/TextInput/TextInput';
 import Button from 'components/UIElements/Button/Button';
+import classes from './AnswerList.module.scss';
 
 export default function AnswerList({
   answerInputs,
@@ -21,6 +22,7 @@ export default function AnswerList({
             handleChange={onIsRightChange.bind(this, input.name)}
           />
           <TextInput
+            className={classes.Input}
             value={input.value}
             handleChange={inputChangeHandlers[input.name]}
           />

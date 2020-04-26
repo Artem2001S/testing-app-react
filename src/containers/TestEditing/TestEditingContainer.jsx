@@ -6,7 +6,6 @@ import {
   requestTestInfo,
 } from 'redux/actions/actionCreators';
 import { getTest } from 'redux/selectors/test';
-import withUserAuthentication from 'components/hoc/withUserAuthentication';
 import EditTestInfo from './EditTestInfo';
 import QuestionListContainer from './QuestionListContainer';
 import ChooseQuestionTypeFormContainer from './ChooseQuestionTypeFormContainer';
@@ -19,10 +18,11 @@ export function TestEditingContainer({ isAfterCreating, test }) {
 
   useEffect(() => {
     if (isAfterCreating) {
-      // delete last test added Id from state
+      // delete last testId added  from state
       dispatch(clearLastAddedTestId());
     }
 
+    // send request for getting test info
     if (!isNaN(id)) {
       dispatch(requestTestInfo(id));
     }
@@ -48,11 +48,11 @@ export function TestEditingContainer({ isAfterCreating, test }) {
           </h2>
         </>
       ) : (
-        <div>
+        <>
           <EditTestInfo />
           <ChooseQuestionTypeFormContainer />
           <QuestionListContainer />
-        </div>
+        </>
       )}
     </>
   );
@@ -68,4 +68,4 @@ const mapDispatchToProps = (dispatch) => ({});
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withUserAuthentication(TestEditingContainer, true));
+)(TestEditingContainer);
