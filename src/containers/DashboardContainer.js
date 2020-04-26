@@ -13,7 +13,7 @@ import { getTests } from 'redux/selectors/tests';
 const mapStateToProps = (state) => ({
   userData: state.currentUserData,
   addTestInput: state.addTestForm.input,
-  currentPage: state.tests.currentPage,
+  currentPaginationPage: state.tests.currentPage,
   totalPages: state.tests.totalPages,
   searchInputValue: state.searchTestForm.value,
   testsList: getTests(state),

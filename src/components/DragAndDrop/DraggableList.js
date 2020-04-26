@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import List from 'components/List/List';
 import Draggable from './Draggable';
-import classes from './DraggbleList.module.scss';
+import classes from './DraggableList.module.scss';
 
-export default function DraggbleList({ children, onSuccessDrop }) {
+export default function DraggableList({ children, onSuccessDrop }) {
   const initialDragState = {
     isDragging: false,
     draggedFrom: null,
@@ -69,3 +70,8 @@ export default function DraggbleList({ children, onSuccessDrop }) {
     </List>
   );
 }
+
+DraggableList.propTyes = {
+  children: PropTypes.node,
+  onSuccessDrop: PropTypes.func,
+};

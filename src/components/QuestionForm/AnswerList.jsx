@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Checkbox from 'components/UIElements/Checkbox/Checkbox';
 import List from 'components/List/List';
 import DraggableList from 'components/DragAndDrop/DraggableList';
@@ -37,3 +38,11 @@ export default function AnswerList({
     </DraggableList>
   );
 }
+
+AnswerList.propTypes = {
+  answerInputs: PropTypes.array.isRequired,
+  inputChangeHandlers: PropTypes.array.isRequired,
+  onAnswerMove: PropTypes.func.isRequired,
+  onIsRightChange: PropTypes.func.isRequired,
+  onDeleteAnswer: PropTypes.func.isRequired,
+};

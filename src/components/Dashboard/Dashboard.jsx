@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import UserPanel from 'components/UserPanel/UserPanel';
 import TestsList from 'components/TestsList/TestsList';
@@ -13,13 +14,12 @@ export default function Dashboard({
   testsList,
   addTestInput,
   sortType,
-  currentPage,
+  currentPaginationPage,
   lastTestAddedId,
   totalPages,
   onLogout,
   onAdd,
   onChangeTitleInput,
-  onDeleteTest,
   requestTests,
   sortChange,
 }) {
@@ -54,16 +54,30 @@ export default function Dashboard({
         tests={testsList}
         sortType={sortType}
         isAdmin={userData.isAdmin}
-        onDeleteTest={onDeleteTest}
         sortChange={sortChange}
       />
       <div className={classes.Pagination}>
         <PaginationButtons
           totalCount={totalPages}
-          current={currentPage}
+          current={currentPaginationPage}
           onItemClick={requestTests}
         />
       </div>
     </>
   );
 }
+
+Dashboard.propTypes = {
+  userData: PropTypes.object,
+  testsList: PropTypes.array,
+  addTestInput: PropTypes.object,
+  sortType: PropTypes.string,
+  currentPaginationPage: PropTypes.number,
+  lastTestAddedId: PropTypes.number,
+  totalPages: PropTypes.number,
+  onLogout: PropTypes.func,
+  onAdd: PropTypes.func.isRequired,
+  onChangeTitleInput: PropTypes.func.isRequired,
+  requestTests: PropTypes.func.isRequired,
+  sortChange: PropTypes.func.isRequired,
+};

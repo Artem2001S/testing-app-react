@@ -46,6 +46,8 @@ Button.propTypes = {
   title: PropTypes.string,
   secondary: PropTypes.bool,
   transparent: PropTypes.bool,
+  href: PropTypes.string,
+  dangerous: PropTypes.bool,
   disabled: PropTypes.bool,
   children: PropTypes.node,
   handleClick: PropTypes.func,

@@ -42,5 +42,14 @@ export default function QuestionForm({
 }
 
 QuestionForm.propTypes = {
+  questionTitleInput: PropTypes.object,
+  answerInputs: PropTypes.array.isRequired,
   editMode: PropTypes.bool,
+  inputChangeHandlers: PropTypes.array.isRequired,
+  changeCheckboxValue: PropTypes.func.isRequired,
+  changeQuestionTitleInputValue: PropTypes.func.isRequired,
+  onAnswerMove: PropTypes.func.isRequired,
+  onAddAnswer: PropTypes.func.isRequired,
+  onDeleteAnswer: PropTypes.func.isRequired,
+  onFormSubmit: PropTypes.func.isRequired,
 };

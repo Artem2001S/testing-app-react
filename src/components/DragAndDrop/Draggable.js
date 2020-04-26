@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default function Draggable({
   position,
@@ -21,3 +22,11 @@ export default function Draggable({
     </div>
   );
 }
+
+Draggable.propTypes = {
+  position: PropTypes.number.isRequired,
+  children: PropTypes.node,
+  onDragStart: PropTypes.func.isRequired,
+  onDragOver: PropTypes.func.isRequired,
+  onDrop: PropTypes.func.isRequired,
+};
