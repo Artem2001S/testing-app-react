@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import classes from './ModalDialog.module.scss';
 import Button from 'components/UIElements/Button/Button';
@@ -73,3 +74,10 @@ export default function ModalDialog({
     </div>
   );
 }
+
+ModalDialog.propTypes = {
+  title: PropTypes.string,
+  primaryButtonText: PropTypes.string,
+  children: PropTypes.node,
+  successBtnClickHandler: PropTypes.func,
+};

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import List from 'components/List/List';
 import TextInput from 'components/UIElements/TextInput/TextInput';
 import Button from 'components/UIElements/Button/Button';
@@ -24,3 +25,10 @@ export default function NumericQuestionForm({
     </form>
   );
 }
+
+NumericQuestionForm.propTypes = {
+  inputs: PropTypes.array.isRequired,
+  inputChangeHandlers: PropTypes.object.isRequired,
+  editMode: PropTypes.bool,
+  handleSubmit: PropTypes.func,
+};

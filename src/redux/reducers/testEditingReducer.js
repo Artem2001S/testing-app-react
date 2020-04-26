@@ -93,10 +93,12 @@ export default function testEditingPageReducer(
       const questionAnswers =
         state.entities.questions[payload.questionId].answers;
 
+      // 1) find index
+      // 2) remove answer from old position
+      // 3) insert to new position
       const index = questionAnswers.findIndex(
         (answerId) => payload.answerId === answerId
       );
-
       questionAnswers.splice(index, 1);
       questionAnswers.splice(payload.position, 0, payload.answerId);
 
@@ -105,22 +107,17 @@ export default function testEditingPageReducer(
       state.entities.answers[payload.id] = payload;
       return { ...state };
     case DELETE_ANSWER_SUCCESS:
+      // remove from answer entities
       delete state.entities.answers[payload.answerId];
-      return {
-        ...state,
-        entities: {
-          ...state.entities,
-          questions: {
-            ...state.entities.questions,
-            [payload.questionId]: {
-              ...state.entities.questions[payload.questionId],
-              answers: state.entities.questions[
-                payload.questionId
-              ].answers.filter((answerId) => answerId !== payload.answerId),
-            },
-          },
-        },
-      };
+
+      // remove from question answers array
+      state.entities.questions[
+        payload.questionId
+      ].answers = state.entities.questions[payload.questionId].answers.filter(
+        (answerId) => answerId !== payload.answerId
+      );
+
+      return { ...state };
     case EDIT_QUESTION_SUCCESS:
       const updatedQuestion = {
         ...state.entities.questions[payload.id],

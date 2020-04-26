@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import questionIcon from './question.svg';
 import editIcon from './edit.svg';
@@ -45,3 +46,11 @@ export default function TestsListItem({
     </div>
   );
 }
+
+TestsListItem.propTypes = {
+  id: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  questions: PropTypes.array.isRequired,
+  createdAt: PropTypes.string.isRequired,
+  isAdmin: PropTypes.bool,
+};

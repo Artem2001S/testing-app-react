@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import UserPanel from 'components/UserPanel/UserPanel';
 import TestsList from 'components/TestsList/TestsList';
@@ -11,18 +12,17 @@ import PaginationButtons from 'components/PaginationButtons/PaginationButtons';
 export default function Dashboard({
   userData,
   testsList,
+  addTestInput,
   sortType,
-  currentPage,
+  currentPaginationPage,
   lastTestAddedId,
   totalPages,
   onLogout,
   onAdd,
-  onDeleteTest,
+  onChangeTitleInput,
   requestTests,
   sortChange,
 }) {
-  const [addInputValue, setAddInputValue] = useState('');
-
   useEffect(() => {
     requestTests();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -45,25 +45,39 @@ export default function Dashboard({
       </div>
       <div className={classes.AddLinkWrapper}>
         <TextInput
-          value={addInputValue}
-          handleChange={(e) => setAddInputValue(e.target.value)}
+          value={addTestInput.value}
+          handleChange={onChangeTitleInput}
         />
-        <Button handleClick={onAdd.bind(this, addInputValue)}>Add test</Button>
+        <Button handleClick={onAdd}>Add test</Button>
       </div>
       <TestsList
         tests={testsList}
         sortType={sortType}
         isAdmin={userData.isAdmin}
-        onDeleteTest={onDeleteTest}
         sortChange={sortChange}
       />
       <div className={classes.Pagination}>
         <PaginationButtons
           totalCount={totalPages}
-          current={currentPage}
+          current={currentPaginationPage}
           onItemClick={requestTests}
         />
       </div>
     </>
   );
 }
+
+Dashboard.propTypes = {
+  userData: PropTypes.object,
+  testsList: PropTypes.array,
+  addTestInput: PropTypes.object,
+  sortType: PropTypes.string,
+  currentPaginationPage: PropTypes.number,
+  lastTestAddedId: PropTypes.number,
+  totalPages: PropTypes.number,
+  onLogout: PropTypes.func,
+  onAdd: PropTypes.func.isRequired,
+  onChangeTitleInput: PropTypes.func.isRequired,
+  requestTests: PropTypes.func.isRequired,
+  sortChange: PropTypes.func.isRequired,
+};

@@ -4,7 +4,6 @@ import List from 'components/List/List';
 import Button from 'components/UIElements/Button/Button';
 import AnswerList from './AnswerList';
 import TextInput from 'components/UIElements/TextInput/TextInput';
-import classes from './AnswerList.module.scss';
 
 export default function QuestionForm({
   questionTitleInput,
@@ -43,5 +42,14 @@ export default function QuestionForm({
 }
 
 QuestionForm.propTypes = {
+  questionTitleInput: PropTypes.object,
+  answerInputs: PropTypes.array.isRequired,
   editMode: PropTypes.bool,
+  inputChangeHandlers: PropTypes.object.isRequired,
+  changeCheckboxValue: PropTypes.func.isRequired,
+  changeQuestionTitleInputValue: PropTypes.func.isRequired,
+  onAnswerMove: PropTypes.func.isRequired,
+  onAddAnswer: PropTypes.func.isRequired,
+  onDeleteAnswer: PropTypes.func.isRequired,
+  onFormSubmit: PropTypes.func.isRequired,
 };

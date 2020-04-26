@@ -57,7 +57,8 @@ export default function DropDown({ items, current, label, onChange }) {
 }
 
 DropDown.propTypes = {
-  items: PropTypes.array,
+  label: PropTypes.string,
+  items: PropTypes.array.isRequired,
   current: PropTypes.string,
-  onChange: PropTypes.func,
+  onChange: PropTypes.func.isRequired,
 };

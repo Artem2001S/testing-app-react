@@ -9,6 +9,7 @@ import searchTestForm from 'redux/reducers/searchTestFormReducer';
 import testEditingPage from 'redux/reducers/testEditingReducer';
 import numericQuestionForm from 'redux/reducers/numericQuestionFormReducer';
 import questionForm from 'redux/reducers/questionFormReducer';
+import addTestForm from 'redux/reducers/addTestFormReducer';
 
 export default combineReducers({
   authorizationFormInputs,
@@ -18,6 +19,7 @@ export default combineReducers({
   modalDialog,
   tests,
   searchTestForm,
+  addTestForm,
   testEditingPage,
   numericQuestionForm,
   questionForm,

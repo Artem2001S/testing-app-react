@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classes from './TestsList.module.scss';
 import Button from 'components/UIElements/Button/Button';
 import TestsListItem from './TestListItem/TestsListItem';
@@ -20,3 +21,9 @@ export default function TestsList({ tests, isAdmin, sortChange }) {
     </div>
   );
 }
+
+TestsList.propTypes = {
+  tests: PropTypes.array.isRequired,
+  isAdmin: PropTypes.bool,
+  sortChange: PropTypes.func.isRequired,
+};

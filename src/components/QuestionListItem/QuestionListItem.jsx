@@ -1,6 +1,7 @@
 import React from 'react';
-import classes from './QuestionListItem.module.scss';
+import PropTypes from 'prop-types';
 import Button from 'components/UIElements/Button/Button';
+import classes from './QuestionListItem.module.scss';
 
 export default function QuestionListItem({
   title,
@@ -29,3 +30,10 @@ export default function QuestionListItem({
     </div>
   );
 }
+
+QuestionListItem.propTypes = {
+  title: PropTypes.string,
+  type: PropTypes.string,
+  onDelete: PropTypes.func.isRequired,
+  startQuestionEditing: PropTypes.func.isRequired,
+};
