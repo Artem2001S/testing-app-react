@@ -41,7 +41,7 @@ export default function AnswerList({
 
 AnswerList.propTypes = {
   answerInputs: PropTypes.array.isRequired,
-  inputChangeHandlers: PropTypes.array.isRequired,
+  inputChangeHandlers: PropTypes.object.isRequired,
   onAnswerMove: PropTypes.func.isRequired,
   onIsRightChange: PropTypes.func.isRequired,
   onDeleteAnswer: PropTypes.func.isRequired,

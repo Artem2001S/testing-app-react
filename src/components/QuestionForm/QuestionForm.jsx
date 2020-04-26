@@ -45,7 +45,7 @@ QuestionForm.propTypes = {
   questionTitleInput: PropTypes.object,
   answerInputs: PropTypes.array.isRequired,
   editMode: PropTypes.bool,
-  inputChangeHandlers: PropTypes.array.isRequired,
+  inputChangeHandlers: PropTypes.object.isRequired,
   changeCheckboxValue: PropTypes.func.isRequired,
   changeQuestionTitleInputValue: PropTypes.func.isRequired,
   onAnswerMove: PropTypes.func.isRequired,

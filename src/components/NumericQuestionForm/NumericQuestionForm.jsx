@@ -28,7 +28,7 @@ export default function NumericQuestionForm({
 
 NumericQuestionForm.propTypes = {
   inputs: PropTypes.array.isRequired,
-  inputChangeHandlers: PropTypes.array.isRequired,
+  inputChangeHandlers: PropTypes.object.isRequired,
   editMode: PropTypes.bool,
   handleSubmit: PropTypes.func,
 };
