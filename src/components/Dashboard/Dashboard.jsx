@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import UserPanel from 'components/UserPanel/UserPanel';
 import TestsList from 'components/TestsList/TestsList';
 import SearchTestFormContainer from 'containers/SearchTestFormContainer';
 import Button from 'components/UIElements/Button/Button';
 import TextInput from 'components/UIElements/TextInput/TextInput';
-import classes from './Dashboard.module.scss';
 import PaginationButtons from 'components/PaginationButtons/PaginationButtons';
+import classes from './Dashboard.module.scss';
 
 export default function Dashboard({
   userData,
@@ -17,7 +16,6 @@ export default function Dashboard({
   currentPaginationPage,
   lastTestAddedId,
   totalPages,
-  onLogout,
   onAdd,
   onChangeTitleInput,
   requestTests,
@@ -39,7 +37,6 @@ export default function Dashboard({
 
   return (
     <>
-      <UserPanel userData={userData} onLogout={onLogout} />
       <div className={classes.SearchPanel}>
         <SearchTestFormContainer />
       </div>
@@ -75,7 +72,6 @@ Dashboard.propTypes = {
   currentPaginationPage: PropTypes.number,
   lastTestAddedId: PropTypes.number,
   totalPages: PropTypes.number,
-  onLogout: PropTypes.func,
   onAdd: PropTypes.func.isRequired,
   onChangeTitleInput: PropTypes.func.isRequired,
   requestTests: PropTypes.func.isRequired,

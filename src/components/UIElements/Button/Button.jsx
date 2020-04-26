@@ -11,6 +11,7 @@ export default function Button({
   secondary,
   transparent,
   dangerous,
+  small,
   disabled,
   handleClick,
 }) {
@@ -19,6 +20,7 @@ export default function Button({
     [classes.TransparentBtn]: transparent,
     [classes.Disabled]: disabled,
     [classes.Dangerous]: dangerous,
+    [classes.Small]: small,
   });
 
   return (
@@ -48,6 +50,7 @@ Button.propTypes = {
   transparent: PropTypes.bool,
   href: PropTypes.string,
   dangerous: PropTypes.bool,
+  small: PropTypes.bool,
   disabled: PropTypes.bool,
   children: PropTypes.node,
   handleClick: PropTypes.func,
