@@ -10,6 +10,7 @@ import testEditingPage from 'redux/reducers/testEditingReducer';
 import numericQuestionForm from 'redux/reducers/numericQuestionFormReducer';
 import questionForm from 'redux/reducers/questionFormReducer';
 import addTestForm from 'redux/reducers/addTestFormReducer';
+import quiz from 'redux/reducers/quizReducer';
 
 export default combineReducers({
   authorizationFormInputs,
@@ -23,4 +24,5 @@ export default combineReducers({
   testEditingPage,
   numericQuestionForm,
   questionForm,
+  quiz,
 });

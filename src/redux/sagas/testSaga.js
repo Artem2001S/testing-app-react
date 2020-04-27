@@ -5,6 +5,7 @@ import {
   REQUEST_TO_ADD_TEST,
   REQUEST_TEST_INFO,
   REQUEST_TO_UPDATE_TEST,
+  REQUEST_TEST_FROM_QUIZ_PAGE,
 } from 'redux/actions/actionTypes';
 import {
   startApiRequest,
@@ -13,6 +14,7 @@ import {
   getTests,
   getTestInfo,
   addTest,
+  getTestForQuizPage,
 } from 'redux/actions/actionCreators';
 import {
   getTestsFromServer,
@@ -28,6 +30,7 @@ export function* watchTest() {
   yield takeEvery(REQUEST_TEST_DELETING, deleteTestWorker);
   yield takeEvery(REQUEST_TO_ADD_TEST, addTestWorker);
   yield takeEvery(REQUEST_TEST_INFO, getTestWorker);
+  yield takeEvery(REQUEST_TEST_FROM_QUIZ_PAGE, getQuizTestInfoWorker);
   yield takeEvery(REQUEST_TO_UPDATE_TEST, updateTestWorker);
 }
 
@@ -80,6 +83,19 @@ function* getTestWorker({ payload }) {
     const test = yield call(sendRequestToGetTest, payload);
 
     yield put(getTestInfo(normalizeTest(test)));
+  } catch (error) {
+    yield put(getError(error.message));
+  }
+
+  yield put(finishApiRequest());
+}
+
+function* getQuizTestInfoWorker({ payload }) {
+  try {
+    yield put(startApiRequest());
+    const test = yield call(sendRequestToGetTest, payload);
+
+    yield put(getTestForQuizPage(test));
   } catch (error) {
     yield put(getError(error.message));
   }
