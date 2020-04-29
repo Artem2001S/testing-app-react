@@ -54,13 +54,13 @@ export function* questionAddWorker({ payload }) {
       sendAddQuestionRequest,
       payload.testId,
       payload.data.title,
-      payload.data.question_type,
+      payload.data.questionType,
       payload.data.answer
     );
 
     yield put(addQuestionSuccess(question));
 
-    if (payload.data.question_type !== 'number') {
+    if (payload.data.questionType !== 'number') {
       const answers = payload.data.answers;
 
       // send requests for add answers

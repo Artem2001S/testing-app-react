@@ -88,7 +88,7 @@ const mergeProps = (stateProps, dispatchProps) => {
 
       const data = {
         title,
-        question_type: questionType,
+        questionType,
         answers: answerInputs.map((input) => ({
           text: input.value,
           isRight: input.isRight,
@@ -100,7 +100,7 @@ const mergeProps = (stateProps, dispatchProps) => {
           title,
           questionType,
           answer: null,
-          answers: answerInputsWithDeletedAnswers.map((answer, index) => ({
+          answers: answerInputsWithDeletedAnswers.map((answer) => ({
             id: answer.id,
             text: answer.value,
             isRight: answer.isRight,
