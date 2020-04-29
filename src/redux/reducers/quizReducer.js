@@ -1,8 +1,11 @@
 import { GET_TEST_FOR_QUIZ_PAGE } from 'redux/actions/actionTypes';
+import { createInputsForAnswers } from 'utils/quizUtils';
 
 const initialState = {
   test: {},
   currentQuestionIndex: -1,
+  questionsCount: 0,
+  answerInputs: [],
 };
 
 export default function quizReducer(state = initialState, { payload, type }) {
@@ -11,8 +14,9 @@ export default function quizReducer(state = initialState, { payload, type }) {
       return {
         ...state,
         test: payload,
-        currentQuestionIndex: 0,
+        currentQuestionIndex: 2,
         questionsCount: payload.questions.length,
+        answerInputs: createInputsForAnswers(payload.questions[2]),
       };
     default:
       return state;

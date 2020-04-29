@@ -26,6 +26,7 @@ const mapStateToProps = (state) => ({
   currentQuestionNumber: state.quiz.currentQuestionIndex + 1,
   questionTitle: getCurrentQuestionTitle(state),
   questionsCount: getCurrentTestQuestionsCount(state),
+  answerInputs: state.quiz.answerInputs,
 });
 
 const mapDispatchToProps = (dispatch) => ({
