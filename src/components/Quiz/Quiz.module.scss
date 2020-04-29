@@ -19,8 +19,21 @@
   padding: 20px 35px;
   width: 85%;
   border: 3px solid $red;
-  
+
   margin-top: 30px;
   border-radius: 10px;
   background-color: #fefefe;
+}
+
+.Actions {
+  display: flex;
+
+  padding: 20px 35px;
+  width: 85%;
+
+  border-radius: 10px;
+  background-color: #fefefe;
+  & > * + * {
+    margin-left: 15px;
+  }
 }

@@ -2,7 +2,11 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Quiz from 'components/Quiz/Quiz';
 import { useParams } from 'react-router-dom';
-import { requestTestFromQuizPage } from 'redux/actions/actionCreators';
+import {
+  requestTestFromQuizPage,
+  nextQuestion,
+  finishQuiz,
+} from 'redux/actions/actionCreators';
 import {
   getCurrentQuestionTitle,
   getCurrentTestQuestionsCount,
@@ -27,10 +31,13 @@ const mapStateToProps = (state) => ({
   questionTitle: getCurrentQuestionTitle(state),
   questionsCount: getCurrentTestQuestionsCount(state),
   answerInputs: state.quiz.answerInputs,
+  isFinished: state.quiz.isFinished,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   requestTestFromServer: (testId) => dispatch(requestTestFromQuizPage(testId)),
+  onNext: () => dispatch(nextQuestion()),
+  onFinishQuiz: () => dispatch(finishQuiz()),
 });
 
 const mergeProps = (stateProps, dispatchProps) => {

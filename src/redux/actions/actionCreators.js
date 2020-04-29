@@ -50,6 +50,8 @@ import {
   CHANGE_ADD_TEST_FORM_INPUT_VALUE,
   REQUEST_TEST_FROM_QUIZ_PAGE,
   GET_TEST_FOR_QUIZ_PAGE,
+  NEXT_QUESTION,
+  FINISH_QUIZ,
 } from './actionTypes';
 
 export function startApiRequest() {
@@ -404,5 +406,17 @@ export function getTestForQuizPage(test) {
   return {
     type: GET_TEST_FOR_QUIZ_PAGE,
     payload: test,
+  };
+}
+
+export function nextQuestion() {
+  return {
+    type: NEXT_QUESTION,
+  };
+}
+
+export function finishQuiz() {
+  return {
+    type: FINISH_QUIZ,
   };
 }
