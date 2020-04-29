@@ -5,6 +5,7 @@ import {
   sendRequestToAddQuestion,
   closeModalDialog,
   sendRequestToEditQuestion,
+  getError,
 } from 'redux/actions/actionCreators';
 import { createOnChangeHandlers } from 'utils';
 
@@ -23,6 +24,7 @@ const mapDispatchToProps = (dispatch) => ({
   sendRequestToEdit: (questionId, data) =>
     dispatch(sendRequestToEditQuestion(questionId, data)),
   closeModalDialog: () => dispatch(closeModalDialog()),
+  getValidationError: (message) => dispatch(getError(message)),
 });
 
 const mergeProps = (stateProps, dispatchProps) => {
@@ -40,6 +42,11 @@ const mergeProps = (stateProps, dispatchProps) => {
 
       const [{ value: title }, { value: answer }] = stateProps.inputs;
       const data = { title, answer, questionType: 'number' };
+
+      if (!title || !answer) {
+        dispatchProps.getValidationError('Enter data!');
+        return;
+      }
 
       if (stateProps.editMode) {
         dispatchProps.sendRequestToEdit(stateProps.questionId, data);
