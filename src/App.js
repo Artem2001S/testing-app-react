@@ -14,6 +14,7 @@ import Loader from 'components/UIElements/Loader/Loader';
 import Error from 'components/UIElements/Error/Error';
 import TestEditingPage from 'pages/TestEditingPage';
 import ModalDialog from 'components/ModalDialog/ModalDialog';
+import QuizPage from 'pages/QuizPage';
 
 function App() {
   const isLoading = useSelector((state) => state.UIData.isLoading);
@@ -48,6 +49,9 @@ function App() {
           </Route>
           <Route path="/tests/:id" exact>
             <TestEditingPage />
+          </Route>
+          <Route path="/quiz/:testId" exact>
+            <QuizPage />
           </Route>
           <Route path="*">
             <Redirect to="/" />

@@ -48,6 +48,11 @@ import {
   MOVE_ANSWER_SUCCESS,
   EDIT_ANSWER_SUCCESS,
   CHANGE_ADD_TEST_FORM_INPUT_VALUE,
+  REQUEST_TEST_FROM_QUIZ_PAGE,
+  GET_TEST_FOR_QUIZ_PAGE,
+  NEXT_QUESTION,
+  FINISH_QUIZ,
+  CHANGE_QUIZ_ANSWER_INPUT,
 } from './actionTypes';
 
 export function startApiRequest() {
@@ -388,5 +393,38 @@ export function deleteAnswerFromQuestionForm(inputName) {
   return {
     type: DELETE_ANSWER_FROM_QUESTION_FORM,
     payload: { inputName },
+  };
+}
+
+export function requestTestFromQuizPage(testId) {
+  return {
+    type: REQUEST_TEST_FROM_QUIZ_PAGE,
+    payload: testId,
+  };
+}
+
+export function getTestForQuizPage(test) {
+  return {
+    type: GET_TEST_FOR_QUIZ_PAGE,
+    payload: test,
+  };
+}
+
+export function nextQuestion() {
+  return {
+    type: NEXT_QUESTION,
+  };
+}
+
+export function finishQuiz() {
+  return {
+    type: FINISH_QUIZ,
+  };
+}
+
+export function changeQuizAnswerInput(inputName, newValue) {
+  return {
+    type: CHANGE_QUIZ_ANSWER_INPUT,
+    payload: { inputName, newValue },
   };
 }

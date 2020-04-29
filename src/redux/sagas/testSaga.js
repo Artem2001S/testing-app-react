@@ -5,6 +5,7 @@ import {
   REQUEST_TO_ADD_TEST,
   REQUEST_TEST_INFO,
   REQUEST_TO_UPDATE_TEST,
+  REQUEST_TEST_FROM_QUIZ_PAGE,
 } from 'redux/actions/actionTypes';
 import {
   startApiRequest,
@@ -13,6 +14,7 @@ import {
   getTests,
   getTestInfo,
   addTest,
+  getTestForQuizPage,
 } from 'redux/actions/actionCreators';
 import {
   getTestsFromServer,
@@ -21,12 +23,14 @@ import {
   sendRequestToGetTest,
   sendRequestToUpdateTest,
 } from 'redux/api/testOperations';
+import { normalizeTests, normalizeTest } from 'redux/normalizr/normalizeTests';
 
 export function* watchTest() {
   yield takeEvery(REQUEST_TESTS_FROM_SERVER, getTestsWorker);
   yield takeEvery(REQUEST_TEST_DELETING, deleteTestWorker);
   yield takeEvery(REQUEST_TO_ADD_TEST, addTestWorker);
   yield takeEvery(REQUEST_TEST_INFO, getTestWorker);
+  yield takeEvery(REQUEST_TEST_FROM_QUIZ_PAGE, getQuizTestInfoWorker);
   yield takeEvery(REQUEST_TO_UPDATE_TEST, updateTestWorker);
 }
 
@@ -34,9 +38,13 @@ function* getTestsWorker({ payload }) {
   try {
     yield put(startApiRequest());
 
-    const tests = yield call(getTestsFromServer, payload);
+    const data = yield call(getTestsFromServer, payload);
+    const normalizedData = {
+      ...data,
+      tests: normalizeTests(data.tests),
+    };
 
-    yield put(getTests(tests));
+    yield put(getTests(normalizedData));
   } catch (error) {
     yield put(getError(error.message));
   }
@@ -49,7 +57,7 @@ function* deleteTestWorker({ payload }) {
     yield put(startApiRequest());
     const test = yield call(sendDeleteTestRequest, payload);
 
-    yield put(getTestInfo(test));
+    yield put(getTestInfo(normalizeTest(test)));
   } catch (error) {
     yield put(error.message);
   }
@@ -73,7 +81,21 @@ function* getTestWorker({ payload }) {
   try {
     yield put(startApiRequest());
     const test = yield call(sendRequestToGetTest, payload);
-    yield put(getTestInfo(test));
+
+    yield put(getTestInfo(normalizeTest(test)));
+  } catch (error) {
+    yield put(getError(error.message));
+  }
+
+  yield put(finishApiRequest());
+}
+
+function* getQuizTestInfoWorker({ payload }) {
+  try {
+    yield put(startApiRequest());
+    const test = yield call(sendRequestToGetTest, payload);
+
+    yield put(getTestForQuizPage(test));
   } catch (error) {
     yield put(getError(error.message));
   }
@@ -90,7 +112,7 @@ function* updateTestWorker({ payload }) {
       payload.data
     );
 
-    yield put(getTestInfo(updatedTest));
+    yield put(getTestInfo(normalizeTest(updatedTest)));
   } catch (error) {
     yield put(getError(error.message));
   }

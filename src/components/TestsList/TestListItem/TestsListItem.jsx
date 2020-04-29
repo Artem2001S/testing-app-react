@@ -39,7 +39,7 @@ export default function TestsListItem({
         </div>
       )}
       <div className={classes.Actions} title="Start">
-        <Button title="Start the test" transparent>
+        <Button href={`/quiz/${id}`} title="Start the test" transparent>
           &rarr;
         </Button>
       </div>

@@ -1,0 +1,32 @@
+@import "sassVariables.scss";
+
+.QuizContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 100vh;
+  min-width: 100vw;
+
+  background-color: $green;
+}
+
+.Actions {
+  display: flex;
+
+  margin-top: 20px;
+  padding: 20px 35px;
+  width: 85%;
+
+  @include media-tablet {
+    width: 95%;
+    padding: 15px 22px;
+  }
+
+  border-radius: 10px;
+  background-color: #fefefe;
+  & > * + * {
+    margin-left: 15px;
+  }
+}

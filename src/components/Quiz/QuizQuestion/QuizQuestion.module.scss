@@ -1,0 +1,33 @@
+@import "sassVariables.scss";
+
+.QuizHeader {
+  display: flex;
+  align-items: center;
+
+  padding: 20px 35px;
+  width: 85%;
+  border: 3px solid $red;
+
+  border-radius: 10px;
+  background-color: #fefefe;
+
+  font-size: 20px;
+
+  @include media-tablet {
+    width: 95%;
+    padding: 22px;
+  }
+
+  @include media-mobileL {
+    font-size: 19px;
+  }
+}
+
+.CurrentQuestion {
+  padding: 10px;
+  margin-right: 10px;
+
+  border-radius: 10px;
+  background-color: $red;
+  color: #fefefe;
+}

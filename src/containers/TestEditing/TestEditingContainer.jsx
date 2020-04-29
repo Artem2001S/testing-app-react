@@ -63,9 +63,4 @@ const mapStateToProps = (state) => ({
   test: getTest(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TestEditingContainer);
+export default connect(mapStateToProps)(TestEditingContainer);

@@ -1,0 +1,25 @@
+@import "sassVariables.scss";
+
+.Answers {
+  display: flex;
+  flex-direction: column;
+
+  padding: 20px 35px;
+  width: 85%;
+  border: 3px solid $red;
+
+  margin-top: 30px;
+  border-radius: 10px;
+  background-color: #fefefe;
+
+  @include media-tablet {
+    width: 95%;
+    padding: 35px 25px;
+  }
+
+  @include media-mobileL {
+    & > label {
+      width: 200px;
+    }
+  }
+}
