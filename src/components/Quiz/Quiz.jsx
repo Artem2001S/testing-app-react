@@ -4,6 +4,7 @@ import classes from './Quiz.module.scss';
 import QuizQuestion from './QuizQuestion/QuizQuestion';
 import Button from 'components/UIElements/Button/Button';
 import QuizAnswers from './QuizAnswers/QuizAnswers';
+import QuizResult from './QuizResult/QuizResult';
 
 export default function Quiz({
   questionTitle,
@@ -17,7 +18,12 @@ export default function Quiz({
   onFinishQuiz,
 }) {
   if (isFinished) {
-    return <h1>Your result {`${correctAnswersCount} of ${questionsCount}`}</h1>;
+    return (
+      <QuizResult
+        correctAnswersCount={correctAnswersCount}
+        questionsCount={questionsCount}
+      />
+    );
   }
 
   return (
