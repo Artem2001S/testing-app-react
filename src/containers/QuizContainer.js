@@ -6,11 +6,13 @@ import {
   requestTestFromQuizPage,
   nextQuestion,
   finishQuiz,
+  changeQuizAnswerInput,
 } from 'redux/actions/actionCreators';
 import {
   getCurrentQuestionTitle,
   getCurrentTestQuestionsCount,
 } from 'redux/selectors/quiz';
+import { createOnChangeHandlers } from 'utils';
 
 function QuizContainer({ requestTestFromServer, ...props }) {
   const { testId } = useParams();
@@ -38,12 +40,25 @@ const mapDispatchToProps = (dispatch) => ({
   requestTestFromServer: (testId) => dispatch(requestTestFromQuizPage(testId)),
   onNext: () => dispatch(nextQuestion()),
   onFinishQuiz: () => dispatch(finishQuiz()),
+  handleInputChange: (inputName, inputType, e) => {
+    if (inputType === 'checkbox' || inputType === 'radio') {
+      dispatch(changeQuizAnswerInput(inputName, e.target.checked));
+    } else {
+      dispatch(changeQuizAnswerInput(inputName, e.target.value));
+    }
+  },
 });
 
 const mergeProps = (stateProps, dispatchProps) => {
+  const inputChangeHandlers = createOnChangeHandlers(
+    stateProps.answerInputs,
+    dispatchProps.handleInputChange
+  );
+
   return {
     ...stateProps,
     ...dispatchProps,
+    inputChangeHandlers,
   };
 };
 

@@ -2,8 +2,10 @@ import {
   GET_TEST_FOR_QUIZ_PAGE,
   NEXT_QUESTION,
   FINISH_QUIZ,
+  CHANGE_QUIZ_ANSWER_INPUT,
 } from 'redux/actions/actionTypes';
 import { createInputsForAnswers } from 'utils/quizUtils';
+import { updateInputsArray } from 'utils';
 
 const initialState = {
   test: {},
@@ -24,6 +26,17 @@ export default function quizReducer(state = initialState, { payload, type }) {
         answerInputs: createInputsForAnswers(payload.questions[0]),
         isFinished: false,
       };
+    case CHANGE_QUIZ_ANSWER_INPUT:
+      return {
+        ...state,
+        answerInputs: updateInputsArray(
+          state.answerInputs,
+          payload.inputName,
+          payload.newValue,
+          state.test.questions[state.currentQuestionIndex].question_type ===
+            'single'
+        ),
+      };
     case NEXT_QUESTION:
       // check did quiz finished
       // +1 - next question index
@@ -41,7 +54,6 @@ export default function quizReducer(state = initialState, { payload, type }) {
           state.test.questions[state.currentQuestionIndex + 1]
         ),
       };
-
     case FINISH_QUIZ:
       return {
         ...state,

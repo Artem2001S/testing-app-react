@@ -12,6 +12,7 @@ export default function Quiz({
   currentQuestionNumber,
   isFinished,
   questionsCount,
+  inputChangeHandlers,
   answerInputs,
   onNext,
   onFinishQuiz,
@@ -31,11 +32,29 @@ export default function Quiz({
         {answerInputs.map((input, index) => {
           switch (input.type) {
             case 'number':
-              return <TextInput key={index} {...input} />;
+              return (
+                <TextInput
+                  key={index}
+                  handleChange={inputChangeHandlers[input.name]}
+                  {...input}
+                />
+              );
             case 'radio':
-              return <RadioButton key={index} {...input} />;
+              return (
+                <RadioButton
+                  key={index}
+                  handleChange={inputChangeHandlers[input.name]}
+                  {...input}
+                />
+              );
             case 'checkbox':
-              return <Checkbox key={index} {...input} />;
+              return (
+                <Checkbox
+                  key={index}
+                  handleChange={inputChangeHandlers[input.name]}
+                  {...input}
+                />
+              );
             default:
               return <></>;
           }

@@ -52,6 +52,7 @@ import {
   GET_TEST_FOR_QUIZ_PAGE,
   NEXT_QUESTION,
   FINISH_QUIZ,
+  CHANGE_QUIZ_ANSWER_INPUT,
 } from './actionTypes';
 
 export function startApiRequest() {
@@ -418,5 +419,12 @@ export function nextQuestion() {
 export function finishQuiz() {
   return {
     type: FINISH_QUIZ,
+  };
+}
+
+export function changeQuizAnswerInput(inputName, newValue) {
+  return {
+    type: CHANGE_QUIZ_ANSWER_INPUT,
+    payload: { inputName, newValue },
   };
 }

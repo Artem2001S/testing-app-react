@@ -1,4 +1,9 @@
-export function updateInputsArray(inputs, inputName, newValue) {
+export function updateInputsArray(inputs, inputName, newValue, isRadioButtons) {
+  // only one radio button should be checked
+  if (isRadioButtons) {
+    inputs = inputs.map((input) => ({ ...input, value: false }));
+  }
+
   return inputs.map((input) =>
     input.name === inputName ? { ...input, value: newValue } : input
   );
