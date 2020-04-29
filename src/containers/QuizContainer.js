@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Quiz from 'components/Quiz/Quiz';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import {
   requestTestFromQuizPage,
   nextQuestion,
@@ -14,7 +14,12 @@ import {
 } from 'redux/selectors/quiz';
 import { createOnChangeHandlers } from 'utils';
 
-function QuizContainer({ requestTestFromServer, ...props }) {
+function QuizContainer({
+  requestTestFromServer,
+  isNotFound,
+  isLoading,
+  ...props
+}) {
   const { testId } = useParams();
 
   useEffect(() => {
@@ -24,6 +29,19 @@ function QuizContainer({ requestTestFromServer, ...props }) {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (isLoading) {
+    return <></>;
+  }
+
+  if (isNotFound) {
+    return (
+      <div>
+        <h1>Test not found (or this quiz doesn't contain questions)</h1>
+        <Link to="/dashboard">Open tests list</Link>
+      </div>
+    );
+  }
 
   return <Quiz {...props} />;
 }
@@ -35,6 +53,8 @@ const mapStateToProps = (state) => ({
   answerInputs: state.quiz.answerInputs,
   isFinished: state.quiz.isFinished,
   correctAnswersCount: state.quiz.correctAnswersCount,
+  isNotFound: state.quiz.questionsCount === 0,
+  isLoading: state.UIData.isLoading,
 });
 
 const mapDispatchToProps = (dispatch) => ({

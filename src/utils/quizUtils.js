@@ -1,4 +1,8 @@
 export function createInputsForAnswers(question) {
+  if (!question) {
+    return [];
+  }
+
   const { question_type: questionType, answers } = question;
 
   if (questionType === 'number') {

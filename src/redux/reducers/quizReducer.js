@@ -19,6 +19,11 @@ const initialState = {
 export default function quizReducer(state = initialState, { payload, type }) {
   switch (type) {
     case GET_TEST_FOR_QUIZ_PAGE:
+      // if test not found
+      if (payload.id === -1) {
+        return initialState;
+      }
+
       return {
         ...state,
         test: payload,
