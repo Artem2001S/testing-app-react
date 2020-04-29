@@ -12,13 +12,14 @@ export default function Quiz({
   currentQuestionNumber,
   isFinished,
   questionsCount,
+  correctAnswersCount,
   inputChangeHandlers,
   answerInputs,
   onNext,
   onFinishQuiz,
 }) {
   if (isFinished) {
-    return <h1>Test finished</h1>;
+    return <h1>Your result {`${correctAnswersCount} of ${questionsCount}`}</h1>;
   }
 
   return (

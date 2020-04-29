@@ -34,6 +34,7 @@ const mapStateToProps = (state) => ({
   questionsCount: getCurrentTestQuestionsCount(state),
   answerInputs: state.quiz.answerInputs,
   isFinished: state.quiz.isFinished,
+  correctAnswersCount: state.quiz.correctAnswersCount,
 });
 
 const mapDispatchToProps = (dispatch) => ({
