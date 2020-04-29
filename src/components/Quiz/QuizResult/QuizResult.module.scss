@@ -1,13 +1,22 @@
+@import "sassVariables.scss";
+
 .QuizResult {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  min-width: 100vw;
+  min-height: 100vh;
+
+  background-color: $green;
 }
 
 .Title {
   margin-top: 15px;
-  
+
+  color: #fefefe;
+
   font-size: 35px;
   font-weight: bold;
 }

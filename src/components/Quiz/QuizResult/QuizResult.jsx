@@ -7,10 +7,12 @@ export default function QuizResult({ correctAnswersCount, questionsCount }) {
   return (
     <div className={classes.QuizResult}>
       <div className={classes.Title}>
-        Your result {`${correctAnswersCount} of ${questionsCount}`}
+        Your result: <u>{correctAnswersCount}</u> of {questionsCount}
       </div>
       <div className={classes.Footer}>
-        <Button href="/dashboard">Go to tests list</Button>
+        <Button href="/dashboard" dangerous>
+          Go to tests list
+        </Button>
       </div>
     </div>
   );
