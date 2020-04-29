@@ -11,4 +11,15 @@
   margin-top: 30px;
   border-radius: 10px;
   background-color: #fefefe;
+
+  @include media-tablet {
+    width: 95%;
+    padding: 35px 25px;
+  }
+
+  @include media-mobileL {
+    & > label {
+      width: 200px;
+    }
+  }
 }

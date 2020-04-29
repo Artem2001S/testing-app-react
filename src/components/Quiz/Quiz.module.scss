@@ -15,8 +15,14 @@
 .Actions {
   display: flex;
 
+  margin-top: 20px;
   padding: 20px 35px;
   width: 85%;
+
+  @include media-tablet {
+    width: 95%;
+    padding: 15px 22px;
+  }
 
   border-radius: 10px;
   background-color: #fefefe;
