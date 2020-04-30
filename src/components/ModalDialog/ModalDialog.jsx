@@ -25,8 +25,10 @@ export default function ModalDialog({
 
   useEffect(() => {
     document.addEventListener('keyup', handleKeyUp);
+    document.body.style.overflowY = 'hidden';
     return () => {
       document.removeEventListener('keyup', handleKeyUp);
+      document.body.style.overflowY = 'initial';
     };
   });
 
