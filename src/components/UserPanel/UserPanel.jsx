@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import classes from './UserPanel.module.scss';
 import Button from 'components/UIElements/Button/Button';
@@ -19,3 +20,8 @@ export default function UserPanel({ userData, onLogout }) {
     </div>
   );
 }
+
+UserPanel.propTypes = {
+  userData: PropTypes.object,
+  onLogout: PropTypes.func.isRequired,
+};
