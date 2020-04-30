@@ -102,10 +102,30 @@ export default function testEditingPageReducer(
       questionAnswers.splice(index, 1);
       questionAnswers.splice(payload.position, 0, payload.answerId);
 
-      return { ...state };
+      return {
+        ...state,
+        entities: {
+          ...state.entities,
+          questions: {
+            ...state.entities.questions,
+            [payload.questionId]: {
+              ...state.entities.questions[payload.questionId],
+              answers: questionAnswers,
+            },
+          },
+        },
+      };
     case EDIT_ANSWER_SUCCESS:
-      state.entities.answers[payload.id] = payload;
-      return { ...state };
+      return {
+        ...state,
+        entities: {
+          ...state.entities,
+          answers: {
+            ...state.entities.answers,
+            [payload.id]: payload,
+          },
+        },
+      };
     case DELETE_ANSWER_SUCCESS:
       // remove from answer entities
       delete state.entities.answers[payload.answerId];
@@ -117,7 +137,14 @@ export default function testEditingPageReducer(
         (answerId) => answerId !== payload.answerId
       );
 
-      return { ...state };
+      return {
+        ...state,
+        entities: {
+          ...state.entities,
+          answers: { ...state.entities.answers },
+          questions: { ...state.entities.questions },
+        },
+      };
     case EDIT_QUESTION_SUCCESS:
       const updatedQuestion = {
         ...state.entities.questions[payload.id],

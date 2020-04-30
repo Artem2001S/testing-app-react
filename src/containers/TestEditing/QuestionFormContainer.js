@@ -65,6 +65,7 @@ const mergeProps = (stateProps, dispatchProps) => {
         editMode,
         questionId,
       } = stateProps;
+
       const {
         showValidationError,
         sendRequestToAddQuestion,
