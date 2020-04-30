@@ -4,12 +4,16 @@ import classes from './TestsList.module.scss';
 import Button from 'components/UIElements/Button/Button';
 import TestsListItem from './TestListItem/TestsListItem';
 
-export default function TestsList({ tests, isAdmin, sortChange }) {
+export default function TestsList({ tests, isAdmin, onSortChange }) {
   return (
     <div className={classes.TestsListWrapper}>
       <div className={classes.Header}>
         <h2>Tests</h2>
-        <Button transparent handleClick={sortChange} title="Change the sorting">
+        <Button
+          transparent
+          title="Change the sorting"
+          handleClick={onSortChange}
+        >
           &darr;&uarr;
         </Button>
       </div>
@@ -25,5 +29,5 @@ export default function TestsList({ tests, isAdmin, sortChange }) {
 TestsList.propTypes = {
   tests: PropTypes.array.isRequired,
   isAdmin: PropTypes.bool,
-  sortChange: PropTypes.func.isRequired,
+  onSortChange: PropTypes.func.isRequired,
 };
