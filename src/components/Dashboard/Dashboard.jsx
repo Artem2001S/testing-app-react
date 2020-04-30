@@ -39,7 +39,7 @@ export default function Dashboard({
       <div className={classes.Pagination}>
         <PaginationButtons
           totalCount={totalPages}
-          current={currentPaginationPage}
+          currentPage={currentPaginationPage}
           onItemClick={requestTests}
         />
       </div>

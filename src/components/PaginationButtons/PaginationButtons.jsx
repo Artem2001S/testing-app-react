@@ -5,7 +5,7 @@ import Button from 'components/UIElements/Button/Button';
 
 export default function PaginationButtons({
   totalCount,
-  current,
+  currentPage,
   onItemClick,
 }) {
   const arr = new Array(totalCount).fill(1);
@@ -15,11 +15,11 @@ export default function PaginationButtons({
       {arr.map((_, index) => (
         <div key={index} className={classes.PaginationItem}>
           <Button
-            disabled={current === index + 1}
+            disabled={currentPage === index + 1}
             transparent
             handleClick={() => onItemClick(index + 1)}
           >
-            {current === index + 1 ? (
+            {currentPage === index + 1 ? (
               <div className={classes.Current}>{index + 1}</div>
             ) : (
               index + 1
@@ -33,12 +33,12 @@ export default function PaginationButtons({
 
 PaginationButtons.propTypes = {
   totalCount: PropTypes.number.isRequired,
-  current: PropTypes.number.isRequired,
+  currentPage: PropTypes.number.isRequired,
   onItemClick: PropTypes.func.isRequired,
 };
 
 PaginationButtons.defaultProps = {
   totalCount: 1,
-  current: 1,
+  currentPage: 1,
   onItemClick: () => {},
 };
