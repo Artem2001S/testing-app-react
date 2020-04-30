@@ -25,7 +25,7 @@
   }
 
   border-radius: 10px;
-  background-color: #fefefe;
+  background-color: $white;
   & > * + * {
     margin-left: 15px;
   }
