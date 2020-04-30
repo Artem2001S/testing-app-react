@@ -10,7 +10,12 @@ import { getTests } from 'redux/selectors/tests';
 import Dashboard from 'components/Dashboard/Dashboard';
 import { Redirect } from 'react-router-dom';
 
-function DashboardContainer({ lastTestAddedId, requestTests, ...props }) {
+function DashboardContainer({
+  lastTestAddedId,
+  isAuthorized,
+  requestTests,
+  ...props
+}) {
   useEffect(() => {
     requestTests();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -21,11 +26,17 @@ function DashboardContainer({ lastTestAddedId, requestTests, ...props }) {
     return <Redirect to={`/tests/${lastTestAddedId}`} />;
   }
 
+  // redirect after logout
+  if (!isAuthorized) {
+    return <Redirect to="/" />;
+  }
+
   return <Dashboard {...props} requestTests={requestTests} />;
 }
 
 const mapStateToProps = (state) => ({
   isAdmin: state.currentUserData.isAdmin,
+  isAuthorized: state.currentUserData.isAuthorized,
   addTestInput: state.addTestForm.input,
   currentPaginationPage: state.tests.currentPage,
   totalPages: state.tests.totalPages,
