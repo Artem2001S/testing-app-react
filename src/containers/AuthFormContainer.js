@@ -10,6 +10,7 @@ import { createOnChangeHandlers, validateInputs } from 'utils';
 import Form from 'components/Form/Form';
 
 function AuthorizationFormContainer({ isAuthorized, ...props }) {
+  // if user authorized then redirect to dashboard page
   if (isAuthorized) {
     return <Redirect to="/dashboard" />;
   }

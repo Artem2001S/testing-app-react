@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Form from 'components/Form/Form';
+import { Redirect } from 'react-router-dom';
 import {
   changeRegistrationFormInputValue,
   changeRegistrationFormValidationStatus,
   sendRegistrationRequest,
 } from 'redux/actions/actionCreators';
 import { createOnChangeHandlers, validateRegistrationForm } from 'utils';
-import { Redirect } from 'react-router-dom';
+import Form from 'components/Form/Form';
 
 function RegistrationFormContainer({ isAuthorized, ...props }) {
   if (isAuthorized) {
@@ -67,9 +67,11 @@ const mergeProps = (stateProps, dispatchProps) => {
         {}
       );
 
+      console.log('forms');
+
       dispatchProps.sendRegistrationRequest(
         formValues.login,
-        formValues._password,
+        formValues.password,
         formValues.is_admin
       );
     },

@@ -8,6 +8,7 @@ const initialState = {
   title: '',
   successBtnClickHandler: undefined,
   children: null,
+  primaryButtonText: '',
 };
 
 export default function modalDialogReducer(
