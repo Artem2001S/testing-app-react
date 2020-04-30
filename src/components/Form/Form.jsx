@@ -3,63 +3,54 @@ import PropTypes from 'prop-types';
 import TextInput from 'components/UIElements/TextInput/TextInput';
 import Button from 'components/UIElements/Button/Button';
 import classes from './Form.module.scss';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Checkbox from 'components/UIElements/Checkbox/Checkbox';
 
 export default function Form({
   inputs,
   btnText,
-  isAuthorized,
   additionalLinks,
   validationErrors,
   inputChangeHandlers,
   handleFormSubmit,
 }) {
   return (
-    <>
-      {isAuthorized && <Redirect to="/dashboard" />}
-      <form className={classes.Form} onSubmit={handleFormSubmit}>
-        {inputs.map((input, index) => {
-          if (!input.type) input.type = 'text';
+    <form className={classes.Form} onSubmit={handleFormSubmit}>
+      {inputs.map((input, index) =>
+        input.type === 'checkbox' ? (
+          <Checkbox
+            key={`${input.name}${index}`}
+            {...input}
+            handleChange={inputChangeHandlers[input.name]}
+          />
+        ) : (
+          <TextInput
+            key={`${input.name}${index}`}
+            {...input}
+            handleChange={inputChangeHandlers[input.name]}
+          />
+        )
+      )}
 
-          if (input.type === 'checkbox') {
-            return (
-              <Checkbox
-                key={`${input.name}${index}`}
-                {...input}
-                handleChange={inputChangeHandlers[input.name]}
-              />
-            );
-          }
+      <Button handleClick={handleFormSubmit}>{btnText}</Button>
 
-          return (
-            <TextInput
-              key={`${input.name}${index}`}
-              {...input}
-              handleChange={inputChangeHandlers[input.name]}
-            />
-          );
-        })}
-        <Button handleClick={handleFormSubmit}>{btnText}</Button>
+      {additionalLinks &&
+        additionalLinks.map((link) => (
+          <Link key={link.to} className={classes.Link} to={link.to}>
+            {link.label}
+          </Link>
+        ))}
 
-        {additionalLinks &&
-          additionalLinks.map((link) => (
-            <Link key={link.to} className={classes.Link} to={link.to}>
-              {link.label}
-            </Link>
-          ))}
-        {validationErrors && (
-          <div className={classes.Error}>{validationErrors}</div>
-        )}
-      </form>
-    </>
+      {validationErrors && (
+        <div className={classes.Error}>{validationErrors}</div>
+      )}
+    </form>
   );
 }
 
 Form.propTypes = {
   inputs: PropTypes.array.isRequired,
   btnText: PropTypes.string.isRequired,
-  isAuthorized: PropTypes.bool,
   validationErrors: PropTypes.string,
   additionalLinks: PropTypes.array,
   inputChangeHandlers: PropTypes.object.isRequired,
