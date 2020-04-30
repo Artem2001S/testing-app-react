@@ -17,7 +17,7 @@ export default function addTestFormReducer(
       return {
         ...state,
         input: {
-          ...state,
+          ...state.input,
           value: payload,
         },
       };

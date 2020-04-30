@@ -3,20 +3,19 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import TestsList from 'components/TestsList/TestsList';
 import SearchTestFormContainer from 'containers/SearchTestFormContainer';
-import Button from 'components/UIElements/Button/Button';
-import TextInput from 'components/UIElements/TextInput/TextInput';
 import PaginationButtons from 'components/PaginationButtons/PaginationButtons';
 import classes from './Dashboard.module.scss';
+import AddTestForm from './AddTestForm/AddTestForm';
 
 export default function Dashboard({
-  userData,
+  isAdmin,
   testsList,
   addTestInput,
   sortType,
   currentPaginationPage,
   lastTestAddedId,
   totalPages,
-  onAdd,
+  handleAddFormSubmit,
   onChangeTitleInput,
   requestTests,
   sortChange,
@@ -25,10 +24,6 @@ export default function Dashboard({
     requestTests();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  if (!userData.isAuthorized) {
-    return <Redirect to="/" />;
-  }
 
   // redirect after test adding
   if (lastTestAddedId !== -1) {
@@ -40,17 +35,17 @@ export default function Dashboard({
       <div className={classes.SearchPanel}>
         <SearchTestFormContainer />
       </div>
-      <div className={classes.AddLinkWrapper}>
-        <TextInput
-          value={addTestInput.value}
-          handleChange={onChangeTitleInput}
-        />
-        <Button handleClick={onAdd}>Add test</Button>
-      </div>
+
+      <AddTestForm
+        input={addTestInput}
+        onInputChange={onChangeTitleInput}
+        handleSubmit={handleAddFormSubmit}
+      />
+
       <TestsList
         tests={testsList}
         sortType={sortType}
-        isAdmin={userData.isAdmin}
+        isAdmin={isAdmin}
         sortChange={sortChange}
       />
       <div className={classes.Pagination}>
@@ -65,7 +60,7 @@ export default function Dashboard({
 }
 
 Dashboard.propTypes = {
-  userData: PropTypes.object,
+  isAdmin: PropTypes.bool,
   testsList: PropTypes.array,
   addTestInput: PropTypes.object,
   sortType: PropTypes.string,

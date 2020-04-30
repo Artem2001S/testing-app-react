@@ -9,7 +9,7 @@ import {
 import { getTests } from 'redux/selectors/tests';
 
 const mapStateToProps = (state) => ({
-  userData: state.currentUserData,
+  isAdmin: state.currentUserData.isAdmin,
   addTestInput: state.addTestForm.input,
   currentPaginationPage: state.tests.currentPage,
   totalPages: state.tests.totalPages,
@@ -33,7 +33,10 @@ const mergeProps = (stateProps, dispatchProps) => ({
   ...dispatchProps,
   requestTests: (page) =>
     dispatchProps.requestTests(page, stateProps.searchInputValue),
-  onAdd: () => dispatchProps.onAdd(stateProps.addTestInput.value),
+  handleAddFormSubmit: (e) => {
+    e.preventDefault();
+    dispatchProps.onAdd(stateProps.addTestInput.value);
+  },
 });
 
 export default connect(
