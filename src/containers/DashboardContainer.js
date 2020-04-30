@@ -5,6 +5,7 @@ import {
   changeTestsListSortType,
   requestToAddTest,
   changeAddTestFormInputValue,
+  getError,
 } from 'redux/actions/actionCreators';
 import { getTests } from 'redux/selectors/tests';
 import Dashboard from 'components/Dashboard/Dashboard';
@@ -53,6 +54,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(changeAddTestFormInputValue(e.target.value)),
   onSortChange: () => dispatch(changeTestsListSortType()),
   onAdd: (title) => dispatch(requestToAddTest(title)),
+  getValidationError: (message) => dispatch(getError(message)),
 });
 
 const mergeProps = (stateProps, dispatchProps) => ({
@@ -62,6 +64,13 @@ const mergeProps = (stateProps, dispatchProps) => ({
     dispatchProps.requestTests(page, stateProps.searchInputValue),
   handleAddFormSubmit: (e) => {
     e.preventDefault();
+    const title = stateProps.addTestInput.value.trim();
+
+    if (!title) {
+      dispatchProps.getValidationError('Enter test title!');
+      return;
+    }
+
     dispatchProps.onAdd(stateProps.addTestInput.value);
   },
 });
