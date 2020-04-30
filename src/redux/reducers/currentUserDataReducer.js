@@ -5,7 +5,7 @@ import {
 } from 'redux/actions/actionTypes';
 
 const initialState = {
-  isAuthorized: true,
+  isAuthorized: false,
   login: '',
   isAdmin: false,
 };
