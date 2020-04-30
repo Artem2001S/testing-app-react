@@ -4,7 +4,7 @@ import List from 'components/List/List';
 import TextInput from 'components/UIElements/TextInput/TextInput';
 import Button from 'components/UIElements/Button/Button';
 
-export default function NumericQuestionForm({
+export default function AddNumberQuestionForm({
   inputs,
   inputChangeHandlers,
   editMode,
@@ -20,13 +20,15 @@ export default function NumericQuestionForm({
             {...input}
           />
         ))}
-        <Button handleClick={handleSubmit}>{editMode ? 'Edit' : 'Add'}</Button>
+        <Button handleClick={handleSubmit}>
+          {editMode ? 'Save changes' : 'Add question'}
+        </Button>
       </List>
     </form>
   );
 }
 
-NumericQuestionForm.propTypes = {
+AddNumberQuestionForm.propTypes = {
   inputs: PropTypes.array.isRequired,
   inputChangeHandlers: PropTypes.object.isRequired,
   editMode: PropTypes.bool,

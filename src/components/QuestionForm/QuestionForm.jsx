@@ -34,7 +34,7 @@ export default function QuestionForm({
           onDeleteAnswer={onDeleteAnswer}
         />
         <Button handleClick={onFormSubmit}>
-          {editMode ? 'Save changes' : 'Add'}
+          {editMode ? 'Save changes' : 'Add question'}
         </Button>
       </List>
     </>

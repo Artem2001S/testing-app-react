@@ -14,7 +14,7 @@
   border-radius: 8px;
 
   background-color: $green;
-  color: #fefefe;
+  color: $white;
 
   transition: background-color 0.3s;
   cursor: pointer;
@@ -37,7 +37,7 @@
 
   &.SecondaryBtn {
     border: 1px solid $green;
-    background-color: #fefefe;
+    background-color: $white;
     color: #000000;
 
     &:hover {

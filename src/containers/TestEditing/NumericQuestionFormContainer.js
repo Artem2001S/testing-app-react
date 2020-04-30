@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import NumericQuestionForm from 'components/NumericQuestionForm/NumericQuestionForm';
+import NumberQuestionForm from 'components/NumberQuestionForm/NumberQuestionForm';
 import {
   changeNumericQuestionFormInputValue,
   sendRequestToAddQuestion,
@@ -63,4 +63,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps,
   mergeProps
-)(NumericQuestionForm);
+)(NumberQuestionForm);

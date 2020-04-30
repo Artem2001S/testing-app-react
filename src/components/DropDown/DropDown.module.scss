@@ -46,7 +46,7 @@ $itemHeight: 37px;
   border: 1px solid $green;
   box-sizing: border-box;
   cursor: pointer;
-  background-color: #ffffff;
+  background-color: $white;
 
   &:hover {
     background-color: lighten($color: $green, $amount: 52);
@@ -55,7 +55,7 @@ $itemHeight: 37px;
   &.Active {
     border: none;
     background-color: $green;
-    color: #ffffff;
+    color: $white;
     cursor: initial;
   }
 }

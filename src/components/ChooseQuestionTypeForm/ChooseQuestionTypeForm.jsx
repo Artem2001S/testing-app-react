@@ -13,10 +13,10 @@ export default function ChooseQuestionTypeForm({
   return (
     <List centered vertical>
       <DropDown
+        label="Choose the question type"
         items={questionTypes}
         current={current}
         onChange={onChangeQuestionType}
-        label="Choose the question type"
       />
       <Button handleClick={openDialog}>Add</Button>
     </List>

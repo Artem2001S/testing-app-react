@@ -13,7 +13,7 @@ const initialState = {
     },
     {
       label: 'Password',
-      name: '_password',
+      name: 'password',
       value: '',
       type: 'password',
     },

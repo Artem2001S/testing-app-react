@@ -1,8 +1,10 @@
 import { createSelector } from 'reselect';
 import { denormalizeTest } from 'redux/normalizr/normalizeTests';
 
-const getTestData = (state) => state.testEditingPage;
+const getTestsEntities = (state) => state.testEditingPage.entities;
+const getTestsResult = (state) => state.testEditingPage.result;
 
-export const getTest = createSelector([getTestData], (test) =>
-  denormalizeTest(test)
+export const getTest = createSelector(
+  [getTestsEntities, getTestsResult],
+  (entities, result) => denormalizeTest({ entities, result })
 );

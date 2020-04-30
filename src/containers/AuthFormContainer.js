@@ -1,11 +1,22 @@
+import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import {
   changeAuthFormInputValue,
   changeAuthFormValidationStatus,
   sendAuthorizationRequest,
 } from 'redux/actions/actionCreators';
-import Form from 'components/Form/Form';
 import { createOnChangeHandlers, validateInputs } from 'utils';
+import Form from 'components/Form/Form';
+
+function AuthorizationFormContainer({ isAuthorized, ...props }) {
+  // if user authorized then redirect to dashboard page
+  if (isAuthorized) {
+    return <Redirect to="/dashboard" />;
+  }
+
+  return <Form {...props} />;
+}
 
 const mapStateToProps = (state) => ({
   inputs: state.authorizationFormInputs.inputs,
@@ -63,4 +74,8 @@ const mergeProps = (stateProps, dispatchProps) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(Form);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  mergeProps
+)(AuthorizationFormContainer);

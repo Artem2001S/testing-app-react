@@ -1,4 +1,4 @@
-import Dashboard from 'components/Dashboard/Dashboard';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import {
   requestTestsFromServer,
@@ -7,9 +7,36 @@ import {
   changeAddTestFormInputValue,
 } from 'redux/actions/actionCreators';
 import { getTests } from 'redux/selectors/tests';
+import Dashboard from 'components/Dashboard/Dashboard';
+import { Redirect } from 'react-router-dom';
+
+function DashboardContainer({
+  lastTestAddedId,
+  isAuthorized,
+  requestTests,
+  ...props
+}) {
+  useEffect(() => {
+    requestTests();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // check if user added test, then redirect to edit page
+  if (lastTestAddedId !== -1) {
+    return <Redirect to={`/tests/${lastTestAddedId}`} />;
+  }
+
+  // redirect after logout
+  if (!isAuthorized) {
+    return <Redirect to="/" />;
+  }
+
+  return <Dashboard {...props} requestTests={requestTests} />;
+}
 
 const mapStateToProps = (state) => ({
-  userData: state.currentUserData,
+  isAdmin: state.currentUserData.isAdmin,
+  isAuthorized: state.currentUserData.isAuthorized,
   addTestInput: state.addTestForm.input,
   currentPaginationPage: state.tests.currentPage,
   totalPages: state.tests.totalPages,
@@ -24,7 +51,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(requestTestsFromServer(page, searchValue || '')),
   onChangeTitleInput: (e) =>
     dispatch(changeAddTestFormInputValue(e.target.value)),
-  sortChange: () => dispatch(changeTestsListSortType()),
+  onSortChange: () => dispatch(changeTestsListSortType()),
   onAdd: (title) => dispatch(requestToAddTest(title)),
 });
 
@@ -33,11 +60,14 @@ const mergeProps = (stateProps, dispatchProps) => ({
   ...dispatchProps,
   requestTests: (page) =>
     dispatchProps.requestTests(page, stateProps.searchInputValue),
-  onAdd: () => dispatchProps.onAdd(stateProps.addTestInput.value),
+  handleAddFormSubmit: (e) => {
+    e.preventDefault();
+    dispatchProps.onAdd(stateProps.addTestInput.value);
+  },
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
   mergeProps
-)(Dashboard);
+)(DashboardContainer);

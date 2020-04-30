@@ -1,11 +1,21 @@
+import React from 'react';
 import { connect } from 'react-redux';
-import Form from 'components/Form/Form';
+import { Redirect } from 'react-router-dom';
 import {
   changeRegistrationFormInputValue,
   changeRegistrationFormValidationStatus,
   sendRegistrationRequest,
 } from 'redux/actions/actionCreators';
 import { createOnChangeHandlers, validateRegistrationForm } from 'utils';
+import Form from 'components/Form/Form';
+
+function RegistrationFormContainer({ isAuthorized, ...props }) {
+  if (isAuthorized) {
+    return <Redirect to="/dashboard" />;
+  }
+
+  return <Form {...props} />;
+}
 
 const mapStateToProps = (state) => ({
   inputs: state.registrationForm.inputs,
@@ -52,17 +62,24 @@ const mergeProps = (stateProps, dispatchProps) => {
 
       dispatchProps.changeValidationStatus('');
 
-      const formValues = stateProps.inputs.reduce((acc, next) => {
-        return { ...acc, [next.name]: next.value };
-      }, {});
+      const formValues = stateProps.inputs.reduce(
+        (acc, next) => ({ ...acc, [next.name]: next.value }),
+        {}
+      );
+
+      console.log('forms');
 
       dispatchProps.sendRegistrationRequest(
         formValues.login,
-        formValues._password,
+        formValues.password,
         formValues.is_admin
       );
     },
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(Form);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  mergeProps
+)(RegistrationFormContainer);

@@ -38,17 +38,3 @@
   }
 }
 
-.AddLinkWrapper {
-  display: flex;
-  align-items: center;
-  padding: 10px 100px;
-
-  @include media-laptop {
-    padding: 10px 50px;
-  }
-
-  @include media-tablet {
-    padding: 18px 10px;
-    flex-direction: column;
-  }
-}
