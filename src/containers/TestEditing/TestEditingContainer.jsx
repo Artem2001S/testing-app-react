@@ -10,6 +10,7 @@ import EditTestInfo from './EditTestInfo';
 import QuestionListContainer from './QuestionListContainer';
 import ChooseQuestionTypeFormContainer from './ChooseQuestionTypeFormContainer';
 
+// Main container
 export function TestEditingContainer({ isAfterCreating, test }) {
   const params = useParams();
   const dispatch = useDispatch();

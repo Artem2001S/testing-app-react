@@ -12,6 +12,7 @@ import Button from 'components/UIElements/Button/Button';
 import List from 'components/List/List';
 import { getTest } from 'redux/selectors/test';
 
+// Edit test title or delete test
 function EditTestInfo({
   input,
   onDelete,
