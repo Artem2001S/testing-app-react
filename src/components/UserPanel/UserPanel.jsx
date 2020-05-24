@@ -1,16 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import classes from './UserPanel.module.scss';
 import Button from 'components/UIElements/Button/Button';
 
 export default function UserPanel({ userData, onLogout }) {
   const history = useHistory();
+  const { pathname } = useLocation();
 
   return (
     <div className={classes.UserPanel}>
       <div className={classes.UserInfoContainer}>
-        <Button handleClick={history.goBack} small>
+        <Button
+          disabled={pathname === '/dashboard'}
+          handleClick={() =>
+            pathname.includes('/tests') && history.push('/dashboard')
+          }
+          small
+        >
           &larr;
         </Button>
         {userData.isAdmin && <div className={classes.CrownIcon} />}
