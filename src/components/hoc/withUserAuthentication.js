@@ -36,7 +36,7 @@ export default function withUserAuthentication(
     }, [dispatch]);
 
     if (!isDataReceived) {
-      return <></>;
+      return <div>Проверка пользователя...</div>;
     }
 
     if (!authorizationInfo.isAuthorized) {
