@@ -23,12 +23,13 @@ export default function Dashboard({
       <div className={classes.SearchPanel}>
         <SearchTestFormContainer />
       </div>
-
-      <AddTestForm
-        input={addTestInput}
-        onInputChange={onChangeTitleInput}
-        handleSubmit={handleAddFormSubmit}
-      />
+      {isAdmin && (
+        <AddTestForm
+          input={addTestInput}
+          onInputChange={onChangeTitleInput}
+          handleSubmit={handleAddFormSubmit}
+        />
+      )}
 
       <TestsList
         tests={testsList}
