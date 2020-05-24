@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import classNames from 'classnames';
@@ -13,7 +13,7 @@ export default function TextInput({
   name,
   handleChange,
 }) {
-  const uniqueId = uuidv4();
+  const uniqueId = useMemo(() => uuidv4(), []);
 
   const labelClasses = classNames(className, classes.label);
 

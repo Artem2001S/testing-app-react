@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { connect, useDispatch } from 'react-redux';
-import { useParams, Link } from 'react-router-dom';
+import { connect, useDispatch, useStore } from 'react-redux';
+import { useParams, Link, Redirect } from 'react-router-dom';
 import {
   clearLastAddedTestId,
   requestTestInfo,
@@ -11,11 +11,15 @@ import QuestionListContainer from './QuestionListContainer';
 import ChooseQuestionTypeFormContainer from './ChooseQuestionTypeFormContainer';
 
 // Main container
-export function TestEditingContainer({ isAfterCreating, test }) {
-  const params = useParams();
+function TestEditingContainer() {
+  const state = useStore().getState();
   const dispatch = useDispatch();
+  const params = useParams();
 
   const id = Number(params.id);
+  const test = getTest(state);
+  const isAfterCreating = state.tests.lastTestAddedId !== -1;
+  const isAuthorized = state.currentUserData.isAuthorized;
 
   useEffect(() => {
     if (isAfterCreating) {
@@ -31,6 +35,10 @@ export function TestEditingContainer({ isAfterCreating, test }) {
 
   if (isNaN(id)) {
     return <h1>Incorrect ID</h1>;
+  }
+
+  if (!isAuthorized) {
+    return <Redirect to="/" />;
   }
 
   if (!test) {
