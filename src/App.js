@@ -5,6 +5,11 @@ import {
   Switch,
   Redirect,
 } from 'react-router-dom';
+import {
+  getIsLoading,
+  getErrorMessage,
+  getModalDialogData,
+} from 'redux/selectors/UIData';
 import { useSelector } from 'react-redux';
 import { useAction } from 'hooks/useAction';
 import { getError } from 'redux/actions/actionCreators';
@@ -18,9 +23,9 @@ import ModalDialog from 'components/ModalDialog/ModalDialog';
 import QuizPage from 'pages/QuizPage';
 
 function App() {
-  const isLoading = useSelector((state) => state.UIData.isLoading);
-  const errorMessage = useSelector((state) => state.UIData.errors);
-  const modalDialogData = useSelector((state) => state.modalDialog);
+  const isLoading = useSelector(getIsLoading);
+  const errorMessage = useSelector(getErrorMessage);
+  const modalDialogData = useSelector(getModalDialogData);
 
   const onHiderErrorMessage = useAction(getError);
 

@@ -22,3 +22,9 @@ export const getTests = createSelector(
     }
   }
 );
+
+const getLastTestAddedId = (state) => state.tests.lastTestAddedId;
+export const getIsAfterCreating = createSelector(
+  [getLastTestAddedId],
+  (lastAddedTestId) => lastAddedTestId !== -1
+);

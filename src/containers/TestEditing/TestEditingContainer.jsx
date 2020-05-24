@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
-import { useStore } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useParams, Link, Redirect } from 'react-router-dom';
 import {
   clearLastAddedTestId,
   requestTestInfo,
 } from 'redux/actions/actionCreators';
 import { useAction } from 'hooks/useAction';
+import { getIsAfterCreating } from 'redux/selectors/tests';
+import { getIsAuthorized } from 'redux/selectors/userData';
 import { getTest } from 'redux/selectors/test';
 import EditTestInfo from './EditTestInfo';
 import QuestionListContainer from './QuestionListContainer';
@@ -13,13 +15,12 @@ import ChooseQuestionTypeFormContainer from './ChooseQuestionTypeFormContainer';
 
 // Main container
 export default function TestEditingContainer() {
-  const state = useStore().getState();
   const params = useParams();
 
   const id = Number(params.id);
-  const test = getTest(state);
-  const isAfterCreating = state.tests.lastTestAddedId !== -1;
-  const isAuthorized = state.currentUserData.isAuthorized;
+  const test = useSelector(getTest);
+  const isAfterCreating = useSelector(getIsAfterCreating);
+  const isAuthorized = useSelector(getIsAuthorized);
 
   const dispatchClearLastAddedTestId = useAction(clearLastAddedTestId);
   const dispatchRequestTestInfo = useAction(requestTestInfo);
