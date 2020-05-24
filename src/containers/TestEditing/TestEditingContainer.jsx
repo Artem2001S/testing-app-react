@@ -1,19 +1,19 @@
 import React, { useEffect } from 'react';
-import { connect, useDispatch, useStore } from 'react-redux';
+import { useStore } from 'react-redux';
 import { useParams, Link, Redirect } from 'react-router-dom';
 import {
   clearLastAddedTestId,
   requestTestInfo,
 } from 'redux/actions/actionCreators';
+import { useAction } from 'hooks/useAction';
 import { getTest } from 'redux/selectors/test';
 import EditTestInfo from './EditTestInfo';
 import QuestionListContainer from './QuestionListContainer';
 import ChooseQuestionTypeFormContainer from './ChooseQuestionTypeFormContainer';
 
 // Main container
-function TestEditingContainer() {
+export default function TestEditingContainer() {
   const state = useStore().getState();
-  const dispatch = useDispatch();
   const params = useParams();
 
   const id = Number(params.id);
@@ -21,17 +21,25 @@ function TestEditingContainer() {
   const isAfterCreating = state.tests.lastTestAddedId !== -1;
   const isAuthorized = state.currentUserData.isAuthorized;
 
+  const dispatchClearLastAddedTestId = useAction(clearLastAddedTestId);
+  const dispatchRequestTestInfo = useAction(requestTestInfo);
+
   useEffect(() => {
     if (isAfterCreating) {
       // delete last testId added  from state
-      dispatch(clearLastAddedTestId());
+      dispatchClearLastAddedTestId();
     }
 
     // send request for getting test info
     if (!isNaN(id)) {
-      dispatch(requestTestInfo(id));
+      dispatchRequestTestInfo(id);
     }
-  }, [dispatch, id, isAfterCreating]);
+  }, [
+    dispatchClearLastAddedTestId,
+    dispatchRequestTestInfo,
+    id,
+    isAfterCreating,
+  ]);
 
   if (isNaN(id)) {
     return <h1>Incorrect ID</h1>;
@@ -64,10 +72,3 @@ function TestEditingContainer() {
     </>
   );
 }
-
-const mapStateToProps = (state) => ({
-  isAfterCreating: state.tests.lastTestAddedId !== -1,
-  test: getTest(state),
-});
-
-export default connect(mapStateToProps)(TestEditingContainer);

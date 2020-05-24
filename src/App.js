@@ -1,11 +1,12 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import {
   BrowserRouter as Router,
   Route,
   Switch,
   Redirect,
 } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useAction } from 'hooks/useAction';
 import { getError } from 'redux/actions/actionCreators';
 import AuthPage from 'pages/AuthPage';
 import RegistrationPage from 'pages/RegistrationPage';
@@ -20,11 +21,8 @@ function App() {
   const isLoading = useSelector((state) => state.UIData.isLoading);
   const errorMessage = useSelector((state) => state.UIData.errors);
   const modalDialogData = useSelector((state) => state.modalDialog);
-  const dispatch = useDispatch();
 
-  const hideErrorMessage = useCallback(() => dispatch(getError('')), [
-    dispatch,
-  ]);
+  const onHiderErrorMessage = useAction(getError);
 
   return (
     <>
@@ -37,7 +35,9 @@ function App() {
         />
       )}
       {isLoading && <Loader />}
-      {errorMessage && <Error message={errorMessage} hide={hideErrorMessage} />}
+      {errorMessage && (
+        <Error message={errorMessage} hide={onHiderErrorMessage} />
+      )}
       <Router>
         <Switch>
           <Route path="/" exact>

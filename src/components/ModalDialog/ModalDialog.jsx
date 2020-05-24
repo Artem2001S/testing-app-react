@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useAction } from 'hooks/useAction';
 import classes from './ModalDialog.module.scss';
 import Button from 'components/UIElements/Button/Button';
 import { closeModalDialog } from 'redux/actions/actionCreators';
@@ -11,11 +11,7 @@ export default function ModalDialog({
   children,
   successBtnClickHandler,
 }) {
-  const dispatch = useDispatch();
-
-  const close = () => {
-    dispatch(closeModalDialog());
-  };
+  const close = useAction(closeModalDialog);
 
   const handleKeyUp = (e) => {
     if (e.key === 'Escape') {
