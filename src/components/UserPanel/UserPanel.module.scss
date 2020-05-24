@@ -18,8 +18,27 @@
   }
 }
 
-.UserName {
+.UserNameContainer {
+  display: flex;
+  align-items: center;
+  
+  padding: 3px 10px;
+  border-radius: 5px;
+
   word-break: break-all;
+  text-decoration: none;
+
+  color: $white;
+
+  transition: background-color 0.4s;
+
+  &:hover {
+    background-color: $green;
+  }
+}
+
+.UserName {
+  margin-left: 10px;
 }
 
 .CrownIcon {
