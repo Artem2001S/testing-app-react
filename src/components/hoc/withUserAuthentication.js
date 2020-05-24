@@ -33,9 +33,7 @@ export default function withUserAuthentication(
           dispatch(signIn(authInfo.user));
         }
       });
-
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [dispatch]);
 
     if (!isDataReceived) {
       return <></>;

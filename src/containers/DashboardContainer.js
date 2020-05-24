@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
 import {
   requestTestsFromServer,
@@ -17,10 +17,11 @@ function DashboardContainer({
   requestTests,
   ...props
 }) {
+  const requestTestsCallback = useCallback(requestTests, []);
+
   useEffect(() => {
-    requestTests();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    requestTestsCallback();
+  }, [requestTestsCallback]);
 
   // check if user added test, then redirect to edit page
   if (lastTestAddedId !== -1) {

@@ -26,9 +26,7 @@ function QuizContainer({
     if (!isNaN(testId)) {
       requestTestFromServer(testId);
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [requestTestFromServer, testId]);
 
   if (isLoading) {
     return <></>;

@@ -27,9 +27,7 @@ export function TestEditingContainer({ isAfterCreating, test }) {
     if (!isNaN(id)) {
       dispatch(requestTestInfo(id));
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch, id, isAfterCreating]);
 
   if (isNaN(id)) {
     return <h1>Incorrect ID</h1>;
