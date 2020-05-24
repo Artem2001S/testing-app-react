@@ -8,11 +8,9 @@ export default function PaginationButtons({
   currentPage,
   onItemClick,
 }) {
-  const arr = new Array(totalCount).fill(1);
-
   return (
     <div className={classes.Pagination}>
-      {arr.map((_, index) => (
+      {[...Array(totalCount)].map((_, index) => (
         <div key={index} className={classes.PaginationItem}>
           <Button
             disabled={currentPage === index + 1}
