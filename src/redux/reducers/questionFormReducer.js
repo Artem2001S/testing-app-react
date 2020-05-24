@@ -126,7 +126,7 @@ export default function questionFormReducer(
       visibleInputs[to].movedTo = from;
 
       // swap items
-      // eslint-disable-next-line
+      // prettier-ignore
       [visibleInputs[from], visibleInputs[to]] = [visibleInputs[to], visibleInputs[from]];
 
       return {

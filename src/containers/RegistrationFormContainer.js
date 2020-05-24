@@ -67,8 +67,6 @@ const mergeProps = (stateProps, dispatchProps) => {
         {}
       );
 
-      console.log('forms');
-
       dispatchProps.sendRegistrationRequest(
         formValues.login,
         formValues.password,

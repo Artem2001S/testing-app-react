@@ -20,7 +20,7 @@ export default function DropDown({ items, current, label, onChange }) {
     return () => {
       document.removeEventListener('click', hide);
     };
-  });
+  }, [isDropped]);
 
   return (
     <div className={classes.DropDown}>

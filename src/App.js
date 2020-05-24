@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -22,6 +22,10 @@ function App() {
   const modalDialogData = useSelector((state) => state.modalDialog);
   const dispatch = useDispatch();
 
+  const hideErrorMessage = useCallback(() => dispatch(getError('')), [
+    dispatch,
+  ]);
+
   return (
     <>
       {modalDialogData.isOpen && (
@@ -33,9 +37,7 @@ function App() {
         />
       )}
       {isLoading && <Loader />}
-      {errorMessage && (
-        <Error message={errorMessage} hide={() => dispatch(getError(''))} />
-      )}
+      {errorMessage && <Error message={errorMessage} hide={hideErrorMessage} />}
       <Router>
         <Switch>
           <Route path="/" exact>
