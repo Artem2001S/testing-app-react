@@ -37,7 +37,7 @@ import {
   REQUEST_TO_EDIT_QUESTION,
   EDIT_QUESTION_SUCCESS,
   CHANGE_QUESTION_FORM_INPUT_VALUE,
-  CHANGE_QUESTION_FORM_CHECKBOX_VALUE,
+  CHANGE_QUESTION_FORM_IS_RIGHT_QUESTION,
   CHANGE_QUESTION_FORM_ANSWER_POSITION,
   ADD_ANSWER_TO_QUESTION_FORM,
   DELETE_ANSWER_FROM_QUESTION_FORM,
@@ -371,10 +371,10 @@ export function changeQuestionFormInputValue(inputName, newValue) {
   };
 }
 
-export function changeQuestionFormCheckboxValue(inputName, newValue) {
+export function changeQuestionFormIsRightValue(inputName, isRadio, newValue) {
   return {
-    type: CHANGE_QUESTION_FORM_CHECKBOX_VALUE,
-    payload: { inputName, newValue },
+    type: CHANGE_QUESTION_FORM_IS_RIGHT_QUESTION,
+    payload: { inputName, newValue, isRadio },
   };
 }
 

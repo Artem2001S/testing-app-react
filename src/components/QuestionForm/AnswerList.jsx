@@ -6,9 +6,11 @@ import DraggableList from 'components/DragAndDrop/DraggableList';
 import TextInput from 'components/UIElements/TextInput/TextInput';
 import Button from 'components/UIElements/Button/Button';
 import classes from './AnswerList.module.scss';
+import RadioButton from 'components/UIElements/RadioButton/RadioButton';
 
 export default function AnswerList({
   answerInputs,
+  isRadioButtons,
   inputChangeHandlers,
   onAnswerMove,
   onIsRightChange,
@@ -18,10 +20,26 @@ export default function AnswerList({
     <DraggableList onSuccessDrop={onAnswerMove}>
       {answerInputs.map((input, index) => (
         <List key={index} centered smallMargin>
-          <Checkbox
-            value={input.isRight}
-            handleChange={onIsRightChange.bind(this, input.name)}
-          />
+          {isRadioButtons ? (
+            <RadioButton
+              value={input.isRight}
+              handleChange={onIsRightChange.bind(
+                this,
+                input.name,
+                isRadioButtons
+              )}
+            />
+          ) : (
+            <Checkbox
+              value={input.isRight}
+              handleChange={onIsRightChange.bind(
+                this,
+                input.name,
+                isRadioButtons
+              )}
+            />
+          )}
+
           <TextInput
             className={classes.Input}
             value={input.value}

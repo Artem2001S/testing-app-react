@@ -9,9 +9,10 @@ export default function QuestionForm({
   questionTitleInput,
   answerInputs,
   editMode,
+  questionType,
   inputChangeHandlers,
-  changeCheckboxValue,
-  changeQuestionTitleInputValue,
+  onIsRightChange,
+  onChangeQuestionTitleInputValue,
   onAnswerMove,
   onAddAnswer,
   onDeleteAnswer,
@@ -23,14 +24,15 @@ export default function QuestionForm({
         <TextInput
           label={questionTitleInput.label}
           value={questionTitleInput.value}
-          handleChange={changeQuestionTitleInputValue}
+          handleChange={onChangeQuestionTitleInputValue}
         />
         <Button handleClick={onAddAnswer}>Add answer</Button>
         <AnswerList
+          isRadioButtons={questionType === 'single'}
           answerInputs={answerInputs}
           inputChangeHandlers={inputChangeHandlers}
           onAnswerMove={onAnswerMove}
-          onIsRightChange={changeCheckboxValue}
+          onIsRightChange={onIsRightChange}
           onDeleteAnswer={onDeleteAnswer}
         />
         <Button handleClick={onFormSubmit}>
@@ -45,9 +47,10 @@ QuestionForm.propTypes = {
   questionTitleInput: PropTypes.object,
   answerInputs: PropTypes.array.isRequired,
   editMode: PropTypes.bool,
+  questionType: PropTypes.string.isRequired,
   inputChangeHandlers: PropTypes.object.isRequired,
-  changeCheckboxValue: PropTypes.func.isRequired,
-  changeQuestionTitleInputValue: PropTypes.func.isRequired,
+  onIsRightChange: PropTypes.func.isRequired,
+  onChangeQuestionTitleInputValue: PropTypes.func.isRequired,
   onAnswerMove: PropTypes.func.isRequired,
   onAddAnswer: PropTypes.func.isRequired,
   onDeleteAnswer: PropTypes.func.isRequired,

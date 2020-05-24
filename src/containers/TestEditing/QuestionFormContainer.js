@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import QuestionForm from 'components/QuestionForm/QuestionForm';
 import {
   changeQuestionFormInputValue,
-  changeQuestionFormCheckboxValue,
+  changeQuestionFormIsRightValue,
   changeQuestionFormAnswerPosition,
   addAnswerToQuestionForm,
   deleteAnswerFromQuestionForm,
@@ -26,12 +26,14 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeInputValue: (inputName, inputType, e) =>
+  onChangeInputValue: (inputName, inputType, e) =>
     dispatch(changeQuestionFormInputValue(inputName, e.target.value)),
-  changeQuestionTitleInputValue: (e) =>
+  onChangeQuestionTitleInputValue: (e) =>
     dispatch(changeQuestionFormInputValue('question-title', e.target.value)),
-  changeCheckboxValue: (inputName, e) =>
-    dispatch(changeQuestionFormCheckboxValue(inputName, e.target.checked)),
+  onIsRightChange: (inputName, isRadio, e) =>
+    dispatch(
+      changeQuestionFormIsRightValue(inputName, isRadio, e.target.checked)
+    ),
   onAnswerMove: (from, to) =>
     dispatch(changeQuestionFormAnswerPosition(from, to)),
   onAddAnswer: () => dispatch(addAnswerToQuestionForm()),
@@ -48,7 +50,7 @@ const mapDispatchToProps = (dispatch) => ({
 const mergeProps = (stateProps, dispatchProps) => {
   const inputChangeHandlers = createOnChangeHandlers(
     stateProps.answerInputs,
-    dispatchProps.changeInputValue
+    dispatchProps.onChangeInputValue
   );
 
   return {
