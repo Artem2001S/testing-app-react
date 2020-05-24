@@ -27,6 +27,7 @@ export default function Form({
           <TextInput
             key={`${input.name}${index}`}
             {...input}
+            autocomplete={input.autocomplete}
             handleChange={inputChangeHandlers[input.name]}
           />
         )

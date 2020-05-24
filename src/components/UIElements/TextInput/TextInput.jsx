@@ -9,6 +9,7 @@ export default function TextInput({
   label,
   className,
   defaultValue,
+  autocomplete,
   value,
   name,
   handleChange,
@@ -22,11 +23,12 @@ export default function TextInput({
       {label}
       <input
         className={classes.input}
-        type={type || 'text'}
         id={uniqueId}
+        type={type || 'text'}
+        autoComplete={autocomplete}
+        name={name}
         defaultValue={defaultValue}
         value={value}
-        name={name}
         onChange={handleChange}
       />
     </label>
