@@ -45,12 +45,13 @@ export default function testsReducer(state = initialState, { payload, type }) {
     case CLEAR_LAST_ADDED_TEST_ID:
       return { ...state, lastTestAddedId: -1 };
     case CHANGE_TESTS_LIST_SORT_TYPE:
+      if (payload.newSortType === state.sortType) {
+        return state;
+      }
+
       return {
         ...state,
-        sortType:
-          state.sortType === sortTypes.descending
-            ? sortTypes.ascending
-            : sortTypes.descending,
+        sortType: payload.newSortType,
       };
     default:
       return state;

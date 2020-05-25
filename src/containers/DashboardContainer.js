@@ -2,7 +2,6 @@ import React, { useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
 import {
   requestTestsFromServer,
-  changeTestsListSortType,
   requestToAddTest,
   changeAddTestFormInputValue,
   getError,
@@ -10,6 +9,7 @@ import {
 import { getTests } from 'redux/selectors/tests';
 import Dashboard from 'components/Dashboard/Dashboard';
 import { Redirect } from 'react-router-dom';
+import { sortTypes } from 'constants.js';
 
 function DashboardContainer({
   lastTestAddedId,
@@ -17,11 +17,11 @@ function DashboardContainer({
   requestTests,
   ...props
 }) {
-  const requestTestsCallback = useCallback(requestTests, []);
+  const requestTestsMemoizedCallback = useCallback(requestTests, []);
 
   useEffect(() => {
-    requestTestsCallback();
-  }, [requestTestsCallback]);
+    requestTestsMemoizedCallback();
+  }, [requestTestsMemoizedCallback]);
 
   // check if user added test, then redirect to edit page
   if (lastTestAddedId !== -1) {
@@ -42,18 +42,17 @@ const mapStateToProps = (state) => ({
   addTestInput: state.addTestForm.input,
   currentPaginationPage: state.tests.currentPage,
   totalPages: state.tests.totalPages,
+  sortType: state.tests.sortType,
   searchInputValue: state.searchTestForm.value,
   testsList: getTests(state),
-  sortType: state.tests.sortType,
   lastTestAddedId: state.tests.lastTestAddedId,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  requestTests: (page = 1, searchValue) =>
-    dispatch(requestTestsFromServer(page, searchValue || '')),
+  requestTests: (page = 1, searchValue = '', sortType = 'created_at_desc') =>
+    dispatch(requestTestsFromServer(page, searchValue, sortType)),
   onChangeTitleInput: (e) =>
     dispatch(changeAddTestFormInputValue(e.target.value)),
-  onSortChange: () => dispatch(changeTestsListSortType()),
   onAdd: (title) => dispatch(requestToAddTest(title)),
   getValidationError: (message) => dispatch(getError(message)),
 });
@@ -62,7 +61,19 @@ const mergeProps = (stateProps, dispatchProps) => ({
   ...stateProps,
   ...dispatchProps,
   requestTests: (page) =>
-    dispatchProps.requestTests(page, stateProps.searchInputValue),
+    dispatchProps.requestTests(
+      page,
+      stateProps.searchInputValue,
+      stateProps.sortType
+    ),
+  onSortChange: () =>
+    dispatchProps.requestTests(
+      stateProps.currentPaginationPage,
+      stateProps.searchInputValue,
+      stateProps.sortType === sortTypes.descending
+        ? sortTypes.ascending
+        : sortTypes.descending
+    ),
   handleAddFormSubmit: (e) => {
     e.preventDefault();
     const title = stateProps.addTestInput.value.trim();

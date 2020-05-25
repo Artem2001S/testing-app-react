@@ -10,7 +10,6 @@ export default function Dashboard({
   isAdmin,
   testsList,
   addTestInput,
-  sortType,
   currentPaginationPage,
   totalPages,
   handleAddFormSubmit,
@@ -33,7 +32,6 @@ export default function Dashboard({
 
       <TestsList
         tests={testsList}
-        sortType={sortType}
         isAdmin={isAdmin}
         onSortChange={onSortChange}
       />

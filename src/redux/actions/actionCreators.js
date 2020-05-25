@@ -168,10 +168,10 @@ export function closeModalDialog() {
 
 // Tests
 
-export function requestTestsFromServer(page = 1, search = '') {
+export function requestTestsFromServer(page = 1, search = '', sortType) {
   return {
     type: REQUEST_TESTS_FROM_SERVER,
-    payload: { page, search },
+    payload: { page, search, sortType },
   };
 }
 
@@ -216,9 +216,10 @@ export function requestTestDeleting(id) {
   };
 }
 
-export function changeTestsListSortType() {
+export function changeTestsListSortType(newSortType) {
   return {
     type: CHANGE_TESTS_LIST_SORT_TYPE,
+    payload: { newSortType },
   };
 }
 
