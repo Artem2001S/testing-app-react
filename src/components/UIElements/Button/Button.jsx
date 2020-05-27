@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import classes from './Button.module.scss';
 
-export default function Button({
+function Button({
   children,
   title,
   href,
@@ -55,3 +55,5 @@ Button.propTypes = {
   children: PropTypes.node,
   handleClick: PropTypes.func,
 };
+
+export default React.memo(Button);

@@ -6,13 +6,7 @@ import editIcon from './edit.svg';
 import classes from './TestsListItem.module.scss';
 import Button from 'components/UIElements/Button/Button';
 
-export default function TestsListItem({
-  id,
-  title,
-  questions,
-  createdAt,
-  isAdmin,
-}) {
+function TestsListItem({ id, title, questions, createdAt, isAdmin }) {
   const itemClasses = classNames(classes.Item, {
     [classes.WithoutActions]: !isAdmin,
   });
@@ -54,3 +48,5 @@ TestsListItem.propTypes = {
   createdAt: PropTypes.string.isRequired,
   isAdmin: PropTypes.bool,
 };
+
+export default React.memo(TestsListItem);

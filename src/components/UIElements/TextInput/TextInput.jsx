@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import classNames from 'classnames';
 import classes from './TextInput.module.scss';
 
-export default function TextInput({
+function TextInput({
   type,
   label,
   className,
@@ -44,3 +44,5 @@ TextInput.propTypes = {
   value: PropTypes.string,
   handleChange: PropTypes.func,
 };
+
+export default React.memo(TextInput);
