@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import classes from './Checkbox.module.scss';
 
-export default function Checkbox({ label, name, value, handleChange }) {
+function Checkbox({ label, name, value, handleChange }) {
   const symbolClasses = classNames(classes.CheckboxSymbol, {
     [classes.CheckboxSymbolChecked]: value,
   });
@@ -29,3 +29,5 @@ Checkbox.propTypes = {
   value: PropTypes.bool,
   handleChange: PropTypes.func.isRequired,
 };
+
+export default React.memo(Checkbox);

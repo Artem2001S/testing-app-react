@@ -1,12 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Checkbox from 'components/UIElements/Checkbox/Checkbox';
 import List from 'components/List/List';
 import DraggableList from 'components/DragAndDrop/DraggableList';
-import TextInput from 'components/UIElements/TextInput/TextInput';
-import Button from 'components/UIElements/Button/Button';
-import classes from './AnswerList.module.scss';
-import RadioButton from 'components/UIElements/RadioButton/RadioButton';
+import AnswerListItem from './AnswerListItem/AnswerListItem';
 
 export default function AnswerList({
   answerInputs,
@@ -20,37 +16,15 @@ export default function AnswerList({
     <DraggableList onSuccessDrop={onAnswerMove}>
       {answerInputs.map((input, index) => (
         <List key={index} centered smallMargin>
-          {isRadioButtons ? (
-            <RadioButton
-              value={input.isRight}
-              handleChange={onIsRightChange.bind(
-                this,
-                input.name,
-                isRadioButtons
-              )}
-            />
-          ) : (
-            <Checkbox
-              value={input.isRight}
-              handleChange={onIsRightChange.bind(
-                this,
-                input.name,
-                isRadioButtons
-              )}
-            />
-          )}
-
-          <TextInput
-            className={classes.Input}
-            value={input.value}
-            handleChange={inputChangeHandlers[input.name]}
+          <AnswerListItem
+            isRight={input.isRight}
+            isRadioButtons={isRadioButtons}
+            inputName={input.name}
+            inputValue={input.value}
+            onInputValueChange={inputChangeHandlers[input.name]}
+            onDeleteAnswer={onDeleteAnswer}
+            onIsRightChange={onIsRightChange}
           />
-          <Button
-            transparent
-            handleClick={onDeleteAnswer.bind(this, input.name)}
-          >
-            &times;
-          </Button>
         </List>
       ))}
     </DraggableList>

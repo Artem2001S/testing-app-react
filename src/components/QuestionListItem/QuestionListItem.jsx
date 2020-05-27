@@ -3,12 +3,7 @@ import PropTypes from 'prop-types';
 import Button from 'components/UIElements/Button/Button';
 import classes from './QuestionListItem.module.scss';
 
-export default function QuestionListItem({
-  title,
-  type,
-  onDelete,
-  startQuestionEditing,
-}) {
+function QuestionListItem({ title, type, onDelete, startQuestionEditing }) {
   return (
     <div className={classes.QuestionListItem}>
       <span className={classes.Title} title="Title">
@@ -37,3 +32,5 @@ QuestionListItem.propTypes = {
   onDelete: PropTypes.func.isRequired,
   startQuestionEditing: PropTypes.func.isRequired,
 };
+
+export default React.memo(QuestionListItem);

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import classes from './RadioButton.module.scss';
 
-export default function RadioButton({ name, label, value, handleChange }) {
+function RadioButton({ name, label, value, handleChange }) {
   const uniqueId = v4();
 
   const radioIconClasses = classNames(classes.RadioIcon, {
@@ -33,3 +33,5 @@ RadioButton.propTypes = {
   value: PropTypes.bool,
   handleChange: PropTypes.func,
 };
+
+export default React.memo(RadioButton);

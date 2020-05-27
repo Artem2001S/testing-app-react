@@ -27,7 +27,7 @@ function App() {
   const errorMessage = useSelector(getErrorMessage);
   const modalDialogData = useSelector(getModalDialogData);
 
-  const onHiderErrorMessage = useAction(getError);
+  const onHiderErrorMessage = useAction(getError.bind(this, ''));
 
   return (
     <>
