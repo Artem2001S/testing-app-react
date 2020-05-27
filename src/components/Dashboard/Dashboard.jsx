@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TestsList from 'components/TestsList/TestsList';
-import SearchTestFormContainer from 'containers/SearchTestFormContainer';
 import PaginationButtons from 'components/PaginationButtons/PaginationButtons';
 import classes from './Dashboard.module.scss';
 import AddTestForm from './AddTestForm/AddTestForm';
+import SearchTestForm from './SearchTestForm/SearchTestForm';
 
 export default function Dashboard({
   isAdmin,
@@ -20,7 +20,7 @@ export default function Dashboard({
   return (
     <>
       <div className={classes.SearchPanel}>
-        <SearchTestFormContainer />
+        <SearchTestForm />
       </div>
       {isAdmin && (
         <AddTestForm
