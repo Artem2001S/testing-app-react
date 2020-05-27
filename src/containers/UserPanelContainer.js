@@ -6,7 +6,8 @@ import {
 import UserPanel from 'components/UserPanel/UserPanel';
 
 const mapStateToProps = (state) => ({
-  userData: state.currentUserData,
+  login: state.currentUserData.login,
+  isAdmin: state.currentUserData.isAdmin,
 });
 
 const mapDispatchToProps = (dispatch) => ({

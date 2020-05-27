@@ -1,17 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useHistory, useLocation, Link } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import classes from './UserPanel.module.scss';
 import Button from 'components/UIElements/Button/Button';
+import Logo from './Logo/Logo';
 
-export default function UserPanel({ userData, onLogout }) {
+function UserPanel({ isAdmin, login, onLogout }) {
   const history = useHistory();
   const { pathname } = useLocation();
 
   return (
     <div className={classes.UserPanel}>
       <div className={classes.UserInfoContainer}>
-        {userData.isAdmin && pathname !== '/dashboard' && (
+        {isAdmin && pathname !== '/dashboard' && (
           <Button
             handleClick={() =>
               pathname.includes('/tests') && history.push('/dashboard')
@@ -21,14 +22,7 @@ export default function UserPanel({ userData, onLogout }) {
             &larr;
           </Button>
         )}
-        <Link
-          to="/dashboard"
-          className={classes.UserNameContainer}
-          title="Go to dashboard"
-        >
-          <div className={classes.CrownIcon} />
-          <span className={classes.UserName}> {`Hi, ${userData.login}`}</span>
-        </Link>
+        <Logo login={login} />
       </div>
       <Button handleClick={onLogout}>Logout</Button>
     </div>
@@ -36,6 +30,9 @@ export default function UserPanel({ userData, onLogout }) {
 }
 
 UserPanel.propTypes = {
-  userData: PropTypes.object,
+  login: PropTypes.string,
+  isAdmin: PropTypes.bool,
   onLogout: PropTypes.func.isRequired,
 };
+
+export default React.memo(UserPanel);

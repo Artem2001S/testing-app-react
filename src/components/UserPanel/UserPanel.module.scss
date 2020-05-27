@@ -18,39 +18,6 @@
   }
 }
 
-.UserNameContainer {
-  display: flex;
-  align-items: center;
-  
-  padding: 3px 10px;
-  border-radius: 5px;
-
-  word-break: break-all;
-  text-decoration: none;
-
-  color: $white;
-
-  transition: background-color 0.4s;
-
-  &:hover {
-    background-color: $green;
-  }
-}
-
-.UserName {
-  margin-left: 10px;
-}
-
-.CrownIcon {
-  display: inline-block;
-  width: 35px;
-  height: 35px;
-
-  background-image: url("./crown-icon.svg");
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-
 .UserInfoContainer {
   display: flex;
   align-items: center;
