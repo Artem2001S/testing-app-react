@@ -1,25 +1,27 @@
 import React from 'react';
-import TextInput from 'components/UIElements/TextInput/TextInput';
-import { useSelector, useDispatch } from 'react-redux';
-import Button from 'components/UIElements/Button/Button';
-import classes from './SearchTestForm.module.scss';
+import { useSelector } from 'react-redux';
 import {
   changeSearchTestFormInputValue,
   requestTestsFromServer,
 } from 'redux/actions/actionCreators';
+import { useAction } from 'hooks/useAction';
+import TextInput from 'components/UIElements/TextInput/TextInput';
+import Button from 'components/UIElements/Button/Button';
+import classes from './SearchTestForm.module.scss';
 
 function SearchTestForm() {
-  const dispatch = useDispatch();
   const input = useSelector((state) => state.searchTestForm);
   const currentPage = useSelector((state) => state.tests.currentPage);
 
-  const onInputChange = (e) =>
-    dispatch(changeSearchTestFormInputValue(e.target.value));
+  const changeInputValue = useAction(changeSearchTestFormInputValue);
+  const onSearch = useAction(requestTestsFromServer);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(requestTestsFromServer(currentPage, input.value));
+    onSearch(currentPage, input.value);
   };
+
+  const onInputChange = (e) => changeInputValue(e.target.value);
 
   return (
     <form className={classes.SearchTestForm}>
