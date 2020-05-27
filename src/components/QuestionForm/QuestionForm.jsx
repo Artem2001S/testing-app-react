@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import List from 'components/List/List';
 import Button from 'components/UIElements/Button/Button';
-import AnswerList from './AnswerList';
+import AnswerList from './AnswerList/AnswerList';
 import TextInput from 'components/UIElements/TextInput/TextInput';
 
 export default function QuestionForm({
