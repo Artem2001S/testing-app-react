@@ -1,12 +1,12 @@
 import React from 'react';
 import DashboardContainer from 'containers/DashboardContainer';
 import withUserAuthentication from 'components/hoc/withUserAuthentication';
-import UserPanel from 'components/UserPanel/UserPanel';
+import UserPanelContainer from 'containers/UserPanelContainer';
 
 function DashboardPage() {
   return (
     <>
-      <UserPanel />
+      <UserPanelContainer />
       <DashboardContainer />
     </>
   );
