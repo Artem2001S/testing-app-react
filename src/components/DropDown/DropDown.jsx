@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import classes from './DropDown.module.scss';
+import { useCallback } from 'react';
 
 function DropDown({ items, current, label, onChange }) {
   const [isDropped, setIsDropped] = useState(false);
@@ -10,7 +11,7 @@ function DropDown({ items, current, label, onChange }) {
     [classes.Dropped]: isDropped,
   });
 
-  const hide = () => setIsDropped(false);
+  const hide = useCallback(() => setIsDropped(false), []);
 
   useEffect(() => {
     if (isDropped) {
@@ -20,7 +21,7 @@ function DropDown({ items, current, label, onChange }) {
     return () => {
       document.removeEventListener('click', hide);
     };
-  }, [isDropped]);
+  }, [hide, isDropped]);
 
   return (
     <div className={classes.DropDown}>
