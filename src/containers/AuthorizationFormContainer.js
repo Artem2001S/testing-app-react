@@ -42,21 +42,24 @@ export default function AuthorizationFormContainer({ ...props }) {
     [handleInputChange, inputs]
   );
 
-  const authorizationFormSubmit = (e) => {
-    e.preventDefault();
-    const validationStatus = validateInputs(inputs);
-    if (validationStatus) {
-      changeValidationStatus(validationStatus);
-      return;
-    }
-    changeValidationStatus('');
+  const authorizationFormSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      const validationStatus = validateInputs(inputs);
+      if (validationStatus) {
+        changeValidationStatus(validationStatus);
+        return;
+      }
+      changeValidationStatus('');
 
-    const formValues = inputs.reduce((acc, next) => {
-      return { ...acc, [next.name]: next.value };
-    }, {});
+      const formValues = inputs.reduce((acc, next) => {
+        return { ...acc, [next.name]: next.value };
+      }, {});
 
-    authorizationRequest(formValues.login, formValues.password);
-  };
+      authorizationRequest(formValues.login, formValues.password);
+    },
+    [authorizationRequest, changeValidationStatus, inputs]
+  );
 
   // if user authorized then redirect to dashboard page
   if (isAuthorized) {

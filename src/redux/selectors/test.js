@@ -3,8 +3,14 @@ import { denormalizeTest } from 'redux/normalizr/normalizeTests';
 
 const getTestsEntities = (state) => state.testEditingPage.entities;
 const getTestsResult = (state) => state.testEditingPage.result;
+const getTestEditingPageState = (state) => state.testEditingPage;
 
 export const getTest = createSelector(
   [getTestsEntities, getTestsResult],
   (entities, result) => denormalizeTest({ entities, result })
+);
+
+export const getCurrentTestId = createSelector(
+  [getTestEditingPageState],
+  (state) => state.result
 );

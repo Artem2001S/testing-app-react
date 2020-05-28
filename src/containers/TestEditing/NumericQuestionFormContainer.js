@@ -1,4 +1,5 @@
-import { connect } from 'react-redux';
+import React, { useCallback } from 'react';
+import { connect, useSelector } from 'react-redux';
 import NumberQuestionForm from 'components/NumberQuestionForm/NumberQuestionForm';
 import {
   changeNumericQuestionFormInputValue,
@@ -8,13 +9,73 @@ import {
   getError,
 } from 'redux/actions/actionCreators';
 import { createOnChangeHandlers } from 'utils';
+import {
+  getNumericQuestionFormInputs,
+  getNumericQuestionFormQuestionId,
+} from 'redux/selectors/numericQuestionForm';
+import { getCurrentTestId } from 'redux/selectors/test';
+import { useAction } from 'hooks/useAction';
 
-const mapStateToProps = (state, ownProps) => ({
-  inputs: state.numericQuestionForm.inputs,
-  questionId: state.numericQuestionForm.questionId,
-  editMode: ownProps.editMode,
-  testId: state.testEditingPage.result,
-});
+export default function NumberQuestionFormContainer({ editMode }) {
+  const inputs = useSelector(getNumericQuestionFormInputs);
+  const questionId = useSelector(getNumericQuestionFormQuestionId);
+  const testId = useSelector(getCurrentTestId);
+
+  const onInputChange = useAction(changeNumericQuestionFormInputValue);
+  const showValidationError = useAction(getError);
+  const closeModal = useAction(closeModalDialog);
+  const requestToEdit = useAction(sendRequestToEditQuestion);
+  const requestToAdd = useAction(sendRequestToAddQuestion);
+
+  const handleInputChange = useCallback(
+    (inputName, inputType, e) => onInputChange(inputName, e.target.value),
+    [onInputChange]
+  );
+
+  const inputChangeHandlers = createOnChangeHandlers(inputs, handleInputChange);
+
+  const handleFormSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      const [{ value: title }, { value: answer }] = inputs;
+      const data = { title, answer, questionType: 'number' };
+
+      if (!title || !answer) {
+        showValidationError('Enter data!');
+        return;
+      }
+
+      if (editMode) {
+        requestToEdit(questionId, data);
+      } else {
+        requestToAdd(testId, data);
+      }
+
+      closeModal();
+    },
+    [
+      closeModal,
+      editMode,
+      inputs,
+      questionId,
+      requestToAdd,
+      requestToEdit,
+      showValidationError,
+      testId,
+    ]
+  );
+
+  return (
+    <NumberQuestionForm
+      inputs={inputs}
+      editMode={editMode}
+      inputChangeHandlers={inputChangeHandlers}
+      handleSubmit={handleFormSubmit}
+    />
+  );
+}
+
+const mapStateToProps = (state, ownProps) => ({});
 
 const mapDispatchToProps = (dispatch) => ({
   changeInputValue: (inputName, inputType, e) =>
@@ -28,15 +89,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mergeProps = (stateProps, dispatchProps) => {
-  const inputChangeHandlers = createOnChangeHandlers(
-    stateProps.inputs,
-    dispatchProps.changeInputValue
-  );
-
   return {
     ...stateProps,
     ...dispatchProps,
-    inputChangeHandlers,
     handleSubmit: (e) => {
       e.preventDefault();
 
@@ -59,8 +114,4 @@ const mergeProps = (stateProps, dispatchProps) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-  mergeProps
-)(NumberQuestionForm);
+connect(mapStateToProps, mapDispatchToProps, mergeProps)(NumberQuestionForm);
