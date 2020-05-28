@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
-import { connect, useSelector } from 'react-redux';
-import NumberQuestionForm from 'components/NumberQuestionForm/NumberQuestionForm';
+import { useSelector } from 'react-redux';
+import NumericQuestionForm from 'components/NumericQuestionForm/NumericQuestionForm';
 import {
   changeNumericQuestionFormInputValue,
   sendRequestToAddQuestion,
@@ -16,7 +16,7 @@ import {
 import { getCurrentTestId } from 'redux/selectors/test';
 import { useAction } from 'hooks/useAction';
 
-export default function NumberQuestionFormContainer({ editMode }) {
+export default function NumericQuestionFormContainer({ editMode }) {
   const inputs = useSelector(getNumericQuestionFormInputs);
   const questionId = useSelector(getNumericQuestionFormQuestionId);
   const testId = useSelector(getCurrentTestId);
@@ -66,7 +66,7 @@ export default function NumberQuestionFormContainer({ editMode }) {
   );
 
   return (
-    <NumberQuestionForm
+    <NumericQuestionForm
       inputs={inputs}
       editMode={editMode}
       inputChangeHandlers={inputChangeHandlers}
@@ -74,44 +74,3 @@ export default function NumberQuestionFormContainer({ editMode }) {
     />
   );
 }
-
-const mapStateToProps = (state, ownProps) => ({});
-
-const mapDispatchToProps = (dispatch) => ({
-  changeInputValue: (inputName, inputType, e) =>
-    dispatch(changeNumericQuestionFormInputValue(inputName, e.target.value)),
-  sendRequestToAdd: (testId, data) =>
-    dispatch(sendRequestToAddQuestion(testId, data)),
-  sendRequestToEdit: (questionId, data) =>
-    dispatch(sendRequestToEditQuestion(questionId, data)),
-  closeModalDialog: () => dispatch(closeModalDialog()),
-  getValidationError: (message) => dispatch(getError(message)),
-});
-
-const mergeProps = (stateProps, dispatchProps) => {
-  return {
-    ...stateProps,
-    ...dispatchProps,
-    handleSubmit: (e) => {
-      e.preventDefault();
-
-      const [{ value: title }, { value: answer }] = stateProps.inputs;
-      const data = { title, answer, questionType: 'number' };
-
-      if (!title || !answer) {
-        dispatchProps.getValidationError('Enter data!');
-        return;
-      }
-
-      if (stateProps.editMode) {
-        dispatchProps.sendRequestToEdit(stateProps.questionId, data);
-      } else {
-        dispatchProps.sendRequestToAdd(stateProps.testId, data);
-      }
-
-      dispatchProps.closeModalDialog();
-    },
-  };
-};
-
-connect(mapStateToProps, mapDispatchToProps, mergeProps)(NumberQuestionForm);
