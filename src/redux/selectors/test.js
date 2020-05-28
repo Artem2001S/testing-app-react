@@ -14,3 +14,8 @@ export const getCurrentTestId = createSelector(
   [getTestEditingPageState],
   (state) => state.result
 );
+
+export const getSelectedQuestionType = createSelector(
+  [getTestEditingPageState],
+  (state) => state.inputsData.addFormQuestionType
+);

@@ -1,5 +1,5 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import ChooseQuestionTypeForm from 'components/ChooseQuestionTypeForm/ChooseQuestionTypeForm';
 import {
   changeAddFormQuestionType,
@@ -7,52 +7,33 @@ import {
 } from 'redux/actions/actionCreators';
 import NumericQuestionFormContainer from './NumericQuestionFormContainer';
 import QuestionFormContainer from './QuestionFormContainer';
+import { getSelectedQuestionType } from 'redux/selectors/test';
+import { useAction } from 'hooks/useAction';
 
-const mapStateToProps = (state) => ({
-  testId: state.testEditingPage.result,
-  questionTypes: ['single', 'multiple', 'number'],
-  current: state.testEditingPage.inputsData.addFormQuestionType,
-  inputs: state.numericQuestionForm.inputs,
-});
+export default function ChooseQuestionTypeFormContainer() {
+  const selectedQuestionType = useSelector(getSelectedQuestionType);
 
-const mapDispatchToProps = (dispatch) => ({
-  onChangeQuestionType: (type) => dispatch(changeAddFormQuestionType(type)),
-  showModalDialog: (
-    title,
-    successBtnClickHandler,
-    primaryButtonText,
-    children
-  ) =>
-    dispatch(
-      openModalDialog(
-        title,
-        successBtnClickHandler,
-        primaryButtonText,
-        children
-      )
-    ),
-});
+  const onChangeQuestionType = useAction(changeAddFormQuestionType);
+  const showModalDialog = useAction(openModalDialog);
 
-const mergeProps = (stateProps, dispatchProps) => {
-  return {
-    ...stateProps,
-    ...dispatchProps,
-    openDialog: () => {
-      let node = null;
+  const openDialog = useCallback(() => {
+    let node = null;
 
-      if (stateProps.current === 'number') {
-        node = <NumericQuestionFormContainer />;
-      } else {
-        node = <QuestionFormContainer questionType={stateProps.current} />;
-      }
+    if (selectedQuestionType === 'number') {
+      node = <NumericQuestionFormContainer />;
+    } else {
+      node = <QuestionFormContainer questionType={selectedQuestionType} />;
+    }
 
-      dispatchProps.showModalDialog('Add question', null, 'Add', node);
-    },
-  };
-};
+    showModalDialog('Add question', null, 'Add', node);
+  }, [selectedQuestionType, showModalDialog]);
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-  mergeProps
-)(ChooseQuestionTypeForm);
+  return (
+    <ChooseQuestionTypeForm
+      questionTypes={['single', 'multiple', 'number']}
+      current={selectedQuestionType}
+      onChangeQuestionType={onChangeQuestionType}
+      openDialog={openDialog}
+    />
+  );
+}
