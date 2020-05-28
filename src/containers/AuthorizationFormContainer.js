@@ -1,81 +1,77 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import {
   changeAuthFormInputValue,
   changeAuthFormValidationStatus,
   sendAuthorizationRequest,
 } from 'redux/actions/actionCreators';
+import { getIsAuthorized } from 'redux/selectors/userData';
+import {
+  getAuthorizationFormInputs,
+  getAuthorizationFormValidationErrors,
+} from 'redux/selectors/authorizationForm';
 import { createOnChangeHandlers, validateInputs } from 'utils';
+import { useAction } from 'hooks/useAction';
 import Form from 'components/Form/Form';
 
-function AuthorizationFormContainer({ isAuthorized, ...props }) {
+export default function AuthorizationFormContainer({ ...props }) {
+  const isAuthorized = useSelector(getIsAuthorized);
+  const inputs = useSelector(getAuthorizationFormInputs);
+  const validationErrors = useSelector(getAuthorizationFormValidationErrors);
+
+  const onInputChange = useAction(changeAuthFormInputValue);
+  const changeValidationStatus = useAction(changeAuthFormValidationStatus);
+  const authorizationRequest = useAction(sendAuthorizationRequest);
+
+  const handleInputChange = useCallback(
+    (inputName, inputType, e) => {
+      if (inputType === 'checkbox') {
+        onInputChange(inputName, e.target.checked);
+      }
+
+      if (inputType === 'text' || inputType === 'password') {
+        onInputChange(inputName, e.target.value);
+      }
+    },
+    [onInputChange]
+  );
+
+  const inputChangeHandlers = React.useMemo(
+    () => createOnChangeHandlers(inputs, handleInputChange),
+    [handleInputChange, inputs]
+  );
+
+  const authorizationFormSubmit = (e) => {
+    e.preventDefault();
+    const validationStatus = validateInputs(inputs);
+    if (validationStatus) {
+      changeValidationStatus(validationStatus);
+      return;
+    }
+    changeValidationStatus('');
+
+    const formValues = inputs.reduce((acc, next) => {
+      return { ...acc, [next.name]: next.value };
+    }, {});
+
+    authorizationRequest(formValues.login, formValues.password);
+  };
+
   // if user authorized then redirect to dashboard page
   if (isAuthorized) {
     return <Redirect to="/dashboard" />;
   }
 
-  return <Form {...props} />;
-}
-
-const mapStateToProps = (state) => ({
-  inputs: state.authorizationFormInputs.inputs,
-  validationErrors: state.authorizationFormInputs.validationStatus,
-  isAuthorized: state.currentUserData.isAuthorized,
-  additionalLinks: [{ to: '/registration', label: 'Registration' }],
-  btnText: 'Login',
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  handleInputChange: (inputName, inputType, e) => {
-    if (inputType === 'checkbox') {
-      dispatch(changeAuthFormInputValue(inputName, e.target.checked));
-    }
-
-    if (inputType === 'text' || inputType === 'password') {
-      dispatch(changeAuthFormInputValue(inputName, e.target.value));
-    }
-  },
-  changeValidationStatus: (message) =>
-    dispatch(changeAuthFormValidationStatus(message)),
-  sendAuthorizationRequest: (username, password) =>
-    dispatch(sendAuthorizationRequest(username, password)),
-});
-
-const mergeProps = (stateProps, dispatchProps) => {
-  const inputChangeHandlers = createOnChangeHandlers(
-    stateProps.inputs,
-    dispatchProps.handleInputChange
+  return (
+    <Form
+      btnText="Login"
+      additionalLinks={[{ to: '/registration', label: 'Go to registration' }]}
+      inputs={inputs}
+      validationErrors={validationErrors}
+      inputChangeHandlers={inputChangeHandlers}
+      handleFormSubmit={authorizationFormSubmit}
+      {...props}
+    />
   );
-
-  return {
-    ...stateProps,
-    ...dispatchProps,
-    inputChangeHandlers,
-    handleFormSubmit: (e) => {
-      e.preventDefault();
-      const validationStatus = validateInputs(stateProps.inputs);
-
-      if (validationStatus) {
-        dispatchProps.changeValidationStatus(validationStatus);
-        return;
-      }
-      dispatchProps.changeValidationStatus('');
-
-      const formValues = stateProps.inputs.reduce((acc, next) => {
-        return { ...acc, [next.name]: next.value };
-      }, {});
-
-      dispatchProps.sendAuthorizationRequest(
-        formValues.login,
-        formValues.password
-      );
-    },
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-  mergeProps
-)(AuthorizationFormContainer);
+}

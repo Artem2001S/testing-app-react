@@ -29,7 +29,7 @@ function QuizContainer({
   }, [requestTestFromServer, testId]);
 
   if (isLoading) {
-    return <></>;
+    return <div>Loading...</div>;
   }
 
   if (isNotFound) {
