@@ -35,7 +35,7 @@ export default function QuizAnswers({ answerInputs, inputChangeHandlers }) {
               />
             );
           default:
-            return <></>;
+            return null;
         }
       })}
     </div>

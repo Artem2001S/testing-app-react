@@ -4,6 +4,7 @@ import { useAction } from 'hooks/useAction';
 import classes from './ModalDialog.module.scss';
 import Button from 'components/UIElements/Button/Button';
 import { closeModalDialog } from 'redux/actions/actionCreators';
+import { useCallback } from 'react';
 
 export default function ModalDialog({
   title,
@@ -13,11 +14,22 @@ export default function ModalDialog({
 }) {
   const close = useAction(closeModalDialog);
 
-  const handleKeyUp = (e) => {
-    if (e.key === 'Escape') {
-      close();
+  const handleKeyUp = useCallback(
+    (e) => {
+      if (e.key === 'Escape') {
+        close();
+      }
+    },
+    [close]
+  );
+
+  const onOKButtonClick = useCallback(() => {
+    if (successBtnClickHandler) {
+      successBtnClickHandler();
     }
-  };
+
+    close();
+  }, [close, successBtnClickHandler]);
 
   useEffect(() => {
     document.addEventListener('keyup', handleKeyUp);
@@ -27,7 +39,7 @@ export default function ModalDialog({
       document.removeEventListener('keyup', handleKeyUp);
       document.body.style.overflowY = 'initial';
     };
-  });
+  }, [handleKeyUp]);
 
   return (
     <div
@@ -52,15 +64,7 @@ export default function ModalDialog({
 
         <div className={classes.ModalFooter}>
           {successBtnClickHandler && (
-            <Button
-              handleClick={() => {
-                if (successBtnClickHandler) {
-                  successBtnClickHandler();
-                }
-
-                close();
-              }}
-            >
+            <Button handleClick={onOKButtonClick}>
               {primaryButtonText || 'OK'}
             </Button>
           )}
