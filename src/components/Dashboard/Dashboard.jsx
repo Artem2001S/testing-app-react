@@ -50,7 +50,6 @@ Dashboard.propTypes = {
   isAdmin: PropTypes.bool,
   testsList: PropTypes.array,
   addTestInput: PropTypes.object,
-  sortType: PropTypes.string,
   currentPaginationPage: PropTypes.number,
   totalPages: PropTypes.number,
   handleAddFormSubmit: PropTypes.func.isRequired,
