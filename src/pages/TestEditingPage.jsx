@@ -1,12 +1,12 @@
 import React from 'react';
 import TestEditingContainer from 'containers/TestEditing/TestEditingContainer';
 import withUserAuthentication from 'components/hoc/withUserAuthentication';
-import UserPanelContainer from 'containers/UserPanelContainer';
+import UserPanel from 'components/UserPanel/UserPanel';
 
 function TestEditingPage() {
   return (
     <>
-      <UserPanelContainer />
+      <UserPanel />
       <TestEditingContainer />
     </>
   );
