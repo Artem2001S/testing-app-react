@@ -27,8 +27,8 @@ function EditTestInfo({
         handleChange={changeInputValue}
       />
       <List centered>
-        <Button handleClick={onTestTitleUpdate}>Save title</Button>
-        <Button dangerous handleClick={onDelete}>
+        <Button onClick={onTestTitleUpdate}>Save title</Button>
+        <Button dangerous onClick={onDelete}>
           Delete test
         </Button>
       </List>

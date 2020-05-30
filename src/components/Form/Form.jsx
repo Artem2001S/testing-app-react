@@ -33,7 +33,7 @@ export default function Form({
         )
       )}
 
-      <Button handleClick={handleFormSubmit}>{btnText}</Button>
+      <Button onClick={handleFormSubmit}>{btnText}</Button>
 
       {additionalLinks &&
         additionalLinks.map((link) => (

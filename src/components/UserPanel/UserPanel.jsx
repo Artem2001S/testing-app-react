@@ -8,13 +8,13 @@ function UserPanel({ login, isAdmin, pathname, onLogout, onBack }) {
     <div className={classes.UserPanel}>
       <div className={classes.UserInfoContainer}>
         {isAdmin && pathname !== '/dashboard' && (
-          <Button handleClick={onBack} small>
+          <Button onClick={onBack} small>
             &larr;
           </Button>
         )}
         <Logo login={login} />
       </div>
-      <Button handleClick={onLogout}>Logout</Button>
+      <Button onClick={onLogout}>Logout</Button>
     </div>
   );
 }

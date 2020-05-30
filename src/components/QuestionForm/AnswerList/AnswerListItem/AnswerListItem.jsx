@@ -37,7 +37,7 @@ function AnswerListItem({
         value={inputValue}
         handleChange={onInputValueChange}
       />
-      <Button transparent handleClick={handleAnswerDelete}>
+      <Button transparent onClick={handleAnswerDelete}>
         &times;
       </Button>
     </>

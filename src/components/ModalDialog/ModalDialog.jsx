@@ -23,7 +23,7 @@ export default function ModalDialog({
     [close]
   );
 
-  const onOKButtonClick = useCallback(() => {
+  const handleOKButtonClick = useCallback(() => {
     if (successBtnClickHandler) {
       successBtnClickHandler();
     }
@@ -64,12 +64,12 @@ export default function ModalDialog({
 
         <div className={classes.ModalFooter}>
           {successBtnClickHandler && (
-            <Button handleClick={onOKButtonClick}>
+            <Button onClick={handleOKButtonClick}>
               {primaryButtonText || 'OK'}
             </Button>
           )}
 
-          <Button secondary handleClick={close}>
+          <Button secondary onClick={close}>
             Cancel
           </Button>
         </div>

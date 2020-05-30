@@ -13,7 +13,7 @@ function Button({
   dangerous,
   small,
   disabled,
-  handleClick,
+  onClick,
 }) {
   const btnClasses = classNames(classes.Button, {
     [classes.SecondaryBtn]: secondary,
@@ -35,7 +35,7 @@ function Button({
           to={href}
           title={title}
           disabled={disabled}
-          onClick={handleClick}
+          onClick={onClick}
         >
           {children}
         </button>
@@ -53,7 +53,7 @@ Button.propTypes = {
   small: PropTypes.bool,
   disabled: PropTypes.bool,
   children: PropTypes.node,
-  handleClick: PropTypes.func,
+  onClick: PropTypes.func,
 };
 
 export default React.memo(Button);

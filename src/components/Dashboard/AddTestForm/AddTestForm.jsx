@@ -12,7 +12,7 @@ export default function AddTestForm({ input, onInputChange, handleSubmit }) {
         value={input.value}
         handleChange={onInputChange}
       />
-      <Button handleClick={handleSubmit}>Add test</Button>
+      <Button onClick={handleSubmit}>Add test</Button>
     </form>
   );
 }

@@ -18,7 +18,7 @@ export default function ChooseQuestionTypeForm({
         current={current}
         onChange={onChangeQuestionType}
       />
-      <Button handleClick={onAddClick}>Add</Button>
+      <Button onClick={onAddClick}>Add</Button>
     </List>
   );
 }

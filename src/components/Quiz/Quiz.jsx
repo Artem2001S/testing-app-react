@@ -38,10 +38,10 @@ export default function Quiz({
         inputChangeHandlers={inputChangeHandlers}
       />
       <div className={classes.Actions}>
-        <Button dangerous handleClick={onFinishQuiz}>
+        <Button dangerous onClick={onFinishQuiz}>
           Finish quiz
         </Button>
-        <Button handleClick={onNext}>Next</Button>
+        <Button onClick={onNext}>Next</Button>
       </div>
     </div>
   );

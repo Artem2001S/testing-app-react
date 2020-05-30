@@ -15,10 +15,10 @@ function QuestionListItem({ title, type, onDelete, startQuestionEditing }) {
         </span>
       </span>
       <div className={classes.Actions}>
-        <Button title="Edit" transparent handleClick={startQuestionEditing}>
+        <Button title="Edit" transparent onClick={startQuestionEditing}>
           Edit
         </Button>
-        <Button title="Delete" transparent handleClick={onDelete}>
+        <Button title="Delete" transparent onClick={onDelete}>
           &times;
         </Button>
       </div>

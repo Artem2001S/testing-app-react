@@ -20,7 +20,7 @@ export default function AddNumberQuestionForm({
             {...input}
           />
         ))}
-        <Button handleClick={handleSubmit}>
+        <Button onClick={handleSubmit}>
           {editMode ? 'Save changes' : 'Add question'}
         </Button>
       </List>

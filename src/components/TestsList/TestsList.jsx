@@ -9,11 +9,7 @@ export default function TestsList({ tests, isAdmin, onSortChange }) {
     <div className={classes.TestsListWrapper}>
       <div className={classes.Header}>
         <h2>Tests</h2>
-        <Button
-          transparent
-          title="Change the sorting"
-          handleClick={onSortChange}
-        >
+        <Button transparent title="Change the sorting" onClick={onSortChange}>
           &darr;&uarr;
         </Button>
       </div>

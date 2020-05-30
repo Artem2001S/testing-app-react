@@ -3,7 +3,7 @@ import Button from 'components/UIElements/Button/Button';
 
 function PaginationBtn({ className, number, isDisabled, onClick }) {
   return (
-    <Button disabled={isDisabled} transparent handleClick={onClick}>
+    <Button disabled={isDisabled} transparent onClick={onClick}>
       <div className={className}>{number}</div>
     </Button>
   );

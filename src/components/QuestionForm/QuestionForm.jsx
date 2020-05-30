@@ -26,7 +26,7 @@ export default function QuestionForm({
           value={questionTitleInput.value}
           handleChange={onChangeQuestionTitleInputValue}
         />
-        <Button handleClick={onAddAnswer}>Add answer</Button>
+        <Button onClick={onAddAnswer}>Add answer</Button>
         <AnswerList
           isRadioButtons={questionType === 'single'}
           answerInputs={answerInputs}
@@ -35,7 +35,7 @@ export default function QuestionForm({
           onIsRightChange={onIsRightChange}
           onDeleteAnswer={onDeleteAnswer}
         />
-        <Button handleClick={onFormSubmit}>
+        <Button onClick={onFormSubmit}>
           {editMode ? 'Save changes' : 'Add question'}
         </Button>
       </List>

@@ -36,7 +36,7 @@ function SearchTestForm() {
         value={input.value}
         handleChange={handleInputChange}
       />
-      <Button handleClick={handleSubmit}>Search</Button>
+      <Button onClick={handleSubmit}>Search</Button>
     </form>
   );
 }
