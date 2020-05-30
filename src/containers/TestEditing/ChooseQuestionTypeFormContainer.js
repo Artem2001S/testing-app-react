@@ -13,10 +13,10 @@ import { useAction } from 'hooks/useAction';
 export default function ChooseQuestionTypeFormContainer() {
   const selectedQuestionType = useSelector(getSelectedQuestionType);
 
-  const onChangeQuestionType = useAction(changeAddFormQuestionType);
+  const changeAddFormQuestionTypeAction = useAction(changeAddFormQuestionType);
   const showModalDialog = useAction(openModalDialog);
 
-  const openDialog = useCallback(() => {
+  const handleAddClick = useCallback(() => {
     let node = null;
 
     if (selectedQuestionType === 'number') {
@@ -32,8 +32,8 @@ export default function ChooseQuestionTypeFormContainer() {
     <ChooseQuestionTypeForm
       questionTypes={['single', 'multiple', 'number']}
       current={selectedQuestionType}
-      onChangeQuestionType={onChangeQuestionType}
-      openDialog={openDialog}
+      onChangeQuestionType={changeAddFormQuestionTypeAction}
+      onAddClick={handleAddClick}
     />
   );
 }

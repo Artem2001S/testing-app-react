@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import {
   changeSearchTestFormInputValue,
@@ -16,19 +16,25 @@ function SearchTestForm() {
   const changeInputValue = useAction(changeSearchTestFormInputValue);
   const onSearch = useAction(requestTestsFromServer);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSearch(currentPage, input.value);
-  };
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      onSearch(currentPage, input.value);
+    },
+    [currentPage, input.value, onSearch]
+  );
 
-  const onInputChange = (e) => changeInputValue(e.target.value);
+  const handleInputChange = useCallback(
+    (e) => changeInputValue(e.target.value),
+    [changeInputValue]
+  );
 
   return (
     <form className={classes.SearchTestForm}>
       <TextInput
         label={input.label}
         value={input.value}
-        handleChange={onInputChange}
+        handleChange={handleInputChange}
       />
       <Button handleClick={handleSubmit}>Search</Button>
     </form>

@@ -8,7 +8,7 @@ export default function ChooseQuestionTypeForm({
   questionTypes,
   current,
   onChangeQuestionType,
-  openDialog,
+  onAddClick,
 }) {
   return (
     <List centered vertical>
@@ -18,7 +18,7 @@ export default function ChooseQuestionTypeForm({
         current={current}
         onChange={onChangeQuestionType}
       />
-      <Button handleClick={openDialog}>Add</Button>
+      <Button handleClick={onAddClick}>Add</Button>
     </List>
   );
 }

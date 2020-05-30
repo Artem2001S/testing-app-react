@@ -19,12 +19,12 @@ export default function UserPanelContainer() {
   const logout = useAction(sendLogoutRequest);
   const openLogoutDialog = useAction(openModalDialog);
 
-  const onLogout = useCallback(
+  const handleLogout = useCallback(
     () => openLogoutDialog('Are you sure ?', logout),
     [logout, openLogoutDialog]
   );
 
-  const onBack = useCallback(
+  const handleBack = useCallback(
     () => pathname.includes('/tests') && history.push('/dashboard'),
     [history, pathname]
   );
@@ -34,8 +34,8 @@ export default function UserPanelContainer() {
       pathname={pathname}
       isAdmin={isAdmin}
       login={login}
-      onLogout={onLogout}
-      onBack={onBack}
+      onLogout={handleLogout}
+      onBack={handleBack}
     />
   );
 }

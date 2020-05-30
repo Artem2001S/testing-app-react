@@ -20,7 +20,9 @@ export default function RegistrationFormContainer({ ...props }) {
   const inputs = useSelector(getRegistrationFormInputs);
   const validationErrors = useSelector(getRegistrationFormValidationErrors);
 
-  const onInputChange = useAction(changeRegistrationFormInputValue);
+  const changeRegistrationFormInputValueAction = useAction(
+    changeRegistrationFormInputValue
+  );
   const changeValidationStatus = useAction(
     changeRegistrationFormValidationStatus
   );
@@ -29,17 +31,17 @@ export default function RegistrationFormContainer({ ...props }) {
   const handleInputChange = useCallback(
     (inputName, inputType, e) => {
       if (inputType === 'checkbox') {
-        onInputChange(inputName, e.target.checked);
+        changeRegistrationFormInputValueAction(inputName, e.target.checked);
       }
 
       if (inputType === 'text' || inputType === 'password') {
-        onInputChange(inputName, e.target.value);
+        changeRegistrationFormInputValueAction(inputName, e.target.value);
       }
     },
-    [onInputChange]
+    [changeRegistrationFormInputValueAction]
   );
 
-  const onRegistration = useCallback(
+  const handleFormSubmit = useCallback(
     (e) => {
       e.preventDefault();
 
@@ -82,7 +84,7 @@ export default function RegistrationFormContainer({ ...props }) {
       inputs={inputs}
       inputChangeHandlers={inputChangeHandlers}
       validationErrors={validationErrors}
-      handleFormSubmit={onRegistration}
+      handleFormSubmit={handleFormSubmit}
     />
   );
 }

@@ -24,10 +24,10 @@ import QuizPage from 'pages/QuizPage';
 
 function App() {
   const isLoading = useSelector(getIsLoading);
-  const errorMessage = useSelector(getErrorMessage);
+  const handleHideErrorMessage = useSelector(getErrorMessage);
   const modalDialogData = useSelector(getModalDialogData);
 
-  const onHiderErrorMessage = useAction(getError.bind(this, ''));
+  const onHiderErrorMessage = useAction(getError);
 
   return (
     <>
@@ -40,8 +40,8 @@ function App() {
         />
       )}
       {isLoading && <Loader />}
-      {errorMessage && (
-        <Error message={errorMessage} hide={onHiderErrorMessage} />
+      {handleHideErrorMessage && (
+        <Error message={handleHideErrorMessage} hide={onHiderErrorMessage} />
       )}
       <Router>
         <Switch>

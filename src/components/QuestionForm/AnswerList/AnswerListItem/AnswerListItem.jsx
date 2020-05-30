@@ -14,12 +14,12 @@ function AnswerListItem({
   onDeleteAnswer,
   onInputValueChange,
 }) {
-  const deleteAnswer = useCallback(() => onDeleteAnswer(inputName), [
+  const handleAnswerDelete = useCallback(() => onDeleteAnswer(inputName), [
     inputName,
     onDeleteAnswer,
   ]);
 
-  const rightChange = useCallback(
+  const handleCheck = useCallback(
     (e) => onIsRightChange(inputName, isRadioButtons, e),
     [inputName, isRadioButtons, onIsRightChange]
   );
@@ -27,9 +27,9 @@ function AnswerListItem({
   return (
     <>
       {isRadioButtons ? (
-        <RadioButton value={isRight} handleChange={rightChange} />
+        <RadioButton value={isRight} handleChange={handleCheck} />
       ) : (
-        <Checkbox value={isRight} handleChange={rightChange} />
+        <Checkbox value={isRight} handleChange={handleCheck} />
       )}
 
       <TextInput
@@ -37,7 +37,7 @@ function AnswerListItem({
         value={inputValue}
         handleChange={onInputValueChange}
       />
-      <Button transparent handleClick={deleteAnswer}>
+      <Button transparent handleClick={handleAnswerDelete}>
         &times;
       </Button>
     </>

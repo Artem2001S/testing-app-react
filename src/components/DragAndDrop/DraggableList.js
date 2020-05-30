@@ -14,7 +14,7 @@ export default function DraggableList({ children, onSuccessDrop }) {
 
   const [dragState, setDragState] = useState(initialDragState);
 
-  const onDragStart = useCallback(
+  const handleDragStart = useCallback(
     (e) => {
       // set draggedFrom value
       setDragState({
@@ -29,7 +29,7 @@ export default function DraggableList({ children, onSuccessDrop }) {
     [dragState]
   );
 
-  const onDragOver = useCallback(
+  const handleDragOver = useCallback(
     (e) => {
       e.preventDefault();
 
@@ -44,11 +44,11 @@ export default function DraggableList({ children, onSuccessDrop }) {
     [dragState]
   );
 
-  const onDragLeave = useCallback((e) => {
+  const handleDragLeave = useCallback((e) => {
     e.target.classList.remove(classes.Dragging);
   }, []);
 
-  const onDrop = useCallback(() => {
+  const handleDrop = useCallback(() => {
     setDragState(initialDragState);
     onSuccessDrop(dragState.draggedFrom, dragState.draggedTo);
   }, [
@@ -68,10 +68,10 @@ export default function DraggableList({ children, onSuccessDrop }) {
             [classes.Dragging]:
               Number(dragState.draggedTo) === index && dragState.isDragging,
           })}
-          onDragLeave={onDragLeave}
-          onDragStart={onDragStart}
-          onDragOver={onDragOver}
-          onDrop={onDrop}
+          onDragLeave={handleDragLeave}
+          onDragStart={handleDragStart}
+          onDragOver={handleDragOver}
+          onDrop={handleDrop}
         >
           {node}
         </Draggable>
@@ -80,7 +80,7 @@ export default function DraggableList({ children, onSuccessDrop }) {
   );
 }
 
-DraggableList.propTyes = {
+DraggableList.propTypes = {
   children: PropTypes.node,
   onSuccessDrop: PropTypes.func,
 };
