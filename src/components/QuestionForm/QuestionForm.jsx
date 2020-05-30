@@ -24,7 +24,7 @@ export default function QuestionForm({
         <TextInput
           label={questionTitleInput.label}
           value={questionTitleInput.value}
-          handleChange={onChangeQuestionTitleInputValue}
+          onChange={onChangeQuestionTitleInputValue}
         />
         <Button onClick={onAddAnswer}>Add answer</Button>
         <AnswerList

@@ -21,14 +21,14 @@ export default function Form({
           <Checkbox
             key={`${input.name}${index}`}
             {...input}
-            handleChange={inputChangeHandlers[input.name]}
+            onChange={inputChangeHandlers[input.name]}
           />
         ) : (
           <TextInput
             key={`${input.name}${index}`}
             {...input}
             autocomplete={input.autocomplete}
-            handleChange={inputChangeHandlers[input.name]}
+            onChange={inputChangeHandlers[input.name]}
           />
         )
       )}

@@ -34,7 +34,7 @@ function SearchTestForm() {
       <TextInput
         label={input.label}
         value={input.value}
-        handleChange={handleInputChange}
+        onChange={handleInputChange}
       />
       <Button onClick={handleSubmit}>Search</Button>
     </form>

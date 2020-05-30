@@ -27,15 +27,15 @@ function AnswerListItem({
   return (
     <>
       {isRadioButtons ? (
-        <RadioButton value={isRight} handleChange={handleCheck} />
+        <RadioButton value={isRight} onChange={handleCheck} />
       ) : (
-        <Checkbox value={isRight} handleChange={handleCheck} />
+        <Checkbox value={isRight} onChange={handleCheck} />
       )}
 
       <TextInput
         className={classes.Input}
         value={inputValue}
-        handleChange={onInputValueChange}
+        onChange={onInputValueChange}
       />
       <Button transparent onClick={handleAnswerDelete}>
         &times;

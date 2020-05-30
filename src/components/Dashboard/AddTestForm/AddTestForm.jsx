@@ -10,7 +10,7 @@ export default function AddTestForm({ input, onInputChange, handleSubmit }) {
       <TextInput
         label={input.label}
         value={input.value}
-        handleChange={onInputChange}
+        onChange={onInputChange}
       />
       <Button onClick={handleSubmit}>Add test</Button>
     </form>

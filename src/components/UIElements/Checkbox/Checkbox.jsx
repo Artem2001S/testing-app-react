@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import classes from './Checkbox.module.scss';
 
-function Checkbox({ label, name, value, handleChange }) {
+function Checkbox({ label, name, value, onChange }) {
   const symbolClasses = classNames(classes.CheckboxSymbol, {
     [classes.CheckboxSymbolChecked]: value,
   });
@@ -16,7 +16,7 @@ function Checkbox({ label, name, value, handleChange }) {
         type="checkbox"
         name={name}
         checked={value}
-        onChange={handleChange}
+        onChange={onChange}
       />
       <span className={symbolClasses} />
     </label>
@@ -27,7 +27,7 @@ Checkbox.propTypes = {
   label: PropTypes.string,
   name: PropTypes.string,
   value: PropTypes.bool,
-  handleChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default React.memo(Checkbox);

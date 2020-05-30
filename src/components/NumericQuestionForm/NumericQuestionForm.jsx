@@ -16,7 +16,7 @@ export default function AddNumberQuestionForm({
         {inputs.map((input) => (
           <TextInput
             key={input.name}
-            handleChange={inputChangeHandlers[input.name]}
+            onChange={inputChangeHandlers[input.name]}
             {...input}
           />
         ))}

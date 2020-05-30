@@ -14,7 +14,7 @@ export default function QuizAnswers({ answerInputs, inputChangeHandlers }) {
             return (
               <TextInput
                 key={index}
-                handleChange={inputChangeHandlers[input.name]}
+                onChange={inputChangeHandlers[input.name]}
                 {...input}
               />
             );
@@ -22,7 +22,7 @@ export default function QuizAnswers({ answerInputs, inputChangeHandlers }) {
             return (
               <RadioButton
                 key={index}
-                handleChange={inputChangeHandlers[input.name]}
+                onChange={inputChangeHandlers[input.name]}
                 {...input}
               />
             );
@@ -30,7 +30,7 @@ export default function QuizAnswers({ answerInputs, inputChangeHandlers }) {
             return (
               <Checkbox
                 key={index}
-                handleChange={inputChangeHandlers[input.name]}
+                onChange={inputChangeHandlers[input.name]}
                 {...input}
               />
             );

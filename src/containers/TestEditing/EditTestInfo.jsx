@@ -24,7 +24,7 @@ function EditTestInfo({
       <TextInput
         label="Title"
         value={input.value}
-        handleChange={changeInputValue}
+        onChange={changeInputValue}
       />
       <List centered>
         <Button onClick={onTestTitleUpdate}>Save title</Button>

@@ -12,7 +12,7 @@ function TextInput({
   autocomplete,
   value,
   name,
-  handleChange,
+  onChange,
 }) {
   const uniqueId = useMemo(() => uuidv4(), []);
 
@@ -29,7 +29,7 @@ function TextInput({
         name={name}
         defaultValue={defaultValue}
         value={value}
-        onChange={handleChange}
+        onChange={onChange}
       />
     </label>
   );
@@ -42,7 +42,7 @@ TextInput.propTypes = {
   name: PropTypes.string,
   defaultValue: PropTypes.string,
   value: PropTypes.string,
-  handleChange: PropTypes.func,
+  onChange: PropTypes.func,
 };
 
 export default React.memo(TextInput);
