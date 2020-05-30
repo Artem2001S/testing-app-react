@@ -12,10 +12,10 @@ export default function Form({
   additionalLinks,
   validationErrors,
   inputChangeHandlers,
-  handleFormSubmit,
+  onFormSubmit,
 }) {
   return (
-    <form className={classes.Form} onSubmit={handleFormSubmit}>
+    <form className={classes.Form} onSubmit={onFormSubmit}>
       {inputs.map((input, index) =>
         input.type === 'checkbox' ? (
           <Checkbox
@@ -33,7 +33,7 @@ export default function Form({
         )
       )}
 
-      <Button onClick={handleFormSubmit}>{btnText}</Button>
+      <Button onClick={onFormSubmit}>{btnText}</Button>
 
       {additionalLinks &&
         additionalLinks.map((link) => (
@@ -55,5 +55,5 @@ Form.propTypes = {
   validationErrors: PropTypes.string,
   additionalLinks: PropTypes.array,
   inputChangeHandlers: PropTypes.object.isRequired,
-  handleFormSubmit: PropTypes.func.isRequired,
+  onFormSubmit: PropTypes.func.isRequired,
 };

@@ -73,7 +73,7 @@ export default function AuthorizationFormContainer({ ...props }) {
       inputs={inputs}
       validationErrors={validationErrors}
       inputChangeHandlers={inputChangeHandlers}
-      handleFormSubmit={authorizationFormSubmit}
+      onFormSubmit={authorizationFormSubmit}
       {...props}
     />
   );

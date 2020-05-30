@@ -84,7 +84,7 @@ export default function RegistrationFormContainer({ ...props }) {
       inputs={inputs}
       inputChangeHandlers={inputChangeHandlers}
       validationErrors={validationErrors}
-      handleFormSubmit={handleFormSubmit}
+      onFormSubmit={handleFormSubmit}
     />
   );
 }

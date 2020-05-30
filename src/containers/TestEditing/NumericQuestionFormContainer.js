@@ -70,7 +70,7 @@ export default function NumericQuestionFormContainer({ editMode }) {
       inputs={inputs}
       editMode={editMode}
       inputChangeHandlers={inputChangeHandlers}
-      handleSubmit={handleFormSubmit}
+      onFormSubmit={handleFormSubmit}
     />
   );
 }
