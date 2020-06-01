@@ -9,9 +9,29 @@ export const getTests = createSelector(
   (entities, result) => denormalizeTests({ entities, result })
 );
 
-const getLastTestAddedId = (state) => state.tests.lastTestAddedId;
+const getTestsState = (state) => state.tests;
+
+export const getLastTestAddedId = createSelector(
+  [getTestsState],
+  (testsState) => testsState.lastTestAddedId
+);
 
 export const getIsAfterCreating = createSelector(
   [getLastTestAddedId],
   (lastAddedTestId) => lastAddedTestId !== -1
+);
+
+export const getTotalPages = createSelector(
+  [getTestsState],
+  (testsState) => testsState.totalPages
+);
+
+export const getCurrentSortType = createSelector(
+  [getTestsState],
+  (testsState) => testsState.sortType
+);
+
+export const getCurrentTestsListPage = createSelector(
+  [getTestsState],
+  (testsState) => testsState.currentPage
 );

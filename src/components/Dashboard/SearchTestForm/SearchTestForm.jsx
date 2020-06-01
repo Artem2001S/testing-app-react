@@ -14,18 +14,20 @@ function SearchTestForm() {
   const currentPage = useSelector((state) => state.tests.currentPage);
 
   const changeInputValue = useAction(changeSearchTestFormInputValue);
-  const onSearch = useAction(requestTestsFromServer);
+  const searchTestsAction = useAction(requestTestsFromServer);
 
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      onSearch(currentPage, input.value);
+      searchTestsAction(currentPage, input.value);
     },
-    [currentPage, input.value, onSearch]
+    [currentPage, searchTestsAction, input.value]
   );
 
   const handleInputChange = useCallback(
-    (e) => changeInputValue(e.target.value),
+    (e) => {
+      changeInputValue(e.target.value);
+    },
     [changeInputValue]
   );
 

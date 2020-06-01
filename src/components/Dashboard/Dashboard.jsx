@@ -26,7 +26,7 @@ export default function Dashboard({
         <AddTestForm
           input={addTestInput}
           onInputChange={onChangeTitleInput}
-          handleSubmit={handleAddFormSubmit}
+          onFormSubmit={handleAddFormSubmit}
         />
       )}
 
