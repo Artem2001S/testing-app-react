@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -24,10 +24,13 @@ import QuizPage from 'pages/QuizPage';
 
 function App() {
   const isLoading = useSelector(getIsLoading);
-  const handleHideErrorMessage = useSelector(getErrorMessage);
+  const errorMessage = useSelector(getErrorMessage);
   const modalDialogData = useSelector(getModalDialogData);
 
-  const onHiderErrorMessage = useAction(getError);
+  const showMessageAction = useAction(getError);
+  const onHideErrorMessage = useCallback(() => showMessageAction(''), [
+    showMessageAction,
+  ]);
 
   return (
     <>
@@ -40,8 +43,8 @@ function App() {
         />
       )}
       {isLoading && <Loader />}
-      {handleHideErrorMessage && (
-        <Error message={handleHideErrorMessage} hide={onHiderErrorMessage} />
+      {errorMessage && (
+        <Error message={errorMessage} hide={onHideErrorMessage} />
       )}
       <Router>
         <Switch>
