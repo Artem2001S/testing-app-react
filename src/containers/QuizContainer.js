@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import Quiz from 'components/Quiz/Quiz';
+import React, { useEffect, useMemo, useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import {
   requestTestFromQuizPage,
@@ -11,16 +10,59 @@ import {
 import {
   getCurrentQuestionTitle,
   getCurrentTestQuestionsCount,
+  getCurrentQuestionNumber,
+  getIsQuizFinished,
+  getQuizCorrectAnswersCount,
+  getQuizAnswerInputs,
 } from 'redux/selectors/quiz';
 import { createOnChangeHandlers } from 'utils';
+import { getIsLoading } from 'redux/selectors/UIData';
+import { useAction } from 'hooks/useAction';
+import Quiz from 'components/Quiz/Quiz';
 
-function QuizContainer({
-  requestTestFromServer,
-  isNotFound,
-  isLoading,
-  ...props
-}) {
+export default function QuizContainer({ ...props }) {
   const { testId } = useParams();
+
+  const isLoading = useSelector(getIsLoading);
+
+  const currentQuestionNumber = useSelector(getCurrentQuestionNumber);
+  const questionTitle = useSelector(getCurrentQuestionTitle);
+  const questionsCount = useSelector(getCurrentTestQuestionsCount);
+  const isFinished = useSelector(getIsQuizFinished);
+  const correctAnswersCount = useSelector(getQuizCorrectAnswersCount);
+  const answerInputs = useSelector(getQuizAnswerInputs);
+
+  const isNotFound = useMemo(() => questionsCount === 0, [questionsCount]);
+
+  const requestTestFromServer = useAction(requestTestFromQuizPage);
+
+  const nextQuestionAction = useAction(nextQuestion);
+  const finishQuizAction = useAction(finishQuiz);
+  const changeInputAction = useAction(changeQuizAnswerInput);
+
+  const handleNextQuestion = useCallback(() => nextQuestionAction(), [
+    nextQuestionAction,
+  ]);
+
+  const handleFinishQuiz = useCallback(() => finishQuizAction(), [
+    finishQuizAction,
+  ]);
+
+  const handleInputChange = useCallback(
+    (inputName, inputType, e) => {
+      if (inputType === 'checkbox' || inputType === 'radio') {
+        changeInputAction(inputName, e.target.checked);
+      } else {
+        changeInputAction(inputName, e.target.value);
+      }
+    },
+    [changeInputAction]
+  );
+
+  const inputChangeHandlers = useMemo(
+    () => createOnChangeHandlers(answerInputs, handleInputChange),
+    [answerInputs, handleInputChange]
+  );
 
   useEffect(() => {
     if (!isNaN(testId)) {
@@ -41,48 +83,18 @@ function QuizContainer({
     );
   }
 
-  return <Quiz {...props} />;
-}
-
-const mapStateToProps = (state) => ({
-  currentQuestionNumber: state.quiz.currentQuestionIndex + 1,
-  questionTitle: getCurrentQuestionTitle(state),
-  questionsCount: getCurrentTestQuestionsCount(state),
-  answerInputs: state.quiz.answerInputs,
-  isFinished: state.quiz.isFinished,
-  correctAnswersCount: state.quiz.correctAnswersCount,
-  isNotFound: state.quiz.questionsCount === 0,
-  isLoading: state.UIData.isLoading,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  requestTestFromServer: (testId) => dispatch(requestTestFromQuizPage(testId)),
-  onNext: () => dispatch(nextQuestion()),
-  onFinishQuiz: () => dispatch(finishQuiz()),
-  handleInputChange: (inputName, inputType, e) => {
-    if (inputType === 'checkbox' || inputType === 'radio') {
-      dispatch(changeQuizAnswerInput(inputName, e.target.checked));
-    } else {
-      dispatch(changeQuizAnswerInput(inputName, e.target.value));
-    }
-  },
-});
-
-const mergeProps = (stateProps, dispatchProps) => {
-  const inputChangeHandlers = createOnChangeHandlers(
-    stateProps.answerInputs,
-    dispatchProps.handleInputChange
+  return (
+    <Quiz
+      {...props}
+      currentQuestionNumber={currentQuestionNumber}
+      questionTitle={questionTitle}
+      questionsCount={questionsCount}
+      isFinished={isFinished}
+      correctAnswersCount={correctAnswersCount}
+      answerInputs={answerInputs}
+      inputChangeHandlers={inputChangeHandlers}
+      onNext={handleNextQuestion}
+      onFinishQuiz={handleFinishQuiz}
+    />
   );
-
-  return {
-    ...stateProps,
-    ...dispatchProps,
-    inputChangeHandlers,
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-  mergeProps
-)(QuizContainer);
+}
