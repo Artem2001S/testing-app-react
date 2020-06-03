@@ -1,4 +1,5 @@
-import { connect } from 'react-redux';
+import React, { useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import QuestionForm from 'components/QuestionForm/QuestionForm';
 import {
   changeQuestionFormInputValue,
@@ -12,121 +13,131 @@ import {
   sendRequestToEditQuestion,
 } from 'redux/actions/actionCreators';
 import { createOnChangeHandlers } from 'utils';
-import { getVisibleInputs } from 'redux/selectors/questionForm';
+import {
+  getVisibleInputs,
+  getAllInputs,
+  getQuestionTitleInput,
+  getQuestionId,
+} from 'redux/selectors/questionForm';
 import { validateAnswers } from 'utils/questionFormValidation';
+import { useAction } from 'hooks/useAction';
+import { getCurrentTestId } from 'redux/selectors/test';
 
-const mapStateToProps = (state, ownProps) => ({
-  answerInputs: getVisibleInputs(state),
-  answerInputsWithDeletedAnswers: state.questionForm.inputs,
-  questionTitleInput: state.questionForm.questionTitleInput,
-  questionType: ownProps.questionType,
-  testId: state.testEditingPage.result,
-  editMode: ownProps.editMode,
-  questionId: state.questionForm.questionId,
-});
+export default function QuestionFormContainer({ questionType, editMode }) {
+  const answerInputs = useSelector(getVisibleInputs);
+  const answerInputsWithDeletedAnswers = useSelector(getAllInputs);
+  const questionTitleInput = useSelector(getQuestionTitleInput);
+  const questionId = useSelector(getQuestionId);
+  const testId = useSelector(getCurrentTestId);
 
-const mapDispatchToProps = (dispatch) => ({
-  onChangeInputValue: (inputName, inputType, e) =>
-    dispatch(changeQuestionFormInputValue(inputName, e.target.value)),
-  onChangeQuestionTitleInputValue: (e) =>
-    dispatch(changeQuestionFormInputValue('question-title', e.target.value)),
-  onIsRightChange: (inputName, isRadio, e) =>
-    dispatch(
-      changeQuestionFormIsRightValue(inputName, isRadio, e.target.checked)
-    ),
-  onAnswerMove: (from, to) =>
-    dispatch(changeQuestionFormAnswerPosition(from, to)),
-  onAddAnswer: () => dispatch(addAnswerToQuestionForm()),
-  onDeleteAnswer: (inputName) =>
-    dispatch(deleteAnswerFromQuestionForm(inputName)),
-  sendRequestToAddQuestion: (testId, data) =>
-    dispatch(sendRequestToAddQuestion(testId, data)),
-  sendRequestToEditQuestion: (questionId, data) =>
-    dispatch(sendRequestToEditQuestion(questionId, data)),
-  showValidationError: (message) => dispatch(getError(message)),
-  closeModalDialog: () => dispatch(closeModalDialog()),
-});
+  const changeInputValueAction = useAction(changeQuestionFormInputValue);
+  const changeCheckedAction = useAction(changeQuestionFormIsRightValue);
 
-const mergeProps = (stateProps, dispatchProps) => {
-  const inputChangeHandlers = createOnChangeHandlers(
-    stateProps.answerInputs,
-    dispatchProps.onChangeInputValue
+  const handleAnswerMoving = useAction(changeQuestionFormAnswerPosition);
+  const handleAnswerAdding = useAction(addAnswerToQuestionForm);
+  const handleAnswerDeleting = useAction(deleteAnswerFromQuestionForm);
+  const requestToAddQuestionAction = useAction(sendRequestToAddQuestion);
+  const requestToEditQuestionAction = useAction(sendRequestToEditQuestion);
+  const showMessage = useAction(getError);
+  const closeModal = useAction(closeModalDialog);
+
+  const handleChangeQuestionTitleInputValue = useCallback(
+    (e) => changeInputValueAction('question-title', e.target.value),
+    [changeInputValueAction]
   );
 
-  return {
-    ...stateProps,
-    ...dispatchProps,
-    inputChangeHandlers,
-    onFormSubmit: () => {
-      const {
-        answerInputs,
-        answerInputsWithDeletedAnswers,
-        questionType,
-        questionTitleInput,
-        testId,
-        editMode,
-        questionId,
-      } = stateProps;
+  const handleChangeInputValue = useCallback(
+    (inputName, inputType, e) =>
+      changeInputValueAction(inputName, e.target.value),
+    [changeInputValueAction]
+  );
 
-      const {
-        showValidationError,
-        sendRequestToAddQuestion,
-        closeModalDialog,
-      } = dispatchProps;
+  const handleIsRightChange = useCallback(
+    (inputName, isRadio, e) =>
+      changeCheckedAction(inputName, isRadio, e.target.checked),
+    [changeCheckedAction]
+  );
 
-      const title = questionTitleInput.value.trim();
+  const inputChangeHandlers = React.useMemo(
+    () => createOnChangeHandlers(answerInputs, handleChangeInputValue),
+    [answerInputs, handleChangeInputValue]
+  );
 
-      // validation
-      if (!title) {
-        showValidationError('Enter question title');
-        return;
-      }
+  const handleFormSubmit = useCallback(() => {
+    const title = questionTitleInput.value.trim();
 
-      const validationResult = validateAnswers(answerInputs, questionType);
+    // validation
+    if (!title) {
+      showMessage('Enter question title');
+      return;
+    }
 
-      if (validationResult) {
-        showValidationError(validationResult);
-        return;
-      }
+    const validationResult = validateAnswers(answerInputs, questionType);
 
-      const data = {
+    if (validationResult) {
+      showMessage(validationResult);
+      return;
+    }
+
+    const data = {
+      title,
+      questionType,
+      answers: answerInputs.map((input) => ({
+        text: input.value,
+        isRight: input.isRight,
+      })),
+    };
+
+    if (editMode) {
+      const editedData = {
         title,
         questionType,
-        answers: answerInputs.map((input) => ({
-          text: input.value,
-          isRight: input.isRight,
+        answer: null,
+        answers: answerInputsWithDeletedAnswers.map((answer) => ({
+          id: answer.id,
+          text: answer.value,
+          isRight: answer.isRight,
+          initialIsRight: answer.initialIsRight,
+          initialValue: answer.initialValue,
+          isNew: answer.isNew,
+          initialPosition: answer.initialPosition,
+          movedTo: answer.movedTo,
+          needToDelete: answer.needToDelete,
         })),
       };
 
-      if (editMode) {
-        const editedData = {
-          title,
-          questionType,
-          answer: null,
-          answers: answerInputsWithDeletedAnswers.map((answer) => ({
-            id: answer.id,
-            text: answer.value,
-            isRight: answer.isRight,
-            initialIsRight: answer.initialIsRight,
-            initialValue: answer.initialValue,
-            isNew: answer.isNew,
-            initialPosition: answer.initialPosition,
-            movedTo: answer.movedTo,
-            needToDelete: answer.needToDelete,
-          })),
-        };
+      requestToEditQuestionAction(questionId, editedData);
+    } else {
+      requestToAddQuestionAction(testId, data);
+    }
+    closeModal();
+  }, [
+    answerInputs,
+    answerInputsWithDeletedAnswers,
+    closeModal,
+    editMode,
+    questionId,
+    questionTitleInput.value,
+    questionType,
+    requestToAddQuestionAction,
+    requestToEditQuestionAction,
+    showMessage,
+    testId,
+  ]);
 
-        dispatchProps.sendRequestToEditQuestion(questionId, editedData);
-      } else {
-        sendRequestToAddQuestion(testId, data);
-      }
-      closeModalDialog();
-    },
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-  mergeProps
-)(QuestionForm);
+  return (
+    <QuestionForm
+      answerInputs={answerInputs}
+      questionTitleInput={questionTitleInput}
+      editMode={editMode}
+      questionType={questionType}
+      inputChangeHandlers={inputChangeHandlers}
+      onChangeQuestionTitleInputValue={handleChangeQuestionTitleInputValue}
+      onDeleteAnswer={handleAnswerDeleting}
+      onIsRightChange={handleIsRightChange}
+      onAddAnswer={handleAnswerAdding}
+      onAnswerMove={handleAnswerMoving}
+      onFormSubmit={handleFormSubmit}
+    />
+  );
+}
