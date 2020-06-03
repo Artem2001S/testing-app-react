@@ -19,3 +19,8 @@ export const getSelectedQuestionType = createSelector(
   [getTestEditingPageState],
   (state) => state.inputsData.addFormQuestionType
 );
+
+export const getTestTitleEditingInput = createSelector(
+  [getTestEditingPageState],
+  (state) => state.inputsData.titleEditing
+);

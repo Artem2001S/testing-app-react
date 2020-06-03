@@ -21,15 +21,15 @@ export default function NumericQuestionFormContainer({ editMode }) {
   const questionId = useSelector(getNumericQuestionFormQuestionId);
   const testId = useSelector(getCurrentTestId);
 
-  const onInputChange = useAction(changeNumericQuestionFormInputValue);
+  const inputChangeAction = useAction(changeNumericQuestionFormInputValue);
   const showValidationError = useAction(getError);
   const closeModal = useAction(closeModalDialog);
   const requestToEdit = useAction(sendRequestToEditQuestion);
   const requestToAdd = useAction(sendRequestToAddQuestion);
 
   const handleInputChange = useCallback(
-    (inputName, inputType, e) => onInputChange(inputName, e.target.value),
-    [onInputChange]
+    (inputName, inputType, e) => inputChangeAction(inputName, e.target.value),
+    [inputChangeAction]
   );
 
   const inputChangeHandlers = createOnChangeHandlers(inputs, handleInputChange);

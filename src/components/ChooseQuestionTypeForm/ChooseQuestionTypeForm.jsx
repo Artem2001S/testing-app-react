@@ -27,5 +27,5 @@ ChooseQuestionTypeForm.propTypes = {
   questionTypes: PropTypes.array.isRequired,
   current: PropTypes.string.isRequired,
   onChangeQuestionType: PropTypes.func.isRequired,
-  openDialog: PropTypes.func.isRequired,
+  onAddClick: PropTypes.func.isRequired,
 };
