@@ -9,7 +9,6 @@ import {
   deleteAnswerFromQuestionForm,
   getError,
   sendRequestToAddQuestion,
-  closeModalDialog,
   sendRequestToEditQuestion,
 } from 'redux/actions/actionCreators';
 import { createOnChangeHandlers } from 'utils';
@@ -23,7 +22,11 @@ import { validateAnswers } from 'utils/questionFormValidation';
 import { useAction } from 'hooks/useAction';
 import { getCurrentTestId } from 'redux/selectors/test';
 
-export default function QuestionFormContainer({ questionType, editMode }) {
+export default function QuestionFormContainer({
+  questionType,
+  editMode,
+  closeDialog,
+}) {
   const answerInputs = useSelector(getVisibleInputs);
   const answerInputsWithDeletedAnswers = useSelector(getAllInputs);
   const questionTitleInput = useSelector(getQuestionTitleInput);
@@ -39,7 +42,6 @@ export default function QuestionFormContainer({ questionType, editMode }) {
   const requestToAddQuestionAction = useAction(sendRequestToAddQuestion);
   const requestToEditQuestionAction = useAction(sendRequestToEditQuestion);
   const showMessage = useAction(getError);
-  const closeModal = useAction(closeModalDialog);
 
   const handleChangeQuestionTitleInputValue = useCallback(
     (e) => changeInputValueAction('question-title', e.target.value),
@@ -110,11 +112,11 @@ export default function QuestionFormContainer({ questionType, editMode }) {
     } else {
       requestToAddQuestionAction(testId, data);
     }
-    closeModal();
+    closeDialog();
   }, [
     answerInputs,
     answerInputsWithDeletedAnswers,
-    closeModal,
+    closeDialog,
     editMode,
     questionId,
     questionTitleInput.value,

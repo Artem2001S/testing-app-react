@@ -9,8 +9,3 @@ export const getErrorMessage = createSelector(
   (state) => state.UIData.errors,
   (errors) => errors
 );
-
-export const getModalDialogData = createSelector(
-  (state) => state.modalDialog,
-  (modalDialogData) => modalDialogData
-);

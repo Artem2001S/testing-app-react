@@ -10,8 +10,6 @@ import {
   SEND_LOGOUT_REQUEST,
   GET_REQUEST_ERROR,
   SEND_AUTHORIZATION_REQUEST,
-  OPEN_MODAL_DIALOG,
-  CLOSE_MODAL_DIALOG,
   SUCCESS_LOGOUT,
   SEND_GET_CURRENT_USER_REQUEST,
   REQUEST_TESTS_FROM_SERVER,
@@ -145,24 +143,6 @@ export function sendAuthorizationRequest(userName, password) {
   return {
     type: SEND_AUTHORIZATION_REQUEST,
     payload: { username: userName, password },
-  };
-}
-
-export function openModalDialog(
-  title,
-  successBtnClickHandler,
-  primaryButtonText,
-  children
-) {
-  return {
-    type: OPEN_MODAL_DIALOG,
-    payload: { title, successBtnClickHandler, children, primaryButtonText },
-  };
-}
-
-export function closeModalDialog() {
-  return {
-    type: CLOSE_MODAL_DIALOG,
   };
 }
 

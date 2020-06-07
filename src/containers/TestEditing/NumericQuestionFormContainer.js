@@ -4,7 +4,6 @@ import NumericQuestionForm from 'components/NumericQuestionForm/NumericQuestionF
 import {
   changeNumericQuestionFormInputValue,
   sendRequestToAddQuestion,
-  closeModalDialog,
   sendRequestToEditQuestion,
   getError,
 } from 'redux/actions/actionCreators';
@@ -16,14 +15,16 @@ import {
 import { getCurrentTestId } from 'redux/selectors/test';
 import { useAction } from 'hooks/useAction';
 
-export default function NumericQuestionFormContainer({ editMode }) {
+export default function NumericQuestionFormContainer({
+  editMode,
+  closeDialog,
+}) {
   const inputs = useSelector(getNumericQuestionFormInputs);
   const questionId = useSelector(getNumericQuestionFormQuestionId);
   const testId = useSelector(getCurrentTestId);
 
   const inputChangeAction = useAction(changeNumericQuestionFormInputValue);
   const showValidationError = useAction(getError);
-  const closeModal = useAction(closeModalDialog);
   const requestToEdit = useAction(sendRequestToEditQuestion);
   const requestToAdd = useAction(sendRequestToAddQuestion);
 
@@ -51,10 +52,10 @@ export default function NumericQuestionFormContainer({ editMode }) {
         requestToAdd(testId, data);
       }
 
-      closeModal();
+      closeDialog();
     },
     [
-      closeModal,
+      closeDialog,
       editMode,
       inputs,
       questionId,

@@ -1,35 +1,64 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { useAction } from 'hooks/useAction';
+import React, { useEffect, useCallback } from 'react';
+import ReactDOM from 'react-dom';
+import { createElement } from 'utils';
 import classes from './ModalDialog.module.scss';
-import Button from 'components/UIElements/Button/Button';
-import { closeModalDialog } from 'redux/actions/actionCreators';
-import { useCallback } from 'react';
 
-export default function ModalDialog({
-  title,
-  primaryButtonText,
+const modalRoot = document.getElementById('modal');
+
+function ModalDialog({
+  header,
   children,
-  successBtnClickHandler,
+  successBtnText,
+  onSuccessBtnClick,
+  onClose,
 }) {
-  const close = useAction(closeModalDialog);
+  const modalContainer = createElement('div', classes.ModalDialog);
+  const modalContent = createElement('div', classes.ModalDialogContent);
+
+  const handleBackgroundClick = useCallback(
+    (e) => e.target === e.currentTarget && onClose(),
+    [onClose]
+  );
+
+  modalContainer.addEventListener('click', handleBackgroundClick);
+
+  const headerContainer = createElement('div', classes.ModalHeader);
+  const title = createElement('span', classes.Title, header);
+  const closeBtn = createElement('button', classes.CloseBtn, null, '&times;');
+  closeBtn.addEventListener('click', onClose);
+
+  headerContainer.appendChild(title);
+  headerContainer.appendChild(closeBtn);
+
+  modalContent.appendChild(headerContainer);
+  modalContainer.appendChild(modalContent);
+
+  const handleSuccessBtnClick = useCallback(() => {
+    onSuccessBtnClick();
+    onClose();
+  }, [onClose, onSuccessBtnClick]);
+
+  if (successBtnText && onSuccessBtnClick) {
+    const btn = createElement('button', classes.Button, successBtnText);
+    btn.addEventListener('click', handleSuccessBtnClick);
+    modalContent.append(btn);
+  }
 
   const handleKeyUp = useCallback(
     (e) => {
       if (e.key === 'Escape') {
-        close();
+        onClose();
       }
     },
-    [close]
+    [onClose]
   );
 
-  const handleOKButtonClick = useCallback(() => {
-    if (successBtnClickHandler) {
-      successBtnClickHandler();
-    }
-
-    close();
-  }, [close, successBtnClickHandler]);
+  useEffect(() => {
+    modalRoot.append(modalContainer);
+    return () => {
+      modalRoot.removeChild(modalContainer);
+    };
+  }, [modalContainer, modalContent]);
 
   useEffect(() => {
     document.addEventListener('keyup', handleKeyUp);
@@ -41,46 +70,7 @@ export default function ModalDialog({
     };
   }, [handleKeyUp]);
 
-  return (
-    <div
-      className={classes.ModalDialog}
-      onClick={(e) => {
-        if (e.target === e.currentTarget) {
-          close();
-        }
-      }}
-    >
-      <div className={classes.ModalDialogContent}>
-        <div className={classes.ModalHeader}>
-          <span className={classes.Title}>{title}</span>
-          <button className={classes.CloseBtn} onClick={close}>
-            &times;
-          </button>
-        </div>
-
-        {children && (
-          <div className={classes.ModalDialogChildren}>{children}</div>
-        )}
-
-        <div className={classes.ModalFooter}>
-          {successBtnClickHandler && (
-            <Button onClick={handleOKButtonClick}>
-              {primaryButtonText || 'OK'}
-            </Button>
-          )}
-
-          <Button secondary onClick={close}>
-            Cancel
-          </Button>
-        </div>
-      </div>
-    </div>
-  );
+  return ReactDOM.createPortal(children, modalContent);
 }
 
-ModalDialog.propTypes = {
-  title: PropTypes.string,
-  primaryButtonText: PropTypes.string,
-  children: PropTypes.node,
-  successBtnClickHandler: PropTypes.func,
-};
+export default React.memo(ModalDialog);

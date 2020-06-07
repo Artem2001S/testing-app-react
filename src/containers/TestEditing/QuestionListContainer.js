@@ -1,33 +1,39 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import List from 'components/List/List';
 import QuestionListItem from 'components/QuestionListItem/QuestionListItem';
 import { getCurrentTestQuestions } from 'redux/selectors/test';
 import {
   sendRequestToDeleteQuestion,
-  openModalDialog,
   startNumericQuestionEditing,
   startQuestionEditing,
 } from 'redux/actions/actionCreators';
 import NumericQuestionFormContainer from './NumericQuestionFormContainer';
 import QuestionFormContainer from './QuestionFormContainer';
 import { useAction } from 'hooks/useAction';
+import ModalDialog from 'components/ModalDialog/ModalDialog';
 
 export default function QuestionList() {
   const questions = useSelector(getCurrentTestQuestions);
+  const [modalDialogData, setModalDialogData] = useState(null);
 
   const deleteQuestionAction = useAction(sendRequestToDeleteQuestion);
-  const showModal = useAction(openModalDialog);
 
   const handleQuestionDeleting = useCallback(
     (id) => {
-      showModal('Delete question ?', () => deleteQuestionAction(id));
+      setModalDialogData({
+        header: 'Delete question ?',
+        successBtnText: 'Confirm',
+        onSuccessBtnClick: () => deleteQuestionAction(id),
+      });
     },
-    [deleteQuestionAction, showModal]
+    [deleteQuestionAction]
   );
 
   const initNumericQuestionEditingForm = useAction(startNumericQuestionEditing);
   const initQuestionFormInputs = useAction(startQuestionEditing);
+
+  const handleCloseModal = useCallback(() => setModalDialogData(null), []);
 
   const handleStartQuestionEditing = useCallback(
     (question) => {
@@ -38,47 +44,63 @@ export default function QuestionList() {
           question.answer
         );
 
-        showModal(
-          'Edit question',
-          null,
-          '',
-          <NumericQuestionFormContainer editMode />
-        );
+        setModalDialogData({
+          node: (
+            <NumericQuestionFormContainer
+              editMode
+              closeDialog={handleCloseModal}
+            />
+          ),
+          header: 'Edit question',
+        });
       } else {
-        showModal(
-          'Edit question',
-          null,
-          '',
-          <QuestionFormContainer
-            questionType={question.question_type}
-            editMode
-          />
-        );
+        setModalDialogData({
+          node: (
+            <QuestionFormContainer
+              editMode
+              questionType={question.question_type}
+              closeDialog={handleCloseModal}
+            />
+          ),
+          header: 'Edit question',
+        });
 
         initQuestionFormInputs(question.id, question.title, question.answers);
       }
     },
-    [initNumericQuestionEditingForm, initQuestionFormInputs, showModal]
+    [handleCloseModal, initNumericQuestionEditingForm, initQuestionFormInputs]
   );
 
   return (
-    <List vertical centered>
-      {questions.length === 0 ? (
-        <h3>Add the first question!</h3>
-      ) : (
-        questions.map((question, index) => (
-          <QuestionListItem
-            key={index}
-            type={question.question_type}
-            {...question}
-            startQuestionEditing={handleStartQuestionEditing.bind(
-              this,
-              question
-            )}
-            onDelete={handleQuestionDeleting.bind(this, question.id)}
-          />
-        ))
+    <>
+      {modalDialogData && (
+        <ModalDialog
+          header={modalDialogData.header}
+          successBtnText={modalDialogData.successBtnText}
+          onClose={handleCloseModal}
+          onSuccessBtnClick={modalDialogData.onSuccessBtnClick}
+        >
+          {modalDialogData.node}
+        </ModalDialog>
       )}
-    </List>
+      <List vertical centered>
+        {questions.length === 0 ? (
+          <h3>Add the first question!</h3>
+        ) : (
+          questions.map((question, index) => (
+            <QuestionListItem
+              key={index}
+              type={question.question_type}
+              {...question}
+              startQuestionEditing={handleStartQuestionEditing.bind(
+                this,
+                question
+              )}
+              onDelete={handleQuestionDeleting.bind(this, question.id)}
+            />
+          ))
+        )}
+      </List>
+    </>
   );
 }

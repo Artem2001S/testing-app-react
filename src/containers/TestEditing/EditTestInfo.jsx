@@ -1,11 +1,10 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useAction } from 'hooks/useAction';
 import {
   changeTitleInputValue,
   sendRequestToUpdateTest,
   getError,
-  openModalDialog,
   requestTestDeleting,
 } from 'redux/actions/actionCreators';
 import {
@@ -15,6 +14,7 @@ import {
 import TextInput from 'components/UIElements/TextInput/TextInput';
 import Button from 'components/UIElements/Button/Button';
 import List from 'components/List/List';
+import ModalDialog from 'components/ModalDialog/ModalDialog';
 
 // Edit test title or delete test
 export default function EditTestInfo() {
@@ -25,13 +25,18 @@ export default function EditTestInfo() {
   const requestToUpdateTestAction = useAction(sendRequestToUpdateTest);
   const showMessage = useAction(getError);
 
+  const [modalDialogData, setModalDialogData] = useState(null);
+  const handleModalDialogClose = useCallback(
+    () => setModalDialogData(null),
+    []
+  );
+
   const handleInputChange = useCallback(
     (e) => inputChangeAction(e.target.value),
     [inputChangeAction]
   );
 
   const deleteTestAction = useAction(requestTestDeleting);
-  const openModal = useAction(openModalDialog);
 
   const deleteTest = useCallback(() => deleteTestAction(testId), [
     deleteTestAction,
@@ -39,8 +44,12 @@ export default function EditTestInfo() {
   ]);
 
   const handleTestDeleting = useCallback(
-    (id) => openModal('Delete test ?', deleteTest),
-    [deleteTest, openModal]
+    (id) =>
+      setModalDialogData({
+        successBtnText: 'Yes',
+        onSuccessBtnClick: deleteTest,
+      }),
+    [deleteTest]
   );
 
   const handleTestTitleUpdating = useCallback(() => {
@@ -54,58 +63,28 @@ export default function EditTestInfo() {
   }, [requestToUpdateTestAction, showMessage, testId, titleEditInput.value]);
 
   return (
-    <List vertical centered>
-      <TextInput
-        label="Title"
-        value={titleEditInput.value}
-        onChange={handleInputChange}
-      />
-      <List centered>
-        <Button onClick={handleTestTitleUpdating}>Save title</Button>
-        <Button dangerous onClick={handleTestDeleting}>
-          Delete test
-        </Button>
+    <>
+      {modalDialogData && (
+        <ModalDialog
+          header="Delete test ?"
+          onClose={handleModalDialogClose}
+          successBtnText={modalDialogData.successBtnText}
+          onSuccessBtnClick={modalDialogData.onSuccessBtnClick}
+        />
+      )}
+      <List vertical centered>
+        <TextInput
+          label="Title"
+          value={titleEditInput.value}
+          onChange={handleInputChange}
+        />
+        <List centered>
+          <Button onClick={handleTestTitleUpdating}>Save title</Button>
+          <Button dangerous onClick={handleTestDeleting}>
+            Delete test
+          </Button>
+        </List>
       </List>
-    </List>
+    </>
   );
 }
-
-// const mapStateToProps = (state) => ({
-//   // input: state.testEditingPage.inputsData.titleEditing,
-//   // testId: getTest(state).id,
-// });
-
-// const mapDispatchToProps = (dispatch) => ({
-//   changeInputValue: (e) => dispatch(changeTitleInputValue(e.target.value)),
-//   putError: (message) => dispatch(getError(message)),
-//   onDelete: (id) =>
-//     dispatch(
-//       openModalDialog('Delete test ?', () => dispatch(requestTestDeleting(id)))
-//     ),
-//   requestToUpdateTest: (id, data) =>
-//     dispatch(sendRequestToUpdateTest(id, data)),
-// });
-
-// const mergeProps = (stateProps, dispatchProps) => {
-//   return {
-//     ...stateProps,
-//     ...dispatchProps,
-//     onTestTitleUpdate: () => {
-//       if (!stateProps.input.value.trim()) {
-//         dispatchProps.putError('Enter title!');
-//         return;
-//       }
-
-//       dispatchProps.requestToUpdateTest(stateProps.testId, {
-//         title: stateProps.input.value.trim(),
-//       });
-//     },
-//     onDelete: () => dispatchProps.onDelete(stateProps.testId),
-//   };
-// };
-
-// connect(
-//   mapStateToProps,
-//   mapDispatchToProps,
-//   mergeProps
-// )(EditTestInfo);
