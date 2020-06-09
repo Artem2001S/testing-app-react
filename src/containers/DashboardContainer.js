@@ -42,10 +42,6 @@ export default function DashboardContainer({ ...props }) {
     [requestTestsAction, searchInputValue, sortType]
   );
 
-  const requestTestsInitial = useCallback(() => requestTestsAction(), [
-    requestTestsAction,
-  ]);
-
   const addTestAction = useAction(requestToAddTest);
   const changeAddTestFormInputValueAction = useAction(
     changeAddTestFormInputValue
@@ -82,8 +78,8 @@ export default function DashboardContainer({ ...props }) {
   }, [currentPaginationPage, requestTests, searchInputValue, sortType]);
 
   useEffect(() => {
-    requestTestsInitial();
-  }, [requestTestsInitial]);
+    requestTests();
+  }, [requestTests]);
 
   // check if user added test, then redirect to edit page
   if (lastTestAddedId !== -1) {

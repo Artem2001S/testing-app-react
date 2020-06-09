@@ -36,17 +36,10 @@ export default function QuizContainer({ ...props }) {
 
   const requestTestFromServer = useAction(requestTestFromQuizPage);
 
-  const nextQuestionAction = useAction(nextQuestion);
-  const finishQuizAction = useAction(finishQuiz);
   const changeInputAction = useAction(changeQuizAnswerInput);
 
-  const handleNextQuestion = useCallback(() => nextQuestionAction(), [
-    nextQuestionAction,
-  ]);
-
-  const handleFinishQuiz = useCallback(() => finishQuizAction(), [
-    finishQuizAction,
-  ]);
+  const handleNextQuestion = useAction(nextQuestion);
+  const handleFinishQuiz = useAction(finishQuiz);
 
   const handleInputChange = useCallback(
     (inputName, inputType, e) => {
