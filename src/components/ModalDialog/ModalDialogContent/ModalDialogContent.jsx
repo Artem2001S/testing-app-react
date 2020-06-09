@@ -21,13 +21,6 @@ export default function ModalDialogContent({
         {children && (
           <div className={classes.ModalDialogChildren}>{children}</div>
         )}
-        {/* <div className={classes.ModalFooter}>
-          {onSuccessBtnClick && successBtnText && (
-            <Button handleClick={onSuccessBtnClick}>
-              {successBtnText || 'OK'}
-            </Button>
-          )}
-        </div> */}
       </div>
     </div>
   );
