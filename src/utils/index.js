@@ -72,14 +72,3 @@ export function convertTestObject(test) {
   delete convertedTest.created_at;
   return convertedTest;
 }
-
-export function createElement(tag, className, children, innerHTML) {
-  const el = document.createElement(tag);
-  el.className = className;
-  children && el.append(children);
-  if (innerHTML) {
-    el.innerHTML = innerHTML;
-  }
-
-  return el;
-}

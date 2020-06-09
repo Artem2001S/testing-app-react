@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
-import List from 'components/List/List';
+import { useAction } from 'hooks/useAction';
 import QuestionListItem from 'components/QuestionListItem/QuestionListItem';
 import { getCurrentTestQuestions } from 'redux/selectors/test';
 import {
@@ -9,78 +9,99 @@ import {
   startQuestionEditing,
 } from 'redux/actions/actionCreators';
 import NumericQuestionFormContainer from './NumericQuestionFormContainer';
+import List from 'components/List/List';
 import QuestionFormContainer from './QuestionFormContainer';
-import { useAction } from 'hooks/useAction';
 import ModalDialog from 'components/ModalDialog/ModalDialog';
+import Button from 'components/UIElements/Button/Button';
 
 export default function QuestionList() {
   const questions = useSelector(getCurrentTestQuestions);
-  const [modalDialogData, setModalDialogData] = useState(null);
+
+  const [questionType, setQuestionType] = useState(null);
+  const [isQuestionEditingModalOpen, setIsQuestionEditingModalOpen] = useState(
+    false
+  );
+
+  const [
+    isDeletingQuestionModalOpen,
+    setIsDeletingQuestionModalOpen,
+  ] = useState(false);
+  const [questionIdToNeedDelete, setQuestionIdToNeedDelete] = useState(null);
 
   const deleteQuestionAction = useAction(sendRequestToDeleteQuestion);
 
-  const handleQuestionDeleting = useCallback(
-    (id) => {
-      setModalDialogData({
-        header: 'Delete question ?',
-        successBtnText: 'Confirm',
-        onSuccessBtnClick: () => deleteQuestionAction(id),
-      });
-    },
-    [deleteQuestionAction]
+  // show modal dialog (question deleting)
+  const handleShowQuestionDeletingDialog = useCallback((questionId) => {
+    setIsDeletingQuestionModalOpen(true);
+    // save question id
+    setQuestionIdToNeedDelete(questionId);
+  }, []);
+
+  // delete question
+  const handleDeleteQuestion = useCallback(() => {
+    deleteQuestionAction(questionIdToNeedDelete);
+    setIsDeletingQuestionModalOpen(false);
+  }, [deleteQuestionAction, questionIdToNeedDelete]);
+
+  const handleCloseQuestionDeletingDialog = useCallback(
+    () => setIsDeletingQuestionModalOpen(false),
+    []
+  );
+
+  const handleCloseQuestionEditingDialog = useCallback(
+    () => setIsQuestionEditingModalOpen(false),
+    []
   );
 
   const initNumericQuestionEditingForm = useAction(startNumericQuestionEditing);
   const initQuestionFormInputs = useAction(startQuestionEditing);
 
-  const handleCloseModal = useCallback(() => setModalDialogData(null), []);
-
   const handleStartQuestionEditing = useCallback(
     (question) => {
+      setQuestionType(question.question_type);
       if (question.question_type === 'number') {
         initNumericQuestionEditingForm(
           question.id,
           question.title,
           question.answer
         );
-
-        setModalDialogData({
-          node: (
-            <NumericQuestionFormContainer
-              editMode
-              closeDialog={handleCloseModal}
-            />
-          ),
-          header: 'Edit question',
-        });
+        setIsQuestionEditingModalOpen(true);
       } else {
-        setModalDialogData({
-          node: (
-            <QuestionFormContainer
-              editMode
-              questionType={question.question_type}
-              closeDialog={handleCloseModal}
-            />
-          ),
-          header: 'Edit question',
-        });
-
+        setIsQuestionEditingModalOpen(true);
         initQuestionFormInputs(question.id, question.title, question.answers);
       }
     },
-    [handleCloseModal, initNumericQuestionEditingForm, initQuestionFormInputs]
+    [initNumericQuestionEditingForm, initQuestionFormInputs]
   );
 
   return (
     <>
-      {modalDialogData && (
+      {isQuestionEditingModalOpen && (
         <ModalDialog
-          header={modalDialogData.header}
-          successBtnText={modalDialogData.successBtnText}
-          onClose={handleCloseModal}
-          onSuccessBtnClick={modalDialogData.onSuccessBtnClick}
+          header={'Edit question'}
+          onClose={handleCloseQuestionEditingDialog}
         >
-          {modalDialogData.node}
+          {questionType !== 'number' ? (
+            <QuestionFormContainer
+              editMode
+              questionType={questionType}
+              closeDialog={handleCloseQuestionEditingDialog}
+            />
+          ) : (
+            <NumericQuestionFormContainer
+              editMode
+              closeDialog={handleCloseQuestionEditingDialog}
+            />
+          )}
+        </ModalDialog>
+      )}
+
+      {isDeletingQuestionModalOpen && (
+        <ModalDialog
+          header="Delete question ?"
+          onClose={handleCloseQuestionDeletingDialog}
+        >
+          <Button onClick={handleDeleteQuestion}>Yes</Button>
         </ModalDialog>
       )}
       <List vertical centered>
@@ -96,7 +117,10 @@ export default function QuestionList() {
                 this,
                 question
               )}
-              onDelete={handleQuestionDeleting.bind(this, question.id)}
+              onDelete={handleShowQuestionDeletingDialog.bind(
+                this,
+                question.id
+              )}
             />
           ))
         )}

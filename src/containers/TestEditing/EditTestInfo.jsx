@@ -25,11 +25,8 @@ export default function EditTestInfo() {
   const requestToUpdateTestAction = useAction(sendRequestToUpdateTest);
   const showMessage = useAction(getError);
 
-  const [modalDialogData, setModalDialogData] = useState(null);
-  const handleModalDialogClose = useCallback(
-    () => setModalDialogData(null),
-    []
-  );
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleModalDialogClose = useCallback(() => setIsModalOpen(false), []);
 
   const handleInputChange = useCallback(
     (e) => inputChangeAction(e.target.value),
@@ -43,14 +40,7 @@ export default function EditTestInfo() {
     testId,
   ]);
 
-  const handleTestDeleting = useCallback(
-    (id) =>
-      setModalDialogData({
-        successBtnText: 'Yes',
-        onSuccessBtnClick: deleteTest,
-      }),
-    [deleteTest]
-  );
+  const handleTestDeleting = useCallback(() => setIsModalOpen(true), []);
 
   const handleTestTitleUpdating = useCallback(() => {
     if (!titleEditInput.value.trim()) {
@@ -64,13 +54,10 @@ export default function EditTestInfo() {
 
   return (
     <>
-      {modalDialogData && (
-        <ModalDialog
-          header="Delete test ?"
-          onClose={handleModalDialogClose}
-          successBtnText={modalDialogData.successBtnText}
-          onSuccessBtnClick={modalDialogData.onSuccessBtnClick}
-        />
+      {isModalOpen && (
+        <ModalDialog header="Delete test ?" onClose={handleModalDialogClose}>
+          <Button onClick={deleteTest}>Yes</Button>
+        </ModalDialog>
       )}
       <List vertical centered>
         <TextInput
