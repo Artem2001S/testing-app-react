@@ -1,9 +1,18 @@
 import { createSelector } from 'reselect';
 
-const getQuestions = (state) => state.quiz.test.questions;
-const getTest = (state) => state.quiz.test;
+const getQuizState = (state) => state.quiz;
 
-const getCurrentQuestionIndex = (state) => state.quiz.currentQuestionIndex;
+const getTest = createSelector([getQuizState], (quizState) => quizState.test);
+const getQuestions = createSelector([getTest], (test) => test.questions);
+const getCurrentQuestionIndex = createSelector(
+  [getQuizState],
+  (quizState) => quizState.currentQuestionIndex
+);
+
+export const getCurrentQuestionNumber = createSelector(
+  [getQuizState],
+  (quizState) => quizState.currentQuestionIndex + 1
+);
 
 export const getCurrentQuestion = createSelector(
   [getQuestions, getCurrentQuestionIndex],
@@ -29,4 +38,19 @@ export const getCurrentQuestionTitle = createSelector(
     if (!question) return undefined;
     return question.title;
   }
+);
+
+export const getIsQuizFinished = createSelector(
+  [getQuizState],
+  (quizState) => quizState.isFinished
+);
+
+export const getQuizCorrectAnswersCount = createSelector(
+  [getQuizState],
+  (quizState) => quizState.correctAnswersCount
+);
+
+export const getQuizAnswerInputs = createSelector(
+  [getQuizState],
+  (quizState) => quizState.answerInputs
 );

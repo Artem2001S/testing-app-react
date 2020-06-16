@@ -1,27 +1,23 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import classes from './ModalDialog.module.scss';
-import Button from 'components/UIElements/Button/Button';
-import { closeModalDialog } from 'redux/actions/actionCreators';
+import React, { useEffect, useCallback } from 'react';
+import ReactDOM from 'react-dom';
+import ModalDialogContent from './ModalDialogContent/ModalDialogContent';
 
-export default function ModalDialog({
-  title,
-  primaryButtonText,
-  children,
-  successBtnClickHandler,
-}) {
-  const dispatch = useDispatch();
+const modalRoot = document.getElementById('modal');
 
-  const close = () => {
-    dispatch(closeModalDialog());
-  };
+function ModalDialog({ header, children, onClose }) {
+  const handleBackgroundClick = useCallback(
+    (e) => e.target === e.currentTarget && onClose(),
+    [onClose]
+  );
 
-  const handleKeyUp = (e) => {
-    if (e.key === 'Escape') {
-      close();
-    }
-  };
+  const handleKeyUp = useCallback(
+    (e) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    },
+    [onClose]
+  );
 
   useEffect(() => {
     document.addEventListener('keyup', handleKeyUp);
@@ -31,56 +27,18 @@ export default function ModalDialog({
       document.removeEventListener('keyup', handleKeyUp);
       document.body.style.overflowY = 'initial';
     };
-  });
+  }, [handleKeyUp]);
 
-  return (
-    <div
-      className={classes.ModalDialog}
-      onClick={(e) => {
-        if (e.target === e.currentTarget) {
-          close();
-        }
-      }}
+  return ReactDOM.createPortal(
+    <ModalDialogContent
+      header={header}
+      onClose={onClose}
+      onBackgroundClick={handleBackgroundClick}
     >
-      <div className={classes.ModalDialogContent}>
-        <div className={classes.ModalHeader}>
-          <span className={classes.Title}>{title}</span>
-          <button className={classes.CloseBtn} onClick={close}>
-            &times;
-          </button>
-        </div>
-
-        {children && (
-          <div className={classes.ModalDialogChildren}>{children}</div>
-        )}
-
-        <div className={classes.ModalFooter}>
-          {successBtnClickHandler && (
-            <Button
-              handleClick={() => {
-                if (successBtnClickHandler) {
-                  successBtnClickHandler();
-                }
-
-                close();
-              }}
-            >
-              {primaryButtonText || 'OK'}
-            </Button>
-          )}
-
-          <Button secondary handleClick={close}>
-            Cancel
-          </Button>
-        </div>
-      </div>
-    </div>
+      {children}
+    </ModalDialogContent>,
+    modalRoot
   );
 }
 
-ModalDialog.propTypes = {
-  title: PropTypes.string,
-  primaryButtonText: PropTypes.string,
-  children: PropTypes.node,
-  successBtnClickHandler: PropTypes.func,
-};
+export default React.memo(ModalDialog);

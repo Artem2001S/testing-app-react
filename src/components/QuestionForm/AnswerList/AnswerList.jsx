@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Checkbox from 'components/UIElements/Checkbox/Checkbox';
 import List from 'components/List/List';
 import DraggableList from 'components/DragAndDrop/DraggableList';
-import TextInput from 'components/UIElements/TextInput/TextInput';
-import Button from 'components/UIElements/Button/Button';
-import classes from './AnswerList.module.scss';
+import AnswerListItem from './AnswerListItem/AnswerListItem';
 
 export default function AnswerList({
   answerInputs,
+  isRadioButtons,
   inputChangeHandlers,
   onAnswerMove,
   onIsRightChange,
@@ -18,21 +16,15 @@ export default function AnswerList({
     <DraggableList onSuccessDrop={onAnswerMove}>
       {answerInputs.map((input, index) => (
         <List key={index} centered smallMargin>
-          <Checkbox
-            value={input.isRight}
-            handleChange={onIsRightChange.bind(this, input.name)}
+          <AnswerListItem
+            isRight={input.isRight}
+            isRadioButtons={isRadioButtons}
+            inputName={input.name}
+            inputValue={input.value}
+            onInputValueChange={inputChangeHandlers[input.name]}
+            onDeleteAnswer={onDeleteAnswer}
+            onIsRightChange={onIsRightChange}
           />
-          <TextInput
-            className={classes.Input}
-            value={input.value}
-            handleChange={inputChangeHandlers[input.name]}
-          />
-          <Button
-            transparent
-            handleClick={onDeleteAnswer.bind(this, input.name)}
-          >
-            &times;
-          </Button>
         </List>
       ))}
     </DraggableList>

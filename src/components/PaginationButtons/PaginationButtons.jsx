@@ -1,30 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classes from './PaginationButtons.module.scss';
-import Button from 'components/UIElements/Button/Button';
+import PaginationBtn from './PaginationBtn';
 
-export default function PaginationButtons({
-  totalCount,
-  currentPage,
-  onItemClick,
-}) {
-  const arr = new Array(totalCount).fill(1);
-
+function PaginationButtons({ totalCount, currentPage, onItemClick }) {
   return (
     <div className={classes.Pagination}>
-      {arr.map((_, index) => (
+      {[...Array(totalCount)].map((_, index) => (
         <div key={index} className={classes.PaginationItem}>
-          <Button
-            disabled={currentPage === index + 1}
-            transparent
-            handleClick={() => onItemClick(index + 1)}
-          >
-            {currentPage === index + 1 ? (
-              <div className={classes.Current}>{index + 1}</div>
-            ) : (
-              index + 1
-            )}
-          </Button>
+          <PaginationBtn
+            className={currentPage === index + 1 ? classes.Current : ''}
+            number={index + 1}
+            isDisabled={currentPage === index + 1}
+            onClick={() => onItemClick(index + 1)}
+          />
         </div>
       ))}
     </div>
@@ -42,3 +31,9 @@ PaginationButtons.defaultProps = {
   currentPage: 1,
   onItemClick: () => {},
 };
+
+export default React.memo(PaginationButtons, (prev, next) => {
+  return (
+    prev.currentPage === next.currentPage && prev.totalCount === next.totalCount
+  );
+});

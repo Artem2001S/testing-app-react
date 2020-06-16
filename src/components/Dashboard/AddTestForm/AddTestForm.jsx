@@ -4,15 +4,15 @@ import classes from './AddTestForm.module.scss';
 import TextInput from 'components/UIElements/TextInput/TextInput';
 import Button from 'components/UIElements/Button/Button';
 
-export default function AddTestForm({ input, onInputChange, handleSubmit }) {
+export default function AddTestForm({ input, onInputChange, onFormSubmit }) {
   return (
-    <form className={classes.AddTestForm}>
+    <form className={classes.AddTestForm} onSubmit={onFormSubmit}>
       <TextInput
         label={input.label}
         value={input.value}
-        handleChange={onInputChange}
+        onChange={onInputChange}
       />
-      <Button handleClick={handleSubmit}>Add test</Button>
+      <Button onClick={onFormSubmit}>Add test</Button>
     </form>
   );
 }
@@ -20,5 +20,5 @@ export default function AddTestForm({ input, onInputChange, handleSubmit }) {
 AddTestForm.propTypes = {
   input: PropTypes.object.isRequired,
   onInputChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
+  onFormSubmit: PropTypes.func.isRequired,
 };

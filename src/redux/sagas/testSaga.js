@@ -15,6 +15,7 @@ import {
   getTestInfo,
   addTest,
   getTestForQuizPage,
+  changeTestsListSortType,
 } from 'redux/actions/actionCreators';
 import {
   getTestsFromServer,
@@ -45,6 +46,7 @@ function* getTestsWorker({ payload }) {
     };
 
     yield put(getTests(normalizedData));
+    yield put(changeTestsListSortType(payload.sortType));
   } catch (error) {
     yield put(getError(error.message));
   }

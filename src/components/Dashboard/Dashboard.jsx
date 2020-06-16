@@ -1,16 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TestsList from 'components/TestsList/TestsList';
-import SearchTestFormContainer from 'containers/SearchTestFormContainer';
 import PaginationButtons from 'components/PaginationButtons/PaginationButtons';
-import classes from './Dashboard.module.scss';
 import AddTestForm from './AddTestForm/AddTestForm';
+import SearchTestForm from './SearchTestForm/SearchTestForm';
+import classes from './Dashboard.module.scss';
 
 export default function Dashboard({
   isAdmin,
   testsList,
   addTestInput,
-  sortType,
   currentPaginationPage,
   totalPages,
   handleAddFormSubmit,
@@ -21,18 +20,18 @@ export default function Dashboard({
   return (
     <>
       <div className={classes.SearchPanel}>
-        <SearchTestFormContainer />
+        <SearchTestForm />
       </div>
-
-      <AddTestForm
-        input={addTestInput}
-        onInputChange={onChangeTitleInput}
-        handleSubmit={handleAddFormSubmit}
-      />
+      {isAdmin && (
+        <AddTestForm
+          input={addTestInput}
+          onInputChange={onChangeTitleInput}
+          onFormSubmit={handleAddFormSubmit}
+        />
+      )}
 
       <TestsList
         tests={testsList}
-        sortType={sortType}
         isAdmin={isAdmin}
         onSortChange={onSortChange}
       />
@@ -51,7 +50,6 @@ Dashboard.propTypes = {
   isAdmin: PropTypes.bool,
   testsList: PropTypes.array,
   addTestInput: PropTypes.object,
-  sortType: PropTypes.string,
   currentPaginationPage: PropTypes.number,
   totalPages: PropTypes.number,
   handleAddFormSubmit: PropTypes.func.isRequired,

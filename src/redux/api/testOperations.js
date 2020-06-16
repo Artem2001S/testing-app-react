@@ -1,13 +1,17 @@
 import instance from './instance';
 import { convertTestObject } from 'utils';
 
-export async function getTestsFromServer({ page, search }) {
-  let response = await instance.get('/tests', { params: { page, search } });
+export async function getTestsFromServer({ page, search, sortType }) {
+  let response = await instance.get('/tests', {
+    params: { page, search, sort: sortType },
+  });
 
   // if no tests are found on the searching page then search tests in first page
   if (response.data.tests.length === 0 && page !== 1) {
     page = 1;
-    response = await instance.get('/tests', { params: { page, search } });
+    response = await instance.get('/tests', {
+      params: { page, search, sort: sortType },
+    });
   }
 
   const tests = response.data.tests.map((test) => convertTestObject(test));

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classes from './QuizQuestion.module.scss';
 
-export default function QuizQuestion({
+function QuizQuestion({
   questionTitle,
   currentQuestionNumber,
   questionsCount,
@@ -25,3 +25,5 @@ QuizQuestion.propTypes = {
     PropTypes.number,
   ]),
 };
+
+export default React.memo(QuizQuestion);

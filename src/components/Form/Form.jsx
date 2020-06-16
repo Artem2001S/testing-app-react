@@ -12,27 +12,28 @@ export default function Form({
   additionalLinks,
   validationErrors,
   inputChangeHandlers,
-  handleFormSubmit,
+  onFormSubmit,
 }) {
   return (
-    <form className={classes.Form} onSubmit={handleFormSubmit}>
+    <form className={classes.Form} onSubmit={onFormSubmit}>
       {inputs.map((input, index) =>
         input.type === 'checkbox' ? (
           <Checkbox
             key={`${input.name}${index}`}
             {...input}
-            handleChange={inputChangeHandlers[input.name]}
+            onChange={inputChangeHandlers[input.name]}
           />
         ) : (
           <TextInput
             key={`${input.name}${index}`}
             {...input}
-            handleChange={inputChangeHandlers[input.name]}
+            autocomplete={input.autocomplete}
+            onChange={inputChangeHandlers[input.name]}
           />
         )
       )}
 
-      <Button handleClick={handleFormSubmit}>{btnText}</Button>
+      <Button onClick={onFormSubmit}>{btnText}</Button>
 
       {additionalLinks &&
         additionalLinks.map((link) => (
@@ -54,5 +55,5 @@ Form.propTypes = {
   validationErrors: PropTypes.string,
   additionalLinks: PropTypes.array,
   inputChangeHandlers: PropTypes.object.isRequired,
-  handleFormSubmit: PropTypes.func.isRequired,
+  onFormSubmit: PropTypes.func.isRequired,
 };

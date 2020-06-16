@@ -9,17 +9,20 @@ const initialState = {
     {
       label: 'Login',
       name: 'login',
+      autocomplete: 'username',
       value: '',
     },
     {
       label: 'Password',
       name: 'password',
+      autocomplete: 'new-password',
       value: '',
       type: 'password',
     },
     {
       label: 'Repeat password',
       name: 'repeated_password',
+      autocomplete: 'new-password',
       value: '',
       type: 'password',
     },

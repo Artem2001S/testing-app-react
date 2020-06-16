@@ -10,8 +10,6 @@ import {
   SEND_LOGOUT_REQUEST,
   GET_REQUEST_ERROR,
   SEND_AUTHORIZATION_REQUEST,
-  OPEN_MODAL_DIALOG,
-  CLOSE_MODAL_DIALOG,
   SUCCESS_LOGOUT,
   SEND_GET_CURRENT_USER_REQUEST,
   REQUEST_TESTS_FROM_SERVER,
@@ -37,7 +35,7 @@ import {
   REQUEST_TO_EDIT_QUESTION,
   EDIT_QUESTION_SUCCESS,
   CHANGE_QUESTION_FORM_INPUT_VALUE,
-  CHANGE_QUESTION_FORM_CHECKBOX_VALUE,
+  CHANGE_QUESTION_FORM_IS_RIGHT_QUESTION,
   CHANGE_QUESTION_FORM_ANSWER_POSITION,
   ADD_ANSWER_TO_QUESTION_FORM,
   DELETE_ANSWER_FROM_QUESTION_FORM,
@@ -148,30 +146,12 @@ export function sendAuthorizationRequest(userName, password) {
   };
 }
 
-export function openModalDialog(
-  title,
-  successBtnClickHandler,
-  primaryButtonText,
-  children
-) {
-  return {
-    type: OPEN_MODAL_DIALOG,
-    payload: { title, successBtnClickHandler, children, primaryButtonText },
-  };
-}
-
-export function closeModalDialog() {
-  return {
-    type: CLOSE_MODAL_DIALOG,
-  };
-}
-
 // Tests
 
-export function requestTestsFromServer(page = 1, search = '') {
+export function requestTestsFromServer(page = 1, search = '', sortType) {
   return {
     type: REQUEST_TESTS_FROM_SERVER,
-    payload: { page, search },
+    payload: { page, search, sortType },
   };
 }
 
@@ -216,9 +196,10 @@ export function requestTestDeleting(id) {
   };
 }
 
-export function changeTestsListSortType() {
+export function changeTestsListSortType(newSortType) {
   return {
     type: CHANGE_TESTS_LIST_SORT_TYPE,
+    payload: { newSortType },
   };
 }
 
@@ -371,10 +352,10 @@ export function changeQuestionFormInputValue(inputName, newValue) {
   };
 }
 
-export function changeQuestionFormCheckboxValue(inputName, newValue) {
+export function changeQuestionFormIsRightValue(inputName, isRadio, newValue) {
   return {
-    type: CHANGE_QUESTION_FORM_CHECKBOX_VALUE,
-    payload: { inputName, newValue },
+    type: CHANGE_QUESTION_FORM_IS_RIGHT_QUESTION,
+    payload: { inputName, newValue, isRadio },
   };
 }
 

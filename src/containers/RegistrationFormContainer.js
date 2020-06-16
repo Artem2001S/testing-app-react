@@ -1,5 +1,5 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import {
   changeRegistrationFormInputValue,
@@ -7,79 +7,84 @@ import {
   sendRegistrationRequest,
 } from 'redux/actions/actionCreators';
 import { createOnChangeHandlers, validateRegistrationForm } from 'utils';
+import { getIsAuthorized } from 'redux/selectors/userData';
+import {
+  getRegistrationFormInputs,
+  getRegistrationFormValidationErrors,
+} from 'redux/selectors/registrationForm';
+import { useAction } from 'hooks/useAction';
 import Form from 'components/Form/Form';
 
-function RegistrationFormContainer({ isAuthorized, ...props }) {
-  if (isAuthorized) {
-    return <Redirect to="/dashboard" />;
-  }
+export default function RegistrationFormContainer({ ...props }) {
+  const isAuthorized = useSelector(getIsAuthorized);
+  const inputs = useSelector(getRegistrationFormInputs);
+  const validationErrors = useSelector(getRegistrationFormValidationErrors);
 
-  return <Form {...props} />;
-}
+  const changeRegistrationFormInputValueAction = useAction(
+    changeRegistrationFormInputValue
+  );
+  const changeValidationStatus = useAction(
+    changeRegistrationFormValidationStatus
+  );
+  const registrationRequest = useAction(sendRegistrationRequest);
 
-const mapStateToProps = (state) => ({
-  inputs: state.registrationForm.inputs,
-  validationErrors: state.registrationForm.validationStatus,
-  isAuthorized: state.currentUserData.isAuthorized,
-  additionalLinks: [{ to: '/', label: 'Go to authorization' }],
-  btnText: 'Register',
-});
+  const handleInputChange = useCallback(
+    (inputName, inputType, e) => {
+      if (inputType === 'checkbox') {
+        changeRegistrationFormInputValueAction(inputName, e.target.checked);
+      }
 
-const mapDispatchToProps = (dispatch) => ({
-  handleInputChange: (inputName, inputType, e) => {
-    if (inputType === 'checkbox') {
-      dispatch(changeRegistrationFormInputValue(inputName, e.target.checked));
-    }
-
-    if (inputType === 'text' || inputType === 'password') {
-      dispatch(changeRegistrationFormInputValue(inputName, e.target.value));
-    }
-  },
-  changeValidationStatus: (message) =>
-    dispatch(changeRegistrationFormValidationStatus(message)),
-  sendRegistrationRequest: (userName, password, isAdmin) =>
-    dispatch(sendRegistrationRequest(userName, password, isAdmin)),
-});
-
-const mergeProps = (stateProps, dispatchProps) => {
-  const inputChangeHandlers = createOnChangeHandlers(
-    stateProps.inputs,
-    dispatchProps.handleInputChange
+      if (inputType === 'text' || inputType === 'password') {
+        changeRegistrationFormInputValueAction(inputName, e.target.value);
+      }
+    },
+    [changeRegistrationFormInputValueAction]
   );
 
-  return {
-    ...stateProps,
-    ...dispatchProps,
-    inputChangeHandlers,
-    handleFormSubmit: (e) => {
+  const handleFormSubmit = useCallback(
+    (e) => {
       e.preventDefault();
-      const validationStatus = validateRegistrationForm(stateProps.inputs);
+
+      const validationStatus = validateRegistrationForm(inputs);
 
       if (validationStatus) {
-        dispatchProps.changeValidationStatus(validationStatus);
+        changeValidationStatus(validationStatus);
         return;
       }
 
-      dispatchProps.changeValidationStatus('');
+      changeValidationStatus('');
 
-      const formValues = stateProps.inputs.reduce(
+      const formValues = inputs.reduce(
         (acc, next) => ({ ...acc, [next.name]: next.value }),
         {}
       );
 
-      console.log('forms');
-
-      dispatchProps.sendRegistrationRequest(
+      registrationRequest(
         formValues.login,
         formValues.password,
         formValues.is_admin
       );
     },
-  };
-};
+    [changeValidationStatus, inputs, registrationRequest]
+  );
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-  mergeProps
-)(RegistrationFormContainer);
+  const inputChangeHandlers = React.useMemo(
+    () => createOnChangeHandlers(inputs, handleInputChange),
+    [handleInputChange, inputs]
+  );
+
+  if (isAuthorized) {
+    return <Redirect to="/dashboard" />;
+  }
+
+  return (
+    <Form
+      btnText="Register"
+      additionalLinks={[{ to: '/', label: 'Go to authorization' }]}
+      inputs={inputs}
+      inputChangeHandlers={inputChangeHandlers}
+      validationErrors={validationErrors}
+      onFormSubmit={handleFormSubmit}
+    />
+  );
+}

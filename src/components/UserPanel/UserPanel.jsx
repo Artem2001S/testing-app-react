@@ -1,27 +1,22 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
-import classes from './UserPanel.module.scss';
 import Button from 'components/UIElements/Button/Button';
+import Logo from './Logo/Logo';
+import classes from './UserPanel.module.scss';
 
-export default function UserPanel({ userData, onLogout }) {
-  const history = useHistory();
-
+function UserPanel({ login, isAdmin, pathname, onLogout, onBack }) {
   return (
     <div className={classes.UserPanel}>
       <div className={classes.UserInfoContainer}>
-        <Button handleClick={history.goBack} small>
-          &larr;
-        </Button>
-        {userData.isAdmin && <div className={classes.CrownIcon} />}
-        <span className={classes.UserName}>{`Hello, ${userData.login}`}</span>
+        {isAdmin && pathname !== '/dashboard' && (
+          <Button onClick={onBack} small>
+            &larr;
+          </Button>
+        )}
+        <Logo login={login} />
       </div>
-      <Button handleClick={onLogout}>Logout</Button>
+      <Button onClick={onLogout}>Logout</Button>
     </div>
   );
 }
 
-UserPanel.propTypes = {
-  userData: PropTypes.object,
-  onLogout: PropTypes.func.isRequired,
-};
+export default React.memo(UserPanel);

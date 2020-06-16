@@ -2,16 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import List from 'components/List/List';
 import Button from 'components/UIElements/Button/Button';
-import AnswerList from './AnswerList';
+import AnswerList from './AnswerList/AnswerList';
 import TextInput from 'components/UIElements/TextInput/TextInput';
 
 export default function QuestionForm({
   questionTitleInput,
   answerInputs,
   editMode,
+  questionType,
   inputChangeHandlers,
-  changeCheckboxValue,
-  changeQuestionTitleInputValue,
+  onIsRightChange,
+  onChangeQuestionTitleInputValue,
   onAnswerMove,
   onAddAnswer,
   onDeleteAnswer,
@@ -23,17 +24,18 @@ export default function QuestionForm({
         <TextInput
           label={questionTitleInput.label}
           value={questionTitleInput.value}
-          handleChange={changeQuestionTitleInputValue}
+          onChange={onChangeQuestionTitleInputValue}
         />
-        <Button handleClick={onAddAnswer}>Add answer</Button>
+        <Button onClick={onAddAnswer}>Add answer</Button>
         <AnswerList
+          isRadioButtons={questionType === 'single'}
           answerInputs={answerInputs}
           inputChangeHandlers={inputChangeHandlers}
           onAnswerMove={onAnswerMove}
-          onIsRightChange={changeCheckboxValue}
+          onIsRightChange={onIsRightChange}
           onDeleteAnswer={onDeleteAnswer}
         />
-        <Button handleClick={onFormSubmit}>
+        <Button onClick={onFormSubmit}>
           {editMode ? 'Save changes' : 'Add question'}
         </Button>
       </List>
@@ -45,9 +47,10 @@ QuestionForm.propTypes = {
   questionTitleInput: PropTypes.object,
   answerInputs: PropTypes.array.isRequired,
   editMode: PropTypes.bool,
+  questionType: PropTypes.string.isRequired,
   inputChangeHandlers: PropTypes.object.isRequired,
-  changeCheckboxValue: PropTypes.func.isRequired,
-  changeQuestionTitleInputValue: PropTypes.func.isRequired,
+  onIsRightChange: PropTypes.func.isRequired,
+  onChangeQuestionTitleInputValue: PropTypes.func.isRequired,
   onAnswerMove: PropTypes.func.isRequired,
   onAddAnswer: PropTypes.func.isRequired,
   onDeleteAnswer: PropTypes.func.isRequired,

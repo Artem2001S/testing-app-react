@@ -1,19 +1,20 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import classNames from 'classnames';
 import classes from './TextInput.module.scss';
 
-export default function TextInput({
+function TextInput({
   type,
   label,
   className,
   defaultValue,
+  autocomplete,
   value,
   name,
-  handleChange,
+  onChange,
 }) {
-  const uniqueId = uuidv4();
+  const uniqueId = useMemo(() => uuidv4(), []);
 
   const labelClasses = classNames(className, classes.label);
 
@@ -22,12 +23,13 @@ export default function TextInput({
       {label}
       <input
         className={classes.input}
-        type={type || 'text'}
         id={uniqueId}
+        type={type || 'text'}
+        autoComplete={autocomplete}
+        name={name}
         defaultValue={defaultValue}
         value={value}
-        name={name}
-        onChange={handleChange}
+        onChange={onChange}
       />
     </label>
   );
@@ -40,5 +42,7 @@ TextInput.propTypes = {
   name: PropTypes.string,
   defaultValue: PropTypes.string,
   value: PropTypes.string,
-  handleChange: PropTypes.func,
+  onChange: PropTypes.func,
 };
+
+export default React.memo(TextInput);

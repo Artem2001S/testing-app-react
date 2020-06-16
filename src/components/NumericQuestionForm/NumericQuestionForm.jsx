@@ -8,19 +8,19 @@ export default function AddNumberQuestionForm({
   inputs,
   inputChangeHandlers,
   editMode,
-  handleSubmit,
+  onFormSubmit,
 }) {
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={onFormSubmit}>
       <List centered vertical>
         {inputs.map((input) => (
           <TextInput
             key={input.name}
-            handleChange={inputChangeHandlers[input.name]}
+            onChange={inputChangeHandlers[input.name]}
             {...input}
           />
         ))}
-        <Button handleClick={handleSubmit}>
+        <Button onClick={onFormSubmit}>
           {editMode ? 'Save changes' : 'Add question'}
         </Button>
       </List>

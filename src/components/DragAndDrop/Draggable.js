@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function Draggable({
+function Draggable({
   position,
   children,
   onDragStart,
@@ -30,3 +30,5 @@ Draggable.propTypes = {
   onDragOver: PropTypes.func.isRequired,
   onDrop: PropTypes.func.isRequired,
 };
+
+export default React.memo(Draggable);

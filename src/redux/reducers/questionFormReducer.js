@@ -1,6 +1,6 @@
 import {
   CHANGE_QUESTION_FORM_INPUT_VALUE,
-  CHANGE_QUESTION_FORM_CHECKBOX_VALUE,
+  CHANGE_QUESTION_FORM_IS_RIGHT_QUESTION,
   CHANGE_QUESTION_FORM_ANSWER_POSITION,
   ADD_ANSWER_TO_QUESTION_FORM,
   DELETE_ANSWER_FROM_QUESTION_FORM,
@@ -106,13 +106,16 @@ export default function questionFormReducer(
           ),
         };
       }
-    case CHANGE_QUESTION_FORM_CHECKBOX_VALUE:
+    case CHANGE_QUESTION_FORM_IS_RIGHT_QUESTION:
       return {
         ...state,
         inputs: state.inputs.map((input) =>
           input.name === payload.inputName
             ? { ...input, isRight: payload.newValue }
-            : input
+            : {
+                ...input,
+                isRight: payload.isRadio ? false : input.isRight,
+              }
         ),
       };
     case CHANGE_QUESTION_FORM_ANSWER_POSITION:
@@ -126,7 +129,7 @@ export default function questionFormReducer(
       visibleInputs[to].movedTo = from;
 
       // swap items
-      // eslint-disable-next-line
+      // prettier-ignore
       [visibleInputs[from], visibleInputs[to]] = [visibleInputs[to], visibleInputs[from]];
 
       return {

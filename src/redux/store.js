@@ -2,7 +2,6 @@ import { createStore, compose, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer from 'redux/rootReducer';
 import { rootSaga } from 'redux/sagas/rootSaga';
-import { closeModalDialog } from './actions/actionCreators';
 
 const sagaMiddleware = createSagaMiddleware();
 const LOCAL_STORAGE_KEY = 'redux-store';
@@ -24,9 +23,6 @@ const store = createStore(
 store.subscribe(() => {
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(store.getState()));
 });
-
-// close modal dialog
-store.dispatch(closeModalDialog());
 
 sagaMiddleware.run(rootSaga);
 

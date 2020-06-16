@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import List from 'components/List/List';
@@ -14,37 +14,49 @@ export default function DraggableList({ children, onSuccessDrop }) {
 
   const [dragState, setDragState] = useState(initialDragState);
 
-  const onDragStart = (e) => {
-    // set draggedFrom value
-    setDragState({
-      ...dragState,
-      isDragging: true,
-      draggedFrom: e.currentTarget.dataset.position,
-    });
+  const handleDragStart = useCallback(
+    (e) => {
+      // set draggedFrom value
+      setDragState({
+        ...dragState,
+        isDragging: true,
+        draggedFrom: e.currentTarget.dataset.position,
+      });
 
-    //for Firefox
-    e.dataTransfer.setData('text/html', '');
-  };
+      //for Firefox
+      e.dataTransfer.setData('text/html', '');
+    },
+    [dragState]
+  );
 
-  const onDragOver = (e) => {
-    e.preventDefault();
+  const handleDragOver = useCallback(
+    (e) => {
+      e.preventDefault();
 
-    const draggedTo = e.currentTarget.dataset.position;
+      const draggedTo = e.currentTarget.dataset.position;
 
-    // set draggedTo value
-    setDragState({
-      ...dragState,
-      draggedTo,
-    });
-  };
+      // set draggedTo value
+      setDragState({
+        ...dragState,
+        draggedTo,
+      });
+    },
+    [dragState]
+  );
 
-  const onDragLeave = (e) => {
+  const handleDragLeave = useCallback((e) => {
     e.target.classList.remove(classes.Dragging);
-  };
+  }, []);
 
-  const onDrop = () => {
+  const handleDrop = useCallback(() => {
     setDragState(initialDragState);
-  };
+    onSuccessDrop(dragState.draggedFrom, dragState.draggedTo);
+  }, [
+    dragState.draggedFrom,
+    dragState.draggedTo,
+    initialDragState,
+    onSuccessDrop,
+  ]);
 
   return (
     <List vertical centered smallMargin>
@@ -56,13 +68,10 @@ export default function DraggableList({ children, onSuccessDrop }) {
             [classes.Dragging]:
               Number(dragState.draggedTo) === index && dragState.isDragging,
           })}
-          onDragLeave={onDragLeave}
-          onDragStart={onDragStart}
-          onDragOver={onDragOver}
-          onDrop={() => {
-            onDrop();
-            onSuccessDrop(dragState.draggedFrom, dragState.draggedTo);
-          }}
+          onDragLeave={handleDragLeave}
+          onDragStart={handleDragStart}
+          onDragOver={handleDragOver}
+          onDrop={handleDrop}
         >
           {node}
         </Draggable>
@@ -71,7 +80,7 @@ export default function DraggableList({ children, onSuccessDrop }) {
   );
 }
 
-DraggableList.propTyes = {
+DraggableList.propTypes = {
   children: PropTypes.node,
   onSuccessDrop: PropTypes.func,
 };

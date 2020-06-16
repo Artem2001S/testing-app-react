@@ -79,13 +79,3 @@
     color: #656565;
   }
 }
-
-.ModalFooter {
-  display: flex;
-  justify-content: space-around;
-  width: 300px;
-
-  @include media-mobileL {
-    width: 280px;
-  }
-}

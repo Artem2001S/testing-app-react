@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { getCurrentUserData } from 'redux/api/userOperations';
-import { useDispatch } from 'react-redux';
 import {
   startApiRequest,
   finishApiRequest,
@@ -8,37 +7,39 @@ import {
   signIn,
 } from 'redux/actions/actionCreators';
 import { Link } from 'react-router-dom';
+import { useAction } from 'hooks/useAction';
 
 export default function withUserAuthentication(
   WrappedComponent,
   needToCheckAdmin
 ) {
   return function (props) {
-    const dispatch = useDispatch();
+    const onStartRequest = useAction(startApiRequest);
+    const onFinishRequest = useAction(finishApiRequest);
+    const onChangeIsAuthorizedStatus = useAction(changeIsAuthorizedStatus);
+    const onSignIn = useAction(signIn);
 
     const [authorizationInfo, setAuthorizationInfo] = useState({});
     const [isDataReceived, setIsDataReceived] = useState(false);
 
     useEffect(() => {
-      dispatch(startApiRequest());
+      onStartRequest();
 
       getCurrentUserData().then((authInfo) => {
-        dispatch(finishApiRequest());
+        onFinishRequest();
         setAuthorizationInfo(authInfo);
         setIsDataReceived(true);
 
         if (!authInfo.isAuthorized) {
-          dispatch(changeIsAuthorizedStatus(false));
+          onChangeIsAuthorizedStatus(false);
         } else {
-          dispatch(signIn(authInfo.user));
+          onSignIn(authInfo.user);
         }
       });
-
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [onChangeIsAuthorizedStatus, onFinishRequest, onSignIn, onStartRequest]);
 
     if (!isDataReceived) {
-      return <></>;
+      return <div>Проверка пользователя...</div>;
     }
 
     if (!authorizationInfo.isAuthorized) {

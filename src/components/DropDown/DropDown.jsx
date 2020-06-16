@@ -2,15 +2,16 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import classes from './DropDown.module.scss';
+import { useCallback } from 'react';
 
-export default function DropDown({ items, current, label, onChange }) {
+function DropDown({ items, current, label, onChange }) {
   const [isDropped, setIsDropped] = useState(false);
 
   const listClasses = classNames(classes.List, {
     [classes.Dropped]: isDropped,
   });
 
-  const hide = () => setIsDropped(false);
+  const hide = useCallback(() => setIsDropped(false), []);
 
   useEffect(() => {
     if (isDropped) {
@@ -20,7 +21,7 @@ export default function DropDown({ items, current, label, onChange }) {
     return () => {
       document.removeEventListener('click', hide);
     };
-  });
+  }, [hide, isDropped]);
 
   return (
     <div className={classes.DropDown}>
@@ -62,3 +63,5 @@ DropDown.propTypes = {
   current: PropTypes.string,
   onChange: PropTypes.func.isRequired,
 };
+
+export default React.memo(DropDown);

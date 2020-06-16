@@ -9,11 +9,13 @@ const initialState = {
     {
       label: 'Login',
       name: 'login',
+      autocomplete: 'username',
       value: '',
     },
     {
       label: 'Password',
       name: 'password',
+      autocomplete: 'current-password',
       value: '',
       type: 'password',
     },

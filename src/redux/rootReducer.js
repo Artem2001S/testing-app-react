@@ -3,7 +3,6 @@ import authorizationFormInputs from 'redux/reducers/authorizationFormReducer';
 import registrationForm from 'redux/reducers/registrationFormReducer';
 import UIData from 'redux/reducers/UIDataReducer';
 import currentUserData from 'redux/reducers/currentUserDataReducer';
-import modalDialog from 'redux/reducers/modalDialog';
 import tests from 'redux/reducers/testsReducer';
 import searchTestForm from 'redux/reducers/searchTestFormReducer';
 import testEditingPage from 'redux/reducers/testEditingReducer';
@@ -17,7 +16,6 @@ export default combineReducers({
   registrationForm,
   UIData,
   currentUserData,
-  modalDialog,
   tests,
   searchTestForm,
   addTestForm,
